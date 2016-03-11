@@ -77,7 +77,7 @@ function create_db {
 
 function create_schema {
     export PGPASSWORD="${DB_PASS}";
-    psql -h localhost -U ${DB_USER} nebula --file=${BASEDIR}/nebula/schema.sql
+    psql -h localhost -U ${DB_USER} nebula --file=${BASEDIR}/support/schema.sql
 }
 
 echo ""
