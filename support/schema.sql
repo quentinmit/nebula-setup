@@ -40,6 +40,14 @@ CREATE TABLE public.services (
         CONSTRAINT services_pkey PRIMARY KEY (id)
     );
 
+CREATE TABLE public.users (
+        id SERIAL NOT NULL,
+        login VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        metadata JSONB,
+        CONSTRAINT users_pkey PRIMARY KEY (id)
+    );
+
 --
 -- MAM SETTINGS
 --
@@ -90,7 +98,6 @@ CREATE TABLE public.meta_aliases (
         CONSTRAINT meta_aliases_pkey PRIMARY KEY (key, lang)
     );
 
-
 CREATE TABLE public.cs (
         cs varchar(50) NOT NULL,
         value varchar(255) NOT NULL,
@@ -124,6 +131,9 @@ CREATE TABLE public.bins(
 CREATE TABLE public.events(
         id SERIAL NOT NULL,
         event_type INTEGER NOT NULL,
+        start_time INTEGER NOT NULL,
+        end_time INTEGER NOT NULL,
+        id_magic INTEGER NOT NULL,
         metadata JSONB,
         CONSTRAINT events_pkey PRIMARY KEY (id)
     );

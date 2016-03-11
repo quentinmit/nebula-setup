@@ -43,9 +43,9 @@ fi
 ## COMMON UTILS
 ##############################################################################
 
-DB_USER="nebula"
-DB_PASS="nebula1"
-DB_NAME="nebula"
+DB_USER=`support/parse_settings.py db_user`
+DB_PASS=`support/parse_settings.py db_pass`
+DB_NAME=`support/parse_settings.py db_name`
 
 SCRIPT_PATH="/tmp/nebula.sql"
 
