@@ -83,8 +83,8 @@ CREATE TABLE public.actions (
 CREATE TABLE public.meta_types (
         key VARCHAR(127) NOT NULL,
         ns VARCHAR(10) NOT NULL,
-        edit BOOLEAN NOT NULL,
-        fulltext BOOLEAN NOT NULL,
+        editable BOOLEAN NOT NULL,
+        searchable BOOLEAN NOT NULL,
         class INTEGER NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT meta_types_pkey PRIMARY KEY (key)

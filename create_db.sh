@@ -86,3 +86,4 @@ echo ""
 #create_user
 create_db
 create_schema
+finished
