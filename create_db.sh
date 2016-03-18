@@ -47,6 +47,12 @@ DB_USER=`support/parse_settings.py db_user`
 DB_PASS=`support/parse_settings.py db_pass`
 DB_NAME=`support/parse_settings.py db_name`
 
+if [ -z $DB_USER ] || [ -z $DB_PASS ] || [ -z $DB_NAME ]; then
+    echo ""
+    echo "DB connection params unspecified"
+    error_exit
+fi
+
 SCRIPT_PATH="/tmp/nebula.sql"
 
 function install_prerequisites {
@@ -83,7 +89,7 @@ function create_schema {
 echo ""
 echo ""
 
-#create_user
+create_user
 create_db
 create_schema
 finished
