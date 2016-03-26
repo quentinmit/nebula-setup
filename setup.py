@@ -72,7 +72,6 @@ origins = [
 meta_types = [
 ]
 
-
 #
 # Delete everything first
 #
@@ -96,22 +95,46 @@ db.commit()
 for id, title in origins:
     db.query("INSERT INTO origins (id, title) VALUES (%s, %s)", [id, title])
 
-for id, title in folders:
-    db.query("INSERT INTO folders (id, title) VALUES (%s, %s)", [id, title])
-
 db.commit()
 
-#
-# Object transfer
-#
 
-for asset_data in data["assets"]:
-    if asset_data["origin"] != "Production":
-        continue
 
-    asset = Asset(meta=asset_data, db=db)
-    asset["id"] = False
-    asset["id_origin"] = 1
-    asset.save()
 
-logging.goodnews("Nebula migration completed in {:03f} seconds".format(time.time() - start_time))
+
+
+
+def migrate(data):
+    """Transfer Nebula4 data dump to v5 database"""
+    db = DB()
+
+    for cs, value, label in data["cs"]:
+        db.query("INSERT INTO cs (cs, value, label) VALUES (%s, %s, %s)", [cs, value, label])
+
+    for id_folder, title, color, meta_set, validator in data["folders"]:
+        db.query("INSERT INTO folders (id, title, color, meta_test) VALUES (%s, %s, %s, %s)", [id_folder, title, color, meta_test])
+
+    for id_action, title, config in data["actions"]:
+        pass
+
+    for id_channel, channel_type, title, config in data["channels"]:
+        pass
+
+    for id_service, agent, title host, autostart, loop_delay, settings, state, pid, last_seen in data["services"]:
+        pass
+
+    for key, value in data["settings"]:
+        pass
+
+    for id_storage, title, protocol, path, login, password in data["storages"]:
+        pass
+
+    for id_view, title, owner, config, position in data["views"]:
+        pass
+
+    return
+
+    logging.goodnews("Nebula migration completed in {:03f} seconds".format(time.time() - start_time))
+
+
+migrate ("dump.json")"
+
