@@ -18,11 +18,11 @@ CREATE TABLE public.channels (
 
 CREATE TABLE public.storages (
         id serial NOT NULL,
-        title varchar(50) NOT NULL,
-        protocol integer NOT NULL,
-        path varchar(255) NOT NULL,
-        login varchar(50) NOT NULL,
-        password varchar(50) NOT NULL,
+        title VARCHAR(50) NOT NULL,
+        protocol INTEGER NOT NULL,
+        path VARCHAR(255) NOT NULL,
+        login VARCHAR(50),
+        password VARCHAR(50),
         CONSTRAINT storages_pkey PRIMARY KEY (id)
     );
 
@@ -31,12 +31,12 @@ CREATE TABLE public.services (
         agent VARCHAR(50) NOT NULL,
         title VARCHAR(50) NOT NULL,
         host VARCHAR(50) NOT NULL,
-        autostart INTEGER NOT NULL,
-        loop_delay INTEGER NOT NULL,
+        autostart INTEGER NOT NULL DEFAULT 0,
+        loop_delay INTEGER NOT NULL DEFAULT 5,
         settings TEXT NULL,
-        state INTEGER NOT NULL,
-        pid INTEGER NOT NULL,
-        last_seen INTEGER NOT NULL,
+        state INTEGER NOT NULL DEFAULT 0,
+        pid INTEGER NOT NULL DEFAULT 0,
+        last_seen INTEGER NOT NULL DEFAULT 0,
         CONSTRAINT services_pkey PRIMARY KEY (id)
     );
 
@@ -56,6 +56,8 @@ CREATE TABLE public.views (
         id SERIAL NOT NULL,
         title VARCHAR(255) NOT NULL,
         settings JSONB NOT NULL,
+        owner INTEGER NOT NULL DEFAULT 0,
+        position INTEGER NOT NULL DEFAULT 0,
         CONSTRAINT views_pkey PRIMARY KEY (id)
     );
 
@@ -86,6 +88,7 @@ CREATE TABLE public.meta_types (
         editable BOOLEAN NOT NULL,
         searchable BOOLEAN NOT NULL,
         class INTEGER NOT NULL,
+        default TEXT,
         settings JSONB NOT NULL,
         CONSTRAINT meta_types_pkey PRIMARY KEY (key)
     );
@@ -102,6 +105,7 @@ CREATE TABLE public.cs (
         cs varchar(50) NOT NULL,
         value varchar(255) NOT NULL,
         label varchar(255),
+        position INTEGER NOT NULL DEFAULT 50,
         CONSTRAINT cs_pkey PRIMARY KEY (cs, value)
     );
 
@@ -113,6 +117,7 @@ CREATE TABLE public.assets (
         id SERIAL NOT NULL,
         id_folder INTEGER REFERENCES public.folders(id),
         id_origin INTEGER REFERENCES public.origins(id),
+        version_of INTEGER,
         media_type INTEGER NOT NULL,
         content_type INTEGER NOT NULL,
         status INTEGER NOT NULL,
@@ -152,25 +157,25 @@ CREATE TABLE public.jobs (
         id_asset INTEGER NOT NULL,
         id_action INTEGER NOT NULL,
         settings TEXT NULL,
-        id_user INTEGER NOT NULL,
-        id_service INTEGER NOT NULL,
-        progress INTEGER NOT NULL,
-        message TEXT NOT NULL,
-        priority INTEGER NOT NULL,
-        retries INTEGER NOT NULL,
-        creation_time INTEGER NOT NULL,
-        start_time INTEGER NOT NULL,
-        end_time INTEGER NOT NULL,
+        id_user INTEGER,
+        id_service INTEGER,
+        progress INTEGER NOT NULL DEFAULT -1,
+        message TEXT NOT NULL DEFAULT "Pending",
+        priority INTEGER NOT NULL DEFAULT 3,
+        retries INTEGER NOT NULL DEFAULT 0,
+        creation_time INTEGER,
+        start_time INTEGER,
+        end_time INTEGER,
         CONSTRAINT jobs_pkey PRIMARY KEY (id)
     );
 
 CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
-        id_channel INTEGER NOT NULL,
-        start INTEGER NOT NULL,
-        stop INTEGER NOT NULL,
+        id_channel INTEGER REFERENCES public.channels(id),
+        id_item INTEGER REFERENCES public.items(id),
+        id_asset INTEGER REFERENCES public.assets(id),
         title VARCHAR(255) NOT NULL,
-        id_item INTEGER NOT NULL,
-        id_asset INTEGER NOT NULL,
+        start FLOAT NOT NULL,
+        stop FLOAT NOT NULL,
         CONSTRAINT asrun_pkey PRIMARY KEY (id)
     );

@@ -8,9 +8,11 @@ import sys
 import time
 import json
 
-##
+from .base_meta import BASE_META_SET
+
+#
 # Env setup
-##
+#
 
 if sys.version_info[:2] < (3, 0):
     reload(sys)
@@ -18,9 +20,9 @@ if sys.version_info[:2] < (3, 0):
 
 nebula_root = os.path.abspath(os.getcwd())
 
-##
+#
 # Vendor imports
-##
+#
 
 vendor_dir = os.path.join(nebula_root, "vendor")
 if os.path.exists(vendor_dir):
@@ -34,107 +36,153 @@ from nebula import *
 config["nebula_root"] = nebula_root
 
 
-db = DB()
+def clear_settings():
+    db = DB()
+    db.query("""
+        TRUNCATE TABLE
+            cs,
+            folders,
+            actions,
+            channels,
+            services,
+            settings,
+            storages,
+            views,
+            origins
+        RESTART IDENTITY;""")
+    db.commit()
+
+
+def clear_objects():
+    db = DB()
+    db.query("""
+        TRUNCATE TABLE
+            assets,
+            items,
+            bins,
+            events,
+            users,
+            jobs,
+            asrun
+        RESTART IDENTITY;""")
+    db.commit()
+
+
+def clear_all():
+    clear_objects()
+    clear_settings()
 
 
 
-start_time = time.time()
+def create_core():
+    for id, title in origins:
+        db.query(
+            "INSERT INTO origins (id, title) VALUES (%s, %s)",
+            [id, title]
+            )
 
-#
-# Open dump
-#
+    for ns, key, e, f, cl, settings in BASE_META_SET:
+        pass
 
-with open("dump.json") as f:
-    data = json.load(f)
-
-#
-# Site settings
-#
-
-folders = [
-    [1, "Movie"],
-    [2, "Serie"],
-    [3, "Trailer"],
-    [4, "Jingle"],
-    [5, "Music"],
-    [6, "News"],
-    [7, "Fill"],
-    [8, "Template"],
-    [9, "Commercial"],
-    [10, "Incomming"]
-]
-
-origins = [
-    [1, "Production"],
-    [2, "Playout 1"]
-]
-
-meta_types = [
-]
-
-#
-# Delete everything first
-#
-
-db = DB()
-db.query("""
-    TRUNCATE TABLE
-        folders,
-        assets,
-        items,
-        events,
-        bins,
-        origins
-    RESTART IDENTITY;""")
-db.commit()
-
-#
-# Settings tables deployment
-#
-
-for id, title in origins:
-    db.query("INSERT INTO origins (id, title) VALUES (%s, %s)", [id, title])
-
-db.commit()
-
-
-
-
-
+    for key, lang, alias, col_header in BASE_META_ALIASES:
+        pass
 
 
 def migrate(data):
     """Transfer Nebula4 data dump to v5 database"""
+    start_time = time.time()
     db = DB()
 
     for cs, value, label in data["cs"]:
-        db.query("INSERT INTO cs (cs, value, label) VALUES (%s, %s, %s)", [cs, value, label])
-
-    for id_folder, title, color, meta_set, validator in data["folders"]:
-        db.query("INSERT INTO folders (id, title, color, meta_test) VALUES (%s, %s, %s, %s)", [id_folder, title, color, meta_test])
-
-    for id_action, title, config in data["actions"]:
-        pass
-
-    for id_channel, channel_type, title, config in data["channels"]:
-        pass
-
-    for id_service, agent, title host, autostart, loop_delay, settings, state, pid, last_seen in data["services"]:
-        pass
+        db.query(
+            "INSERT INTO cs (cs, value, label) VALUES (%s, %s, %s)",
+            [cs, value, label]
+            )
 
     for key, value in data["settings"]:
-        pass
+        db.query(
+            "INSERT INTO settings (key, value) VALUES (%s, %s)",
+            [key, value]
+            )
 
+
+    max_id = 0
+    for id_folder, title, color, meta_set, validator in data["folders"]:
+        db.query(
+            "INSERT INTO folders (id, title, color, meta_set) VALUES (%s, %s, %s, %s)",
+            [id_folder, title, color, meta_set]
+            )
+        max_id = max(id_folder, max_id)
+    db.query("ALTER SEQUENCE folders_id_seq RESTART WITH %s", [max_id + 1])
+
+
+    max_id = 0
+    for id_action, title, config in data["actions"]:
+        db.query(
+            "INSERT INTO actions (id, title, settings) VALUES (%s, %s, %s)",
+            [id_action, title, config]
+            )
+        max_id = max(id_action, max_id)
+    db.query("ALTER SEQUENCE actions_id_seq RESTART WITH %s", [max_id + 1])
+
+
+    max_id = 0
+    for id_channel, channel_type, title, config in data["channels"]:
+        db.query(
+            "INSERT INTO channels (id, title, channel_type, settings) VALUES (%s, %s, %s, %s)",
+            [id_channel, channel_type, title, config]
+            )
+        max_id = max(id_channel, max_id)
+    db.query("ALTER SEQUENCE channels_id_seq RESTART WITH %s", [max_id + 1])
+
+
+    max_id = 0
+    for id_service, agent, title, host, autostart, loop_delay, settings, state, pid, last_seen in data["services"]:
+        db.query(
+            "INSERT INTO services (id, agent, title, host, autostart, loop_delay, settings) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            [id_service, agent, title, host, autostart, loop_delay, settings]
+            )
+        max_id = max(id_services, max_id)
+    db.query("ALTER SEQUENCE services_id_seq RESTART WITH %s", [max_id + 1])
+
+
+    max_id = 0
     for id_storage, title, protocol, path, login, password in data["storages"]:
-        pass
+        db.query(
+            "INSERT INTO storages (id, title, protocol, path, login, password) VALUES (%s, %s, %s, %s, %s, %s)",
+            [id_storage, title, protocol, path, login, password]
+            )
+        max_id = max(id_storage, max_id)
+    db.query("ALTER SEQUENCE storages_id_seq RESTART WITH %s", [max_id + 1])
 
+
+    max_id = 0
     for id_view, title, owner, config, position in data["views"]:
-        pass
+        db.query(
+            "INSERT INTO views (id, title, settings, owner, position) VALUES (%s, %s, %s, %s, %s)",
+            [id_view, title, config, owner, position]
+            )
+        max_id = max(id_view, max_id)
+    db.query("ALTER SEQUENCE views_id_seq RESTART WITH %s", [max_id + 1])
 
-    return
+    #
+    # Finish
+    #
 
-    logging.goodnews("Nebula migration completed in {:03f} seconds".format(time.time() - start_time))
+    db.commit()
+    logging.goodnews("Nebula settings migration completed in {:03f} seconds".format(time.time() - start_time))
 
 
-migrate ("dump.json")"
 
+
+if __name__ == "__main__":
+
+    dump_path = sys.argv[1] if len(sys.argv) == 2 and os.path.exists(sys.argv[1]) else "dump.json"
+    if not os.path.exists(dump_path):
+        critical_error("Unable to find dump file")
+
+    with open(dump_path) as f:
+        data = json.load(f)
+
+    clear_all()
+    migrate ("dump.json")
