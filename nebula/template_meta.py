@@ -1,22 +1,22 @@
-from nx.core.constants import *
+from .core.constants import *
 
-ENUM_MTYPES = [
-    [0 , "File"],
-    [1 , "Virtual"]
-]
+ENUM_MTYPES = {
+        0 : "File",
+        1 : "Virtual",
+    }
 
-ENUM_CTYPES = [
-    [TEXT,  "Text"],
-    [VIDEO, "Video"],
-    [AUDIO, "Audio"],
-    [IMAGE, "Image"]
-]
+ENUM_CTYPES = {
+    TEXT :  "Text",
+    VIDEO :  "Video",
+    AUDIO :  "Audio",
+    IMAGE :  "Image"
+}
 
-ENUM_STATES = [
-    [0, "New"],
-    [3, "Rejected"],
-    [4, "Approved"]
-]
+ENUM_STATES = {
+        0 : "New",
+        3 :  "Rejected",
+        4 : "Approved"
+    }
 
 BASE_META_SET = [
 

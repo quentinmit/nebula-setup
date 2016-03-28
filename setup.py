@@ -8,7 +8,6 @@ import sys
 import time
 import json
 
-from .base_meta import BASE_META_SET
 
 #
 # Env setup
@@ -33,10 +32,13 @@ if os.path.exists(vendor_dir):
             sys.path.insert(0, pname)
 
 from nebula import *
+from nebula.template_meta import BASE_META_SET
+
 config["nebula_root"] = nebula_root
 
 
 def clear_settings():
+    logging.info("Removing settings")
     db = DB()
     db.query("""
         TRUNCATE TABLE
@@ -49,11 +51,12 @@ def clear_settings():
             storages,
             views,
             origins
-        RESTART IDENTITY;""")
+        RESTART IDENTITY CASCADE;""")
     db.commit()
 
 
 def clear_objects():
+    logging.info("Removing all objects")
     db = DB()
     db.query("""
         TRUNCATE TABLE
@@ -75,17 +78,25 @@ def clear_all():
 
 
 def create_core():
-    for id, title in origins:
+    db = DB()
+    for id, title in [[1, "Production"]]:
         db.query(
             "INSERT INTO origins (id, title) VALUES (%s, %s)",
             [id, title]
             )
 
     for ns, key, e, f, cl, settings in BASE_META_SET:
-        pass
+        if settings:
+            settings = json.dumps(settings)
+        db.query(
+                "INSERT INTO meta_types (key, ns, editable, searchable, class, settings) VALUES (%s, %s, %s, %s, %s, %s)",
+                [key, ns, bool(e), bool(f), cl, settings]
+                )
 
-    for key, lang, alias, col_header in BASE_META_ALIASES:
-        pass
+#    for key, lang, alias, col_header in BASE_META_ALIASES:
+#        pass
+    db.commit()
+
 
 
 def migrate(data):
@@ -130,19 +141,21 @@ def migrate(data):
     for id_channel, channel_type, title, config in data["channels"]:
         db.query(
             "INSERT INTO channels (id, title, channel_type, settings) VALUES (%s, %s, %s, %s)",
-            [id_channel, channel_type, title, config]
+            [id_channel, title, channel_type, config]
             )
         max_id = max(id_channel, max_id)
     db.query("ALTER SEQUENCE channels_id_seq RESTART WITH %s", [max_id + 1])
 
 
     max_id = 0
-    for id_service, agent, title, host, autostart, loop_delay, settings, state, pid, last_seen in data["services"]:
+    for id_service, agent, title, autostart, loop_delay, settings, state, pid, last_seen in data["services"]:
+        #TODO:missing host in dump
+        host="devula"
         db.query(
             "INSERT INTO services (id, agent, title, host, autostart, loop_delay, settings) VALUES (%s, %s, %s, %s, %s, %s, %s)",
             [id_service, agent, title, host, autostart, loop_delay, settings]
             )
-        max_id = max(id_services, max_id)
+        max_id = max(id_service, max_id)
     db.query("ALTER SEQUENCE services_id_seq RESTART WITH %s", [max_id + 1])
 
 
@@ -157,7 +170,7 @@ def migrate(data):
 
 
     max_id = 0
-    for id_view, title, owner, config, position in data["views"]:
+    eor id_view, title, owner, config, position in data["views"]:
         db.query(
             "INSERT INTO views (id, title, settings, owner, position) VALUES (%s, %s, %s, %s, %s)",
             [id_view, title, config, owner, position]
@@ -177,7 +190,7 @@ def migrate(data):
 
 if __name__ == "__main__":
 
-    dump_path = sys.argv[1] if len(sys.argv) == 2 and os.path.exists(sys.argv[1]) else "dump.json"
+    dump_path = sys.argv[1] if len(sys.argv) == 2 and os.path.exists(sys.argv[1]) else "../dump.json"
     if not os.path.exists(dump_path):
         critical_error("Unable to find dump file")
 
@@ -185,4 +198,5 @@ if __name__ == "__main__":
         data = json.load(f)
 
     clear_all()
-    migrate ("dump.json")
+    create_core()
+    migrate(data)

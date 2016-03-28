@@ -33,7 +33,7 @@ CREATE TABLE public.services (
         host VARCHAR(50) NOT NULL,
         autostart INTEGER NOT NULL DEFAULT 0,
         loop_delay INTEGER NOT NULL DEFAULT 5,
-        settings TEXT NULL,
+        settings XML NULL,
         state INTEGER NOT NULL DEFAULT 0,
         pid INTEGER NOT NULL DEFAULT 0,
         last_seen INTEGER NOT NULL DEFAULT 0,
@@ -55,7 +55,7 @@ CREATE TABLE public.users (
 CREATE TABLE public.views (
         id SERIAL NOT NULL,
         title VARCHAR(255) NOT NULL,
-        settings JSONB NOT NULL,
+        settings XML NOT NULL,
         owner INTEGER NOT NULL DEFAULT 0,
         position INTEGER NOT NULL DEFAULT 0,
         CONSTRAINT views_pkey PRIMARY KEY (id)
@@ -78,7 +78,7 @@ CREATE TABLE public.origins (
 CREATE TABLE public.actions (
         id SERIAL NOT NULL,
         title varchar(50) NOT NULL,
-        settings text NOT NULL,
+        settings XML NOT NULL,
         CONSTRAINT actions_pkey PRIMARY KEY (id)
     );
 
@@ -88,8 +88,7 @@ CREATE TABLE public.meta_types (
         editable BOOLEAN NOT NULL,
         searchable BOOLEAN NOT NULL,
         class INTEGER NOT NULL,
-        default TEXT,
-        settings JSONB NOT NULL,
+        settings JSONB,
         CONSTRAINT meta_types_pkey PRIMARY KEY (key)
     );
 
@@ -137,7 +136,7 @@ CREATE TABLE public.events(
         id SERIAL NOT NULL,
         event_type INTEGER NOT NULL,
         start_time INTEGER NOT NULL,
-        end_time INTEGER NOT NULL,
+        end_time INTEGER,
         id_magic INTEGER NOT NULL,
         metadata JSONB,
         CONSTRAINT events_pkey PRIMARY KEY (id)
@@ -156,11 +155,11 @@ CREATE TABLE public.jobs (
         id serial NOT NULL,
         id_asset INTEGER NOT NULL,
         id_action INTEGER NOT NULL,
-        settings TEXT NULL,
+        settings JSONB NULL,
         id_user INTEGER,
         id_service INTEGER,
         progress INTEGER NOT NULL DEFAULT -1,
-        message TEXT NOT NULL DEFAULT "Pending",
+        message TEXT NOT NULL DEFAULT 'Pending',
         priority INTEGER NOT NULL DEFAULT 3,
         retries INTEGER NOT NULL DEFAULT 0,
         creation_time INTEGER,

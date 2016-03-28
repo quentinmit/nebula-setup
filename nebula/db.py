@@ -1,5 +1,5 @@
 import time
-from .common import *
+from .core import *
 
 try:
     import psycopg2
@@ -63,6 +63,8 @@ class DB(BaseDB):
                 continue
             else:
                 break
+        else:
+            raise psycopg2.OperationalError
         self.cur = self.conn.cursor()
 
     def sanit(self, instr):
