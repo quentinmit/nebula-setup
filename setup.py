@@ -170,7 +170,7 @@ def migrate(data):
 
 
     max_id = 0
-    eor id_view, title, owner, config, position in data["views"]:
+    for id_view, title, owner, config, position in data["views"]:
         db.query(
             "INSERT INTO views (id, title, settings, owner, position) VALUES (%s, %s, %s, %s, %s)",
             [id_view, title, config, owner, position]
