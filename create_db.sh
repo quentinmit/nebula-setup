@@ -75,7 +75,6 @@ function create_db {
     echo "
         DROP DATABASE IF EXISTS ${DB_NAME};
         CREATE DATABASE ${DB_NAME} OWNER ${DB_USER};
-        CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA public;
     " > ${SCRIPT_PATH}
     su postgres -c "psql --file=${SCRIPT_PATH}"
     rm ${SCRIPT_PATH}
