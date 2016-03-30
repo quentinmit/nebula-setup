@@ -114,8 +114,8 @@ CREATE TABLE public.cs (
 
 CREATE TABLE public.assets (
         id SERIAL NOT NULL,
-        id_folder INTEGER REFERENCES public.folders(id),
-        id_origin INTEGER REFERENCES public.origins(id),
+        id_folder INTEGER NOT NULL,
+        id_origin INTEGER NOT NULL,
         version_of INTEGER,
         media_type INTEGER NOT NULL,
         content_type INTEGER NOT NULL,
@@ -170,7 +170,7 @@ CREATE TABLE public.jobs (
 
 CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
-        id_channel INTEGER REFERENCES public.channels(id),
+        id_channel INTEGER NOT NULL,
         id_item INTEGER REFERENCES public.items(id),
         id_asset INTEGER REFERENCES public.assets(id),
         title VARCHAR(255) NOT NULL,
