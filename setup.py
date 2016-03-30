@@ -8,7 +8,6 @@ import sys
 import time
 import json
 
-
 #
 # Env setup
 #
@@ -32,129 +31,78 @@ if os.path.exists(vendor_dir):
             sys.path.insert(0, pname)
 
 from nebula import *
-from nebula.template_meta import BASE_META_SET
 
 config["nebula_root"] = nebula_root
 
 
-def clear_settings():
-    logging.info("Removing settings")
+def create_core(data):
+
     db = DB()
-    db.query("""
-        TRUNCATE TABLE
-            cs,
-            folders,
-            actions,
-            channels,
-            services,
-            settings,
-            storages,
-            views,
-            origins
-        RESTART IDENTITY CASCADE;""")
-    db.commit()
+    start_time = time.time()
 
+    #
+    # Metadata set
+    #
 
-def clear_objects():
-    logging.info("Removing all objects")
-    db = DB()
-    db.query("""
-        TRUNCATE TABLE
-            assets,
-            items,
-            bins,
-            events,
-            users,
-            jobs,
-            asrun
-        RESTART IDENTITY;""")
-    db.commit()
+    logging.info("Installing metadata set")
 
-
-def clear_all():
-    clear_objects()
-    clear_settings()
-
-
-
-def create_core():
-    db = DB()
-    for id, title in [[1, "Production"]]:
-        db.query(
-            "INSERT INTO origins (id, title) VALUES (%s, %s)",
-            [id, title]
+    for key in data["meta_types"]:
+        ns, editable, fulltext, index, class_, settings = data["meta_types"][key]
+        insert(db, "meta_types",
+            key=key,
+            ns=ns,
+            editable=bool(editable),
+            searchable=bool(fulltext),
+            class_=class_,
+            settings=json.dumps(settings) if settings else None
             )
 
-    for ns, key, e, f, cl, settings in BASE_META_SET:
-        if settings:
-            settings = json.dumps(settings)
-        db.query(
-                "INSERT INTO meta_types (key, ns, editable, searchable, class, settings) VALUES (%s, %s, %s, %s, %s, %s)",
-                [key, ns, bool(e), bool(f), cl, settings]
-                )
+        if index:
+            idx_name = "idx_" + key.replace("/", "_")
+            db.query("CREATE INDEX IF NOT EXISTS {} ON assets(( meta->>%s ))".format(idx_name), [key])
 
-#    for key, lang, alias, col_header in BASE_META_ALIASES:
-#        pass
-    db.commit()
+    for lang in ["en-US"]:
+        trans_table_fname = os.path.join("support", "aliases-{}.json".format(lang))
+        l = json.load(open(trans_table_fname))
+        for key, alias, col_header in l:
+            insert(db, "meta_aliases", key=key, lang=lang, alias=alias, col_header=col_header)
 
-
-
-def migrate(data):
-    """Transfer Nebula4 data dump to v5 database"""
-    start_time = time.time()
-    db = DB()
+    #
+    # Site settings
+    #
 
     for cs, value, label in data["cs"]:
-        db.query(
-            "INSERT INTO cs (cs, value, label) VALUES (%s, %s, %s)",
-            [cs, value, label]
-            )
+        insert(db, "cs", cs=cs, value=value, label=label)
 
     for key, value in data["settings"]:
-        db.query(
-            "INSERT INTO settings (key, value) VALUES (%s, %s)",
-            [key, value]
-            )
+        insert(db, "settings", key=key, value=value)
 
 
     max_id = 0
-    for id_folder, title, color, meta_set, validator in data["folders"]:
-        db.query(
-            "INSERT INTO folders (id, title, color, meta_set) VALUES (%s, %s, %s, %s)",
-            [id_folder, title, color, meta_set]
-            )
-        max_id = max(id_folder, max_id)
+    for id in data["folders"]:
+        title, color, meta_set = data["folders"][id]
+        insert(db, "folders", id=id, title=title, color=color, meta_set=json.dumps(meta_set))
+        max_id = max(id, max_id)
     db.query("ALTER SEQUENCE folders_id_seq RESTART WITH %s", [max_id + 1])
 
 
     max_id = 0
-    for id_action, title, config in data["actions"]:
-        db.query(
-            "INSERT INTO actions (id, title, settings) VALUES (%s, %s, %s)",
-            [id_action, title, config]
-            )
-        max_id = max(id_action, max_id)
+    for id, title, settings in data["actions"]:
+        insert(db, "actions", id=id, title=title, settings=settings)
+        max_id = max(id, max_id)
     db.query("ALTER SEQUENCE actions_id_seq RESTART WITH %s", [max_id + 1])
 
 
     max_id = 0
-    for id_channel, channel_type, title, config in data["channels"]:
-        db.query(
-            "INSERT INTO channels (id, title, channel_type, settings) VALUES (%s, %s, %s, %s)",
-            [id_channel, title, channel_type, config]
-            )
-        max_id = max(id_channel, max_id)
+    for id, channel_type, title, settings in data["channels"]:
+        insert(db, "channels", id=id, channel_type=channel_type, title=title, settings=settings)
+        max_id = max(id, max_id)
     db.query("ALTER SEQUENCE channels_id_seq RESTART WITH %s", [max_id + 1])
 
 
     max_id = 0
-    for id_service, agent, title, autostart, loop_delay, settings, state, pid, last_seen in data["services"]:
-        #TODO:missing host in dump
-        host="devula"
-        db.query(
-            "INSERT INTO services (id, agent, title, host, autostart, loop_delay, settings) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-            [id_service, agent, title, host, autostart, loop_delay, settings]
-            )
+    for id, host, agent, title, autostart, loop_delay, settings in data["services"]:
+        insert(db, "services", id=id, agent=agent, title=title, autostart=autostart, loop_delay=loop_delay, settings=settings)
         max_id = max(id_service, max_id)
     db.query("ALTER SEQUENCE services_id_seq RESTART WITH %s", [max_id + 1])
 
@@ -198,5 +146,5 @@ if __name__ == "__main__":
         data = json.load(f)
 
     clear_all()
-    create_core()
-    migrate(data)
+    create_core(template_data)
+#    migrate(data)

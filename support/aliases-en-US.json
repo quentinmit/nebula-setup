@@ -4,7 +4,7 @@
   ["media_type"             , "Media type"             , "Media type"],
   ["content_type"           , "content_type"           , ""],
   ["id_folder"              , "Folder"                 , "Folder"],
-  ["id_origin"              , "Origin"                 , "Origin"],
+  ["origin"                 , "Origin"                 , "Origin"],
   ["status"                 , "Status"                 , "Status"],
   ["version_of"             , "Version of"             , "Version of"],
   ["start"                  , "Start"                  , "Start"],

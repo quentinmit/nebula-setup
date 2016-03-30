@@ -44,7 +44,7 @@ CREATE TABLE public.users (
         id SERIAL NOT NULL,
         login VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
-        metadata JSONB,
+        meta JSONB,
         CONSTRAINT users_pkey PRIMARY KEY (id)
     );
 
@@ -67,12 +67,6 @@ CREATE TABLE public.folders (
         color INTEGER,
         meta_set JSONB,
         CONSTRAINT folders_pkey PRIMARY KEY (id)
-    );
-
-CREATE TABLE public.origins (
-        id SERIAL NOT NULL,
-        title VARCHAR(255),
-        CONSTRAINT origins_pkey PRIMARY KEY (id)
     );
 
 CREATE TABLE public.actions (
@@ -115,20 +109,26 @@ CREATE TABLE public.cs (
 CREATE TABLE public.assets (
         id SERIAL NOT NULL,
         id_folder INTEGER NOT NULL,
-        id_origin INTEGER NOT NULL,
+        origin VARCHAR(255) NOT NULL,
         version_of INTEGER,
         media_type INTEGER NOT NULL,
         content_type INTEGER NOT NULL,
         status INTEGER NOT NULL,
-        metadata JSONB,
+        meta JSONB,
         ft_index TEXT,
         CONSTRAINT assets_pkey PRIMARY KEY (id)
     );
 
+CREATE INDEX idx_assets_id_folder ON assets(id_folder);
+CREATE INDEX idx_assets_origin ON assets(origin);
+CREATE INDEX idx_assets_media_type ON assets(media_type);
+CREATE INDEX idx_assets_content_type ON assets(content_type);
+CREATE INDEX idx_assets_status ON assets(status);
+
 CREATE TABLE public.bins(
         id SERIAL NOT NULL,
         bin_type INTEGER NOT NULL,
-        metadata JSONB,
+        meta JSONB,
         CONSTRAINT bins_pkey PRIMARY KEY (id)
     );
 
@@ -138,16 +138,20 @@ CREATE TABLE public.events(
         start_time INTEGER NOT NULL,
         end_time INTEGER,
         id_magic INTEGER NOT NULL,
-        metadata JSONB,
+        meta JSONB,
         CONSTRAINT events_pkey PRIMARY KEY (id)
     );
+
+CREATE INDEX idx_events_start_time ON events(start_time);
+CREATE INDEX idx_events_end_time ON events(end_time);
+CREATE INDEX idx_events_event_type ON events(event_type);
 
 CREATE TABLE public.items(
         id SERIAL NOT NULL,
         id_bin INTEGER REFERENCES public.bins(id),
         id_asset INTEGER REFERENCES public.assets(id),
         position INTEGER NOT NULL,
-        metadata JSONB,
+        meta JSONB,
         CONSTRAINT items_pkey PRIMARY KEY (id)
     );
 
