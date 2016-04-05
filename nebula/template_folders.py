@@ -13,7 +13,8 @@ folders = {
         "keywords",
     ]),
 
-
+2: ("Series", 0x0397BB,
+    [
         "title",
         "subtitle",
         "description",

@@ -138,12 +138,12 @@ def create_core(data):
 
 if __name__ == "__main__":
 
-    dump_path = sys.argv[1] if len(sys.argv) == 2 and os.path.exists(sys.argv[1]) else "../dump.json"
-    if not os.path.exists(dump_path):
-        critical_error("Unable to find dump file")
+    #dump_path = sys.argv[1] if len(sys.argv) == 2 and os.path.exists(sys.argv[1]) else "../dump.json"
+    #if not os.path.exists(dump_path):
+    #    critical_error("Unable to find dump file")
 
-    with open(dump_path) as f:
-        data = json.load(f)
+    #with open(dump_path) as f:
+    #    data = json.load(f)
 
     clear_all()
     create_core(template_data)
