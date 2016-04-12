@@ -108,22 +108,13 @@ CREATE TABLE public.cs (
 
 CREATE TABLE public.assets (
         id SERIAL NOT NULL,
-        id_folder INTEGER NOT NULL,
-        origin VARCHAR(255) NOT NULL,
         version_of INTEGER,
-        media_type INTEGER NOT NULL,
-        content_type INTEGER NOT NULL,
-        status INTEGER NOT NULL,
         meta JSONB,
         ft_index TEXT,
         CONSTRAINT assets_pkey PRIMARY KEY (id)
     );
 
-CREATE INDEX idx_assets_id_folder ON assets(id_folder);
-CREATE INDEX idx_assets_origin ON assets(origin);
-CREATE INDEX idx_assets_media_type ON assets(media_type);
-CREATE INDEX idx_assets_content_type ON assets(content_type);
-CREATE INDEX idx_assets_status ON assets(status);
+CREATE INDEX idx_assets_ft ON assets(ft_index);
 
 CREATE TABLE public.bins(
         id SERIAL NOT NULL,
