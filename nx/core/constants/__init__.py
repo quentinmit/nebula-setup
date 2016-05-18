@@ -1,3 +1,6 @@
+from .content_types import *
+from .response_codes import *
+
 #
 # service states
 #
@@ -9,27 +12,12 @@ STOPPING = 3           # Service graceful stop requested. It should shutdown its
 KILL     = 4           # Service force stop requested. Dispatch is about to kill -9 it
 
 #
-# Content types
+# media types
 #
 
-TEXT  = 0
-VIDEO = 1
-AUDIO = 2
-IMAGE = 3
-
-CONTENT_TYPES = {
-    "text"  : TEXT,
-    "video" : VIDEO,
-    "audio" : AUDIO,
-    "image" : IMAGE
-}
-
-#
-# Media types
-#
-
-FILE     = 0           # There is (or should be) physical file specified by 'storage' and 'path' metadata
-VIRTUAL  = 1           # Asset exists only as DB record (macro, text...)
+VIRTUAL = 0
+FILE = 1
+URL = 2
 
 #
 # asset status
@@ -46,8 +34,8 @@ RESET    = 5           # Reset metadata action has been invoked. Meta service wi
 # meta_classes
 #
 
-TEXT         = 0       # Single-line plain text (default)
-BLOB         = 1       # Multiline text. 'syntax' can be provided in config
+STRING       = 0       # Single-line plain text (default)
+TEXT         = 1       # Multiline text. 'syntax' can be provided in config
 INTEGER      = 2       # Integer only value (for db keys etc)
 NUMERIC      = 3       # Any integer of float number. 'min', 'max' and 'step' values can be provided in config
 BOOLEAN      = 4       # 1/0 checkbox
@@ -56,19 +44,7 @@ TIMECODE     = 6       # Timecode information, stored as float(seconds), present
 REGIONS      = 7
 FRACTION     = 8       # 16/9 etc...
 SELECT       = 9
-CS_SELECT    = 10
-ENUM         = 11      # Similar to select - for integer values
-CS_ENUM      = 12
-LIST         = 13
-
-#
-# storage types
-#
-
-LOCAL    = 0
-CIFS     = 1
-NFS      = 2
-FTP      = 3
+LIST         = 10
 
 #
 # Job status (stored in nx_jobs/progress)
@@ -95,23 +71,3 @@ RUN_AUTO    = 0    # First item of this block is cued right after last item of p
 RUN_MANUAL  = 1    # Playback stops at the end of the last item of previous block
 RUN_SOFT    = 2    # First item of this block is cued if previous block is running and current_time >= scheduled_time
 RUN_HARD    = 3    # First item of this block starts immediately if previous block is running and current_time >= scheduled_time
-
-#
-# Hive / Play response codes
-#
-
-SUCCESS_OK                = 200
-SUCCESS_CREATED           = 201
-SUCCESS_ACCEPTED          = 202
-SUCCESS_NOCONTENT         = 204
-SUCCESS_PARTIAL           = 206
-
-ERROR_BAD_REQUEST         = 400
-ERROR_UNAUTHORISED        = 401
-ERROR_NOT_FOUND           = 404
-
-ERROR_INTERNAL            = 500
-ERROR_NOT_IMPLEMENTED     = 503
-ERROR_TIMEOUT             = 504
-ERROR_SERVICE_UNAVAILABLE = 503
-

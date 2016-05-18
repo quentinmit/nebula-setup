@@ -31,12 +31,15 @@ if os.path.exists(vendor_dir):
             sys.path.insert(0, pname)
 
 from nebula import *
-
 config["nebula_root"] = nebula_root
+
+#
+# End of init
+#
+
 
 
 def create_core(data):
-
     db = DB()
     start_time = time.time()
 
@@ -137,14 +140,5 @@ def create_core(data):
 
 
 if __name__ == "__main__":
-
-    #dump_path = sys.argv[1] if len(sys.argv) == 2 and os.path.exists(sys.argv[1]) else "../dump.json"
-    #if not os.path.exists(dump_path):
-    #    critical_error("Unable to find dump file")
-
-    #with open(dump_path) as f:
-    #    data = json.load(f)
-
     clear_all()
     create_core(template_data)
-#    migrate(data)

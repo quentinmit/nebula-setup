@@ -4,7 +4,7 @@
 
 CREATE TABLE public.settings (
         key VARCHAR(255) NOT NULL,
-        value VARCHAR(255),
+        value JSONB,
         CONSTRAINT settings_pkey PRIMARY KEY (key)
     );
 
@@ -19,26 +19,10 @@ CREATE TABLE public.channels (
 CREATE TABLE public.storages (
         id serial NOT NULL,
         title VARCHAR(50) NOT NULL,
-        protocol INTEGER NOT NULL,
-        path VARCHAR(255) NOT NULL,
-        login VARCHAR(50),
-        password VARCHAR(50),
+        settings JSONB NOT NULL,
         CONSTRAINT storages_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE public.services (
-        id SERIAL NOT NULL,
-        agent VARCHAR(50) NOT NULL,
-        title VARCHAR(50) NOT NULL,
-        host VARCHAR(50) NOT NULL,
-        autostart INTEGER NOT NULL DEFAULT 0,
-        loop_delay INTEGER NOT NULL DEFAULT 5,
-        settings XML NULL,
-        state INTEGER NOT NULL DEFAULT 0,
-        pid INTEGER NOT NULL DEFAULT 0,
-        last_seen INTEGER NOT NULL DEFAULT 0,
-        CONSTRAINT services_pkey PRIMARY KEY (id)
-    );
 
 CREATE TABLE public.users (
         id SERIAL NOT NULL,
@@ -61,12 +45,10 @@ CREATE TABLE public.views (
         CONSTRAINT views_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE public.folders (
+CREATE TABLE public.origins (
         id SERIAL NOT NULL,
         title VARCHAR(255),
-        color INTEGER,
-        meta_set JSONB,
-        CONSTRAINT folders_pkey PRIMARY KEY (id)
+        CONSTRAINT origins_pkey PRIMARY KEY (id)
     );
 
 CREATE TABLE public.actions (
@@ -76,31 +58,46 @@ CREATE TABLE public.actions (
         CONSTRAINT actions_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE public.meta_types (
-        key VARCHAR(127) NOT NULL,
-        ns VARCHAR(10) NOT NULL,
-        editable BOOLEAN NOT NULL,
-        searchable BOOLEAN NOT NULL,
-        class INTEGER NOT NULL,
+CREATE TABLE public.asset_types (
+        id SERIAL NOT NULL,
+        title VARCHAR(255),
+        color INTEGER DEFAULT 13421772, -- Light gray
         settings JSONB,
+        CONSTRAINT asset_types_pkey PRIMARY KEY (id)
+    );
+
+CREATE TABLE public.meta_types (
+        ns VARCHAR(10) NOT NULL,
+        key VARCHAR(127) NOT NULL,
+        settings JSONB NOT NULL,
         CONSTRAINT meta_types_pkey PRIMARY KEY (key)
     );
 
 CREATE TABLE public.meta_aliases (
         key VARCHAR(50) REFERENCES public.meta_types(key),
-        lang VARCHAR(50) NOT NULL,
+        language VARCHAR(50) NOT NULL,
         alias VARCHAR(50) NOT NULL,
-        col_header VARCHAR(50) NULL,
-        CONSTRAINT meta_aliases_pkey PRIMARY KEY (key, lang)
+        description TEXT,
+        header VARCHAR(50) NULL,
+        CONSTRAINT meta_aliases_pkey PRIMARY KEY (key, language)
     );
 
 CREATE TABLE public.cs (
-        cs varchar(50) NOT NULL,
-        value varchar(255) NOT NULL,
-        label varchar(255),
-        position INTEGER NOT NULL DEFAULT 50,
+        cs VARCHAR(255) NOT NULL,
+        key VARCHAR(255) NOT NULL,
+        value JSONB NOT NULL,
         CONSTRAINT cs_pkey PRIMARY KEY (cs, value)
     );
+
+CREATE TABLE public.cs_aliases (
+        cs VARCHAR(255) NOT NULL,
+        key VARCHAR(255) NOT NULL,
+        language VARCHAR(10) NOT NULL,
+        alias VARCHAR(255) NOT NULL,
+        description TEXT,
+        position INTEGER NOT NULL DEFAULT 50,
+        CONSTRAINT cs_aliases_pkey PRIMARY KEY (cs, key, language)
+);
 
 --
 -- MAM OBJECTS
@@ -108,7 +105,8 @@ CREATE TABLE public.cs (
 
 CREATE TABLE public.assets (
         id SERIAL NOT NULL,
-        version_of INTEGER,
+        asset_type INTEGER REFERENCES public.asset_types(id),
+        origin INTEGER REFERENCES public.origins(id),
         meta JSONB,
         ft_index TEXT,
         CONSTRAINT assets_pkey PRIMARY KEY (id)
@@ -127,8 +125,7 @@ CREATE TABLE public.events(
         id SERIAL NOT NULL,
         event_type INTEGER NOT NULL,
         start_time INTEGER NOT NULL,
-        end_time INTEGER,
-        id_magic INTEGER NOT NULL,
+        end_time INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT events_pkey PRIMARY KEY (id)
     );
@@ -146,6 +143,14 @@ CREATE TABLE public.items(
         CONSTRAINT items_pkey PRIMARY KEY (id)
     );
 
+
+
+
+
+
+
+
+-- TODO: Clean-UP
 CREATE TABLE public.jobs (
         id serial NOT NULL,
         id_asset INTEGER NOT NULL,
@@ -163,13 +168,29 @@ CREATE TABLE public.jobs (
         CONSTRAINT jobs_pkey PRIMARY KEY (id)
     );
 
+-- TODO: Clean-UP
 CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
-        id_channel INTEGER NOT NULL,
+        id_channel INTEGER REFERENCES public.channels(id),
         id_item INTEGER REFERENCES public.items(id),
         id_asset INTEGER REFERENCES public.assets(id),
         title VARCHAR(255) NOT NULL,
         start FLOAT NOT NULL,
         stop FLOAT NOT NULL,
         CONSTRAINT asrun_pkey PRIMARY KEY (id)
+    );
+
+-- TODO: Clean-UP
+CREATE TABLE public.services (
+        id SERIAL NOT NULL,
+        agent VARCHAR(50) NOT NULL,
+        title VARCHAR(50) NOT NULL,
+        host VARCHAR(50) NOT NULL,
+        autostart INTEGER NOT NULL DEFAULT 0,
+        loop_delay INTEGER NOT NULL DEFAULT 5,
+        settings XML NULL,
+        state INTEGER NOT NULL DEFAULT 0,
+        pid INTEGER NOT NULL DEFAULT 0,
+        last_seen INTEGER NOT NULL DEFAULT 0,
+        CONSTRAINT services_pkey PRIMARY KEY (id)
     );

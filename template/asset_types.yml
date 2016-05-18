@@ -1,0 +1,76 @@
+- id: 1
+  title: Movie
+  color: 0x2872B3
+  meta:
+      - key: title
+      - key: subtitle
+      - key: description
+      - key: director
+      - key: editorial_format
+      - key: genre
+      - key: keywords
+
+- id: 2
+  title: Serie
+  color: 0x0397BB
+
+- id: 3
+  title: Trailer
+  color: 0x008E5C
+
+- id: 4
+  title: Graphic
+  color: 0xe0e0e0
+  meta:
+      - key: title
+
+- id: 5
+  title: Song
+  color: 0x8AC91A
+  meta:
+      - key: title
+      - key: subtitle
+      - key: performer
+      - key: composer
+      - key: lyricist
+      - key: genre
+
+- id: 6
+  title: Story
+  color: 0xFE0002
+  meta:
+      - key: title
+      - key: subtitle
+      - key: description
+
+- id: 7
+  title: Commercial
+  color: 0xFFFF01
+  meta:
+
+- id: 8
+  title: Teleshopping
+  color: 0xFFC700
+  meta:
+
+- id: 9
+  title: Fill
+  color: 0x646464
+  meta:
+      - key: title
+      - key: subtitle
+      - key: description
+
+- id: 10
+  title: Shot
+  color: 0xff1616
+  meta:
+      - key: title
+
+- id: 11
+  title: Incomming pool
+  color: 0xb0b0b0
+  meta:
+      - key: title
+      - key: subtitle
+      - key: description
