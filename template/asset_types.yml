@@ -1,30 +1,38 @@
 - id: 1
-  title: Movie
+  title: Show
   color: 0x2872B3
   meta:
       - key: title
       - key: subtitle
       - key: description
-      - key: director
-      - key: editorial_format
       - key: genre
+      - key: editorial_format
+      - key: editorial_control
       - key: keywords
 
 - id: 2
-  title: Serie
-  color: 0x0397BB
-
-- id: 3
-  title: Trailer
+  title: Complement
   color: 0x008E5C
-
-- id: 4
-  title: Graphic
-  color: 0xe0e0e0
   meta:
       - key: title
+      - key: subtitle
+      - key: description
+      - key: genre
+      - key: editorial_format
+      - key: editorial_control
+      - key: keywords
 
-- id: 5
+- id: 3
+  title: Story
+  color: 0xFE0002
+  meta:
+      - key: title
+      - key: subtitle
+      - key: description
+      - key: format
+      - key: genre
+
+- id: 4
   title: Song
   color: 0x8AC91A
   meta:
@@ -33,42 +41,40 @@
       - key: performer
       - key: composer
       - key: lyricist
+      - key: format
+        values:
+            - "2.5.1.1"    # solo
+            - "2.5.1.2"    # dj
+            - "2.5.2"      # small ensemble
+            - "2.5.3"      # large ensemble
+            - "2.5.5"      # music video
       - key: genre
+        values:
+            - "3.6.4.1"    # pop
+            - "3.6.4.14"   # rock
+            - "3.6.4.14.2" # metal
+            - "3.6.4.14.4" # punk-rock
+            - "3.6.4.14.6" # alternative
+            - "3.6.7.2"    # HipHop
+            - "3.6.8"      # Electronic
 
-- id: 6
-  title: Story
-  color: 0xFE0002
-  meta:
-      - key: title
-      - key: subtitle
-      - key: description
-
-- id: 7
+- id: 5
   title: Commercial
   color: 0xFFFF01
   meta:
-
-- id: 8
-  title: Teleshopping
-  color: 0xFFC700
-  meta:
-
-- id: 9
-  title: Fill
-  color: 0x646464
-  meta:
       - key: title
-      - key: subtitle
-      - key: description
+      - key: client
+      - key: campaign
+      - key: commercial_content
 
-- id: 10
-  title: Shot
-  color: 0xff1616
+- id: 6
+  title: Group
+  color: 0x0397BB
   meta:
       - key: title
 
-- id: 11
-  title: Incomming pool
+- id: 7
+  title: Role
   color: 0xb0b0b0
   meta:
       - key: title

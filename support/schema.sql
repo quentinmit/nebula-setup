@@ -67,7 +67,6 @@ CREATE TABLE public.asset_types (
     );
 
 CREATE TABLE public.meta_types (
-        ns VARCHAR(10) NOT NULL,
         key VARCHAR(127) NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT meta_types_pkey PRIMARY KEY (key)
