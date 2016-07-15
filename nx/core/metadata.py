@@ -27,8 +27,8 @@ class CS():
     def __init__(self):
         self.sheets = {}
 
-    def __getitem__(self, key
-        return self.sheets[key
+    def __getitem__(self, key):
+        return self.sheets[key]
 
 #
 # Validators

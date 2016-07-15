@@ -30,7 +30,7 @@ if os.path.exists(vendor_dir):
         if not pname in sys.path:
             sys.path.insert(0, pname)
 
-from nebula import *
+from nx import *
 config["nebula_root"] = nebula_root
 
 #
