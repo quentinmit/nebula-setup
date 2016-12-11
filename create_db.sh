@@ -15,80 +15,89 @@
 ##############################################################################
 ## COMMON UTILS
 
-BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-TEMPDIR=/tmp/$(basename "${BASH_SOURCE[0]}")
+ORIG_DIR=`pwd`
+BASE_DIR=$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd )
+TEMP_DIR=/tmp/$(basename "${BASH_SOURCE[0]}")
 
-function error_exit {
+cd ${BASE_DIR}
+
+function critical_error {
     printf "\n\033[0;31mInstallation failed\033[0m\n"
-    cd $BASEDIR
+    cd $ORIG_DIR
     exit 1
 }
 
 function finished {
     printf "\n\033[0;92mInstallation completed\033[0m\n"
-    cd $BASEDIR
+    cd $ORIG_DIR
     exit 0
 }
 
-
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
-   error_exit
+   critical_error
 fi
 
-if [ ! -d $TEMPDIR ]; then
-    mkdir $TEMPDIR || error_exit
+if [ ! -d $TEMP_DIR ]; then
+    mkdir $TEMP_DIR || critical_error
 fi
 
 ## COMMON UTILS
 ##############################################################################
 
-DB_USER=`support/parse_settings.py db_user`
-DB_PASS=`support/parse_settings.py db_pass`
-DB_NAME=`support/parse_settings.py db_name`
-
-if [ -z $DB_USER ] || [ -z $DB_PASS ] || [ -z $DB_NAME ]; then
-    echo ""
-    echo "DB connection params unspecified"
-    error_exit
-fi
+DB_USER=`./support/parse_settings.py db_user`
+DB_PASS=`./support/parse_settings.py db_pass`
+DB_NAME=`./support/parse_settings.py db_name`
 
 SCRIPT_PATH="/tmp/nebula.sql"
 
-function install_prerequisites {
-    apt-get -y install \
-        python-pip \
-        python-psycopg2
-}
-
 function create_user {
+    echo "Creating DB user"
     echo "
-        DROP DATABASE IF EXISTS ${DB_NAME};
-        DROP USER IF EXISTS ${DB_USER};
         CREATE USER ${DB_USER} WITH PASSWORD '${DB_PASS}';
     " > ${SCRIPT_PATH}
-    su postgres -c "psql --file=${SCRIPT_PATH}"
+    su postgres -c "psql --file=${SCRIPT_PATH}" || return 1
     rm ${SCRIPT_PATH}
 }
 
 function create_db {
+    echo "Creating DB"
     echo "
         DROP DATABASE IF EXISTS ${DB_NAME};
         CREATE DATABASE ${DB_NAME} OWNER ${DB_USER};
     " > ${SCRIPT_PATH}
-    su postgres -c "psql --file=${SCRIPT_PATH}"
+    su postgres -c "psql --file=${SCRIPT_PATH}" || return 1
     rm ${SCRIPT_PATH}
 }
 
 function create_schema {
+    echo "Creating DB schema"
     export PGPASSWORD="${DB_PASS}";
-    psql -h localhost -U ${DB_USER} ${DB_NAME} --file=${BASEDIR}/support/schema.sql
+    psql -h localhost -U ${DB_USER} ${DB_NAME} --file=${BASE_DIR}/support/schema.sql || return 1
 }
 
 echo ""
 echo ""
 
-create_user
-create_db
-create_schema
+if [ -z $DB_USER ] || [ -z $DB_PASS ] || [ -z $DB_NAME ]; then
+    echo ""
+    echo "DB connection params unspecified"
+    critical_error
+fi
+
+if !(service postgresql status > /dev/null); then
+    echo "This script must run on the DB server."
+    while true; do
+        read -p "Do you wish to install Postgresql server now??" yn
+        case $yn in
+            [Yy]* ) install_postgres || critical_error; break;;
+            [Nn]* ) critical_error;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+fi
+
+create_user || critical_error
+create_db || critical_error
+create_schema || critical_error
 finished

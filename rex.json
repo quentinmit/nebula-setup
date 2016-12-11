@@ -1,0 +1,4 @@
+{
+    "https://github.com/martastain/nxtools" : {"python-path" : true},
+    "https://github.com/immstudios/ebucore-cs" : {"python-path" : true}
+}

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 from __future__ import print_function
 
@@ -8,137 +7,185 @@ import sys
 import time
 import json
 
-#
-# Env setup
-#
+try:
+    import psycopg2
+except ImportError:
+    log_traceback("Import error")
+    critical_error("Unable to import psycopg2")
 
-if sys.version_info[:2] < (3, 0):
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
+import rex
 
-nebula_root = os.path.abspath(os.getcwd())
-
-#
-# Vendor imports
-#
-
-vendor_dir = os.path.join(nebula_root, "vendor")
-if os.path.exists(vendor_dir):
-    for pname in os.listdir(vendor_dir):
-        pname = os.path.join(vendor_dir, pname)
-        pname = os.path.abspath(pname)
-        if not pname in sys.path:
-            sys.path.insert(0, pname)
-
-from nx import *
-config["nebula_root"] = nebula_root
+from nxtools import *
+from templates import *
 
 #
-# End of init
+# Settings
 #
 
+config = {}
+try:
+    config.update(json.load(open("settings.json")))
+except Exception:
+    log_traceback("Configuration error")
+    critical_error("Unable to open settings file")
 
+#
+# Database connection
+#
 
-def create_core(data):
+class DB(object):
+    def __init__(self, **kwargs):
+        self.pmap = {
+                "host" : "db_host",
+                "user" : "db_user",
+                "password" : "db_pass",
+                "database" : "db_name",
+            }
+
+        self.settings = {
+                key : kwargs.get(self.pmap[key], config[self.pmap[key]]) for key in self.pmap
+            }
+
+        self.conn = psycopg2.connect(**self.settings)
+        self.cur = self.conn.cursor()
+
+    def lastid(self):
+        self.query("SELECT LASTVAL()")
+        return self.fetchall()[0][0]
+
+    def query(self, query, *args):
+        self.cur.execute(query, *args)
+
+    def fetchone(self):
+        return self.cur.fetchone()
+
+    def fetchall(self):
+        return self.cur.fetchall()
+
+    def commit(self):
+        self.conn.commit()
+
+    def rollback(self):
+        self.conn.rollback()
+
+    def close(self):
+        self.conn.close()
+
+    def __len__(self):
+        return True
+
+#
+# Template installers
+#
+
+def install_settings():
+    logging.info("Installing site settings")
     db = DB()
-    start_time = time.time()
+    db.query("DELETE FROM settings")
+    for key in data["settings"]:
+        value = json.dumps(data["settings"][key])
+        db.query("INSERT INTO settings (key, value) VALUES (%s, %s)", [key, value])
+    db.commit()
 
-    #
-    # Metadata set
-    #
 
-    logging.info("Installing metadata set")
+def install_storages():
+    logging.info("Installing storages")
+    pass
 
-    for key in data["meta_types"]:
-        ns, editable, fulltext, index, class_, settings = data["meta_types"][key]
-        insert(db, "meta_types",
-            key=key,
-            ns=ns,
-            editable=bool(editable),
-            searchable=bool(fulltext),
-            class_=class_,
-            settings=json.dumps(settings) if settings else None
+
+def install_channels():
+    logging.info("Installing channels")
+    pass
+
+
+def install_services():
+    logging.info("Installing services")
+    pass
+
+
+def install_actions():
+    logging.info("Installing actions")
+    pass
+
+
+def install_asset_types()
+    logging.info("Installing asset types")
+    db = DB()
+    db.query("DELETE FROM asset_types")
+    for id in data["asset_types"]:
+        settings = data["asset_types"][id]
+        title = settings["title"]
+        db.query(
+                "INSERT INTO asset_types (id, title, settings) VALUES (%s, %s, %s)",
+                [id, title, json.dumps("settings")]
             )
+    db.query("SELECT pg_catalog.setval(pg_get_serial_sequence('asset_types', 'id'), MAX(id)) FROM asset_types;")
+    db.commit()
 
+
+def install_meta_types():
+    logging.info("Installing metadata set")
+    db = DB()
+    languages = ["en"]
+
+    aliases = {}
+    for lang in languages:
+        aliases[lang] = {}
+        trans_table_fname = os.path.join("aliases", "meta-aliases-{}.json".format(lang))
+        l = json.load(open(trans_table_fname))
+        for key, alias, header in l:
+            aliases[lang][key] = [alias, header]
+
+    db.query("DELETE FROM meta_types")
+    for key in data["meta_types"]:
+        ns, e, index, ft, cls, settings = data["meta_types"][key]
+        meta_type_data = {
+                "ns" : ns,
+                "class" : cls,
+                "fulltext" : ft,
+                "editable" : e,
+                "aliases" : {}
+            }
+
+        for lang in languages:
+            meta_type_data["aliases"][lang] = aliases[lang][key]
+
+        db.query(
+                "INSERT INTO meta_types (key, settings) VALUES (%s, %s)",
+                [key, json.dumps(meta_type_data)]
+            )
         if index:
             idx_name = "idx_" + key.replace("/", "_")
-            db.query("CREATE INDEX IF NOT EXISTS {} ON assets(( meta->>%s ))".format(idx_name), [key])
-
-    for lang in ["en-US"]:
-        trans_table_fname = os.path.join("support", "aliases-{}.json".format(lang))
-        l = json.load(open(trans_table_fname))
-        for key, alias, col_header in l:
-            insert(db, "meta_aliases", key=key, lang=lang, alias=alias, col_header=col_header)
-
-    #
-    # Site settings
-    #
-
-    for cs, value, label in data["cs"]:
-        insert(db, "cs", cs=cs, value=value, label=label)
-
-    for key, value in data["settings"]:
-        insert(db, "settings", key=key, value=value)
-
-
-    max_id = 0
-    for id in data["folders"]:
-        title, color, meta_set = data["folders"][id]
-        insert(db, "folders", id=id, title=title, color=color, meta_set=json.dumps(meta_set))
-        max_id = max(id, max_id)
-    db.query("ALTER SEQUENCE folders_id_seq RESTART WITH %s", [max_id + 1])
-
-
-    max_id = 0
-    for id, title, settings in data["actions"]:
-        insert(db, "actions", id=id, title=title, settings=settings)
-        max_id = max(id, max_id)
-    db.query("ALTER SEQUENCE actions_id_seq RESTART WITH %s", [max_id + 1])
-
-
-    max_id = 0
-    for id, channel_type, title, settings in data["channels"]:
-        insert(db, "channels", id=id, channel_type=channel_type, title=title, settings=settings)
-        max_id = max(id, max_id)
-    db.query("ALTER SEQUENCE channels_id_seq RESTART WITH %s", [max_id + 1])
-
-
-    max_id = 0
-    for id, host, agent, title, autostart, loop_delay, settings in data["services"]:
-        insert(db, "services", id=id, agent=agent, title=title, autostart=autostart, loop_delay=loop_delay, settings=settings)
-        max_id = max(id_service, max_id)
-    db.query("ALTER SEQUENCE services_id_seq RESTART WITH %s", [max_id + 1])
-
-
-    max_id = 0
-    for id_storage, title, protocol, path, login, password in data["storages"]:
-        db.query(
-            "INSERT INTO storages (id, title, protocol, path, login, password) VALUES (%s, %s, %s, %s, %s, %s)",
-            [id_storage, title, protocol, path, login, password]
-            )
-        max_id = max(id_storage, max_id)
-    db.query("ALTER SEQUENCE storages_id_seq RESTART WITH %s", [max_id + 1])
-
-
-    max_id = 0
-    for id_view, title, owner, config, position in data["views"]:
-        db.query(
-            "INSERT INTO views (id, title, settings, owner, position) VALUES (%s, %s, %s, %s, %s)",
-            [id_view, title, config, owner, position]
-            )
-        max_id = max(id_view, max_id)
-    db.query("ALTER SEQUENCE views_id_seq RESTART WITH %s", [max_id + 1])
-
-    #
-    # Finish
-    #
-
+            db.query(
+                    "CREATE INDEX IF NOT EXISTS {} ON objects((meta->>%s))".format(idx_name),
+                    [key]
+                )
     db.commit()
-    logging.goodnews("Nebula settings migration completed in {:03f} seconds".format(time.time() - start_time))
 
 
+def install_cs():
+    pass
 
+
+def install_views():
+    pass
+
+
+#
+# Run
+#
 
 if __name__ == "__main__":
-    clear_all()
-    create_core(template_data)
+    start_time = time.time()
+
+    install_settings()
+    install_storages()
+    install_channels()
+    install_services()
+    install_actions()
+    install_asset_types()
+    install_meta_types()
+    install_cs()
+    install_views()
+
+    logging.goodnews("Nebula settings migration completed in {:03f} seconds".format(time.time() - start_time))
