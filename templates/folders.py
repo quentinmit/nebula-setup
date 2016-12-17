@@ -1,4 +1,4 @@
-ASSET_TYPES = {
+FOLDERS = {
     1 : {
         "title" : "Movies",
         "color" : 0x2872B3,
