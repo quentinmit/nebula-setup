@@ -24,27 +24,26 @@ META_TYPES = {
 "notes":                  ("o", 1, 0, 1, TEXT,        None),              # Production notes
 "promoted":               ("o", 1, 0, 0, BOOLEAN,     None),              # Asset "promotion". It"s hit, important, favourite,....
 
+
 #
 # Asset specific
 #
 
 "media_type":             ("a", 0, 1, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:MediaTypeCS"}),
 "content_type":           ("a", 0, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentTypeCS"}),
-"asset_type":             ("a", 1, 1, 0, INTEGER,     None),
 "status":                 ("a", 0, 1, 0, INTEGER,     None),              # OFFLINE, ONLINE, CREATING, TRASHED, ARCHIVED
-"version_of":             ("a", 0, 0, 0, INTEGER,     None),
 "id_storage":             ("a", 0, 0, 0, INTEGER,     None),
-"path":                   ("a", 1, 0, 1, TEXT,        None),
+"path":                   ("a", 0, 0, 1, TEXT,        None),
 "subclips":               ("a", 1, 0, 0, REGIONS,     None),
 "article":                ("a", 1, 0, 1, TEXT,        {"mode" : "rich"}),
 
-
+#
 # Descriptive
 #
 # If asset_type is changed and "m" key is not specified in the asset type settings, existing values are deleted
 #
 
-
+#                               E  I  F
 "title":                  ("m", 1, 0, 9, STRING,      None),                       # dc.title.main - The title most commonly associated with the resource.
 "subtitle":               ("m", 1, 0, 8, STRING,      None),                       # dc.title.subtitle - Ancillary title information for the resource.
 "description":            ("m", 1, 0, 7, TEXT,        {"syntax" : "md"}),
@@ -53,10 +52,10 @@ META_TYPES = {
 "subtitle/original":      ("m", 1, 0, 8, STRING,      None),                       # dc.title.subtitle - Ancillary title information for the resource.
 "description/original":   ("m", 1, 0, 7, TEXT,        {"syntax" : "md"}),
 
-"language":               ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS"}),
+"language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS"}),
 "editorial_format":       ("m", 1, 0, 1, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS"}),
 "editorial_control":      ("m", 1, 0, 1, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS"}),
-"genre":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
+"genre":                  ("m", 1, 1, 1, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
 "origination":            ("m", 1, 0, 1, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
 "content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),
 "keywords":               ("m", 1, 0, 9, TEXT,        None),                       # Comma delimited keywords list
@@ -70,8 +69,8 @@ META_TYPES = {
 "source/url":             ("m", 0, 0, 1, STRING,      None),
 "source/attribution":     ("m", 0, 0, 1, STRING,      None),
 
-"commercial_content":     ("m", 1, 0, 1, LIST,        {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
-"campaign":               ("m", 1, 0, 1, INTEGER,     None),                       # Campaign event id
+"commercial_content":     ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
+"campaign":               ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 
 "album":                  ("m", 1, 0, 1, STRING,      None),
 "serie":                  ("m", 1, 0, 1, STRING,      {"cs" : "urn:site:series"}),                       # Campaign event id
@@ -84,12 +83,18 @@ META_TYPES = {
 "id/imdb":                ("m", 1, 0, 8, STRING,      None),                       # IMDB ID for movies
 "id/guid":                ("m", 0, 0, 8, STRING,      None),                       # Created automatically when asset is created
 
+"role/director":          ("m", 1, 0, 7, STRING,      None),
+"role/performer":         ("m", 1, 0, 7, STRING,      None),
+"role/composer":          ("m", 1, 0, 7, STRING,      None),
+"role/cast":              ("m", 1, 0, 7, STRING,      None),
+
 #
 # Technical (automated extraction)
 #
 # f - format: created by "meta" service
 # q - quality/content: created by "analyzer" service
 #
+#                               E  I  F
 
 "duration":               ("f", 0, 0, 0, TIMECODE,    None),              # Clip duration. From ffprobe/format/duration. if fails, taken from streams[0]/duration
 "file/mtime":             ("f", 0, 0, 0, DATETIME,    None),              # Timestamp of file last modification
