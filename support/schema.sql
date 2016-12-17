@@ -10,14 +10,12 @@ CREATE TABLE public.settings (
 
 CREATE TABLE public.storages (
         id serial NOT NULL,
-        title VARCHAR(50) NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT storages_pkey PRIMARY KEY (id)
     );
 
 CREATE TABLE public.channels (
         id SERIAL NOT NULL,
-        title VARCHAR(255) NOT NULL,
         channel_type INTEGER NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT channels_pkey PRIMARY KEY (id)
@@ -39,16 +37,15 @@ CREATE TABLE public.services (
 
 CREATE TABLE public.actions (
         id SERIAL NOT NULL,
-        title varchar(50) NOT NULL,
+        title VARCHAR(255) NOT NULL,
         settings XML NOT NULL,
         CONSTRAINT actions_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE public.asset_types (
+CREATE TABLE public.folders (
         id SERIAL NOT NULL,
-        title VARCHAR(255),
         settings JSONB,
-        CONSTRAINT asset_types_pkey PRIMARY KEY (id)
+        CONSTRAINT folders_pkey PRIMARY KEY (id)
     );
 
 CREATE TABLE public.meta_types (
@@ -78,34 +75,69 @@ CREATE TABLE public.views (
 -- MAM
 --
 
-CREATE TABLE public.objects (
+CREATE TABLE public.assets (
         id SERIAL NOT NULL,
-        object_type INTEGER NOT NULL,
+        id_folder INTEGER NOT NULL,
+        version_of INTEGER DEFAULT 0,
         meta JSONB,
         CONSTRAINT assets_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE public.ft(
-        id INTEGER NOT NULL,
-        weight INTEGER DEFAULT 0,
-        value TEXT NOT NULL
+CREATE TABLE public.bins (
+        id SERIAL NOT NULL,
+        bin_type INTEGER DEFAULT 0,
+        meta JSONB,
+        CONSTRAINT bins_pkey PRIMARY KEY (id)
     );
 
-CREATE INDEX ft_index ON ft(value text_pattern_ops);
+CREATE TABLE public.items (
+        id SERIAL NOT NULL,
+        id_asset INTEGER REFERENCES public.assets(id),
+        id_bin INTEGER REFERENCES public.bins(id),
+        position INTEGER NOT NULL,
+        meta JSONB,
+        CONSTRAINT items_pkey PRIMARY KEY (id)
+    );
 
-CREATE VIEW public.assets AS SELECT id, meta FROM objects WHERE object_type = 0;
-CREATE VIEW public.items  AS SELECT id, meta FROM objects WHERE object_type = 1;
-CREATE VIEW public.bins   AS SELECT id, meta FROM objects WHERE object_type = 2;
-CREATE VIEW public.events AS SELECT id, meta FROM objects WHERE object_type = 3;
-CREATE VIEW public.users  AS SELECT id, meta FROM objects WHERE object_type = 4;
+CREATE TABLE public.events (
+        id SERIAL NOT NULL,
+        id_channel INTEGER REFERENCES public.channels(id),
+        start INTEGER NOT NULL,
+        stop INTEGER,
+        id_magic INTEGER,
+        meta JSONB,
+        CONSTRAINT events_pkey PRIMARY KEY (id)
+    );
+
+CREATE TABLE public.users (
+        id SERIAL NOT NULL,
+        meta JSONB,
+        CONSTRAINT users_pkey PRIMARY KEY (id)
+    );
+
+CREATE TABLE public.ft (
+        id INTEGER NOT NULL,
+        object_type INTEGER NOT NULL,
+        weight INTEGER DEFAULT 0,
+        value VARCHAR(255)
+    );
+
+CREATE INDEX idx_folders ON assets(id_folder);
+CREATE INDEX idx_items_bin ON items(id_bin);
+CREATE INDEX idx_event_channel ON events(id_channel);
+CREATE INDEX idx_event_start ON events(start);
+CREATE INDEX idx_event_magic ON events(id_magic);
+
+CREATE INDEX idx_ft_id ON ft(id);
+CREATE INDEX idx_ft_type ON ft(object_type);
+CREATE INDEX idx_ft ON ft(value text_pattern_ops);
 
 --
 -- AUX
 --
 
-
 CREATE TABLE public.jobs (
-        id serial NOT NULL,
+        id SERIAL NOT NULL,
         description JSONB NULL,
         progress INTEGER NOT NULL DEFAULT -1,
         message TEXT NOT NULL DEFAULT 'Pending',
@@ -120,9 +152,13 @@ CREATE TABLE public.jobs (
 CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
         id_channel INTEGER REFERENCES public.channels(id),
-        id_item INTEGER REFERENCES public.objects(id),
-        id_asset INTEGER REFERENCES public.objects(id),
+        id_item INTEGER REFERENCES public.items(id),
+        id_asset INTEGER REFERENCES public.assets(id),
         start FLOAT NOT NULL,
         stop FLOAT NOT NULL,
         CONSTRAINT asrun_pkey PRIMARY KEY (id)
     );
+
+CREATE INDEX rundown_start_idx ON asrun(start);
+CREATE INDEX rundown_channel_idx ON asrun(id_channel);
+CREATE INDEX rundown_asset_idx ON asrun(id_asset);
