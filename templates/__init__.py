@@ -1,9 +1,11 @@
-from .asset_types import *
+from .folders import *
 from .meta_types import *
 from .settings import *
+from .views import *
 
 data = {
-        "asset_types" : ASSET_TYPES,
+        "folders" : FOLDERS,
         "meta_types" : META_TYPES,
-        "settings" : SETTINGS
+        "settings" : SETTINGS,
+        "views" : VIEWS
     }
