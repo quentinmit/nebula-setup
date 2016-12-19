@@ -6,7 +6,8 @@ import json
 
 settings_files = [
         "/etc/nebula.json",
-        "../settings.json"
+        "../settings.json",
+        "settings.json"
     ]
 
 config = {}
