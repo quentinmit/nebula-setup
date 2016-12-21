@@ -79,6 +79,8 @@ CREATE TABLE public.assets (
         id SERIAL NOT NULL,
         id_folder INTEGER NOT NULL,
         version_of INTEGER DEFAULT 0,
+        ctime INTEGER NOT NULL,
+        mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT assets_pkey PRIMARY KEY (id)
     );
@@ -86,6 +88,8 @@ CREATE TABLE public.assets (
 CREATE TABLE public.bins (
         id SERIAL NOT NULL,
         bin_type INTEGER DEFAULT 0,
+        ctime INTEGER NOT NULL,
+        mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT bins_pkey PRIMARY KEY (id)
     );
@@ -95,6 +99,8 @@ CREATE TABLE public.items (
         id_asset INTEGER REFERENCES public.assets(id),
         id_bin INTEGER REFERENCES public.bins(id),
         position INTEGER NOT NULL,
+        ctime INTEGER NOT NULL,
+        mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT items_pkey PRIMARY KEY (id)
     );
@@ -105,6 +111,8 @@ CREATE TABLE public.events (
         start INTEGER NOT NULL,
         stop INTEGER,
         id_magic INTEGER,
+        ctime INTEGER NOT NULL,
+        mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT events_pkey PRIMARY KEY (id)
     );
@@ -112,6 +120,8 @@ CREATE TABLE public.events (
 CREATE TABLE public.users (
         id SERIAL NOT NULL,
         meta JSONB,
+        ctime INTEGER NOT NULL,
+        mtime INTEGER NOT NULL,
         CONSTRAINT users_pkey PRIMARY KEY (id)
     );
 
@@ -122,7 +132,10 @@ CREATE TABLE public.ft (
         value VARCHAR(255)
     );
 
+
 CREATE INDEX idx_folders ON assets(id_folder);
+CREATE INDEX idx_ctime ON assets(ctime);
+CREATE INDEX idx_mtime ON assets(mtime);
 CREATE INDEX idx_items_bin ON items(id_bin);
 CREATE INDEX idx_event_channel ON events(id_channel);
 CREATE INDEX idx_event_start ON events(start);
@@ -159,6 +172,6 @@ CREATE TABLE public.asrun (
         CONSTRAINT asrun_pkey PRIMARY KEY (id)
     );
 
-CREATE INDEX rundown_start_idx ON asrun(start);
-CREATE INDEX rundown_channel_idx ON asrun(id_channel);
-CREATE INDEX rundown_asset_idx ON asrun(id_asset);
+CREATE INDEX asrun_start_idx ON asrun(start);
+CREATE INDEX asrun_channel_idx ON asrun(id_channel);
+CREATE INDEX asrun_asset_idx ON asrun(id_asset);
