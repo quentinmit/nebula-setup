@@ -1,4 +1,9 @@
 FOLDERS = {
+
+#
+# Main
+#
+
     1 : {
         "title" : "Movies",
         "color" : 0x2872B3,
@@ -9,7 +14,7 @@ FOLDERS = {
                 ("description",         {}),
                 ("description/original",{}),
                 ("role/director",       {}),
-                ("genre",               {"cs" : "urn:immstudios:metadata-cs:movie-genres"}),
+                ("genre",               {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
                 ("keywords",            {}),
                 ("content_alert",       {}),
             ]
@@ -27,7 +32,7 @@ FOLDERS = {
                 ("description",         {}),
                 ("description/original",{}),
                 ("role/director",       {}),
-                ("genre",               {"cs" : "urn:immstudios:metadata-cs:movie-genres"}),
+                ("genre",               {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
                 ("keywords",            {}),
                 ("serie/season",        {}),
                 ("serie/episode",       {}),
@@ -36,21 +41,34 @@ FOLDERS = {
             ]
     },
 
+#
+# Shorts
+#
+
     3 : {
-        "title" : "Trailers",
-        "color" : 0x008E5C,
+        "title" : "Stories",
+        "color" : 0xFE0002,
         "meta_set" : [
-                ("title",               {}),
-            ]
+            ("title",                   {}),
+            ("title/subtitle",          {}),
+            ("description",             {}),
+            ("identifier/main",         {}),
+            ("article",                 {}),
+        ]
     },
 
     4 : {
-        "title" : "Jingles",
-        "color" : 0xE0E0E0,
+        "title" : "Fill",
+        "color" : 0x646464,
         "meta_set" : [
-                ("title",               {}),
-            ]
+            ("title",                   {}),
+            ("description",             {}),
+            ("description/original",    {}),
+            ("genre",                   {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+            ("qc/report",               {}),
+        ]
     },
+
 
     5 : {
         "title" : "Music",
@@ -62,34 +80,27 @@ FOLDERS = {
                 ("album",               {}),
                 ("description",         {}),
                 ("description/original",{}),
-                ("genre",               {"cs" : "urn:immstudios:metadata-cs:music-genres"}),
+                ("genre",               {"cs" : "urn:nxtv:metadata-cs:music-genres"}),
                 ("contains/cg_text",    {}),
                 ("qc/report"       ,    {}),
             ]
     },
 
+
     6 : {
-        "title" : "News",
-        "color" : 0xFE0002,
+        "title" : "Trailers",
+        "color" : 0x008E5C,
         "meta_set" : [
-            ("title",                   {}),
-            ("title/subtitle",          {}),
-            ("description",             {}),
-            ("identifier/main",         {}),
-            ("article",                 {}),
-        ]
+                ("title",               {}),
+            ]
     },
 
     7 : {
-        "title" : "Fill",
-        "color" : 0x646464,
+        "title" : "Jingles",
+        "color" : 0xE0E0E0,
         "meta_set" : [
-            ("title",                   {}),
-            ("description",             {}),
-            ("description/original",    {}),
-            ("genre",                   {"cs" : "urn:immstudios:metadata-cs:movie-genres"}),
-            ("qc/report",               {}),
-        ]
+                ("title",               {}),
+            ]
     },
 
     8 : {
@@ -100,7 +111,42 @@ FOLDERS = {
         ]
     },
 
+
+
+#
+# Commercial content
+#
+
+    9 : {
+        "title" : "Commercials",
+        "color" : 0xb0b0b0,
+        "meta_set" : [
+            ("title",                  {}),
+        ]
+    },
+
     10 : {
+        "title" : "Teleshopping",
+        "color" : 0xb0b0b0,
+        "meta_set" : [
+            ("title",                  {}),
+        ]
+    }
+
+#
+# Aux
+#
+
+    11 : {
+        "title" : "Datasets",
+        "color" : 0xC7037F,
+        "meta_set" : [
+            ("title",                   {})
+        ]
+    },
+
+
+    12 : {
         "title" : "Incomming",
         "color" : 0xb0b0b0,
         "meta_set" : [
@@ -108,7 +154,6 @@ FOLDERS = {
             ("description",            {}),
             ("qc/report",              {}),
         ]
-    }
-
+    },
 
 } # END OF ASSET_TYPES

@@ -1,7 +1,6 @@
 VIEWS = {
-
     1: {
-        "title" : "movies",
+        "title" : "Main",
         "owner" : 0,
         "position" : 1,
         "settings" : """<view>
@@ -12,7 +11,23 @@ VIEWS = {
         <column>duration</column>
     </columns>
 </view>"""
-    }
+    },
+
+
+2: {
+        "title" : "Fill",
+        "owner" : 0,
+        "position" : 2,
+        "settings" : """<view>
+    <columns>
+        <column>title</column>
+        <column>duration</column>
+    </columns>
+</view>"""
+    },
+
+
+
 
 
 }

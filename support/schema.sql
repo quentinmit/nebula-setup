@@ -23,12 +23,12 @@ CREATE TABLE public.channels (
 
 CREATE TABLE public.services (
         id SERIAL NOT NULL,
-        agent VARCHAR(50) NOT NULL,
-        title VARCHAR(50) NOT NULL,
+        service_type VARCHAR(50) NOT NULL,
         host VARCHAR(50) NOT NULL,
+        title VARCHAR(50) NOT NULL,
+        settings XML NULL,
         autostart INTEGER NOT NULL DEFAULT 0,
         loop_delay INTEGER NOT NULL DEFAULT 5,
-        settings XML NULL,
         state INTEGER NOT NULL DEFAULT 0,
         pid INTEGER NOT NULL DEFAULT 0,
         last_seen INTEGER NOT NULL DEFAULT 0,
@@ -75,35 +75,48 @@ CREATE TABLE public.views (
 -- MAM
 --
 
+-- ASSETS
+
 CREATE TABLE public.assets (
         id SERIAL NOT NULL,
         id_folder INTEGER NOT NULL,
-        version_of INTEGER DEFAULT 0,
+        status INTEGER NOT NULL DEFAULT 1,
+        version_of INTEGER NOT NULL DEFAULT 0,
         ctime INTEGER NOT NULL,
         mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT assets_pkey PRIMARY KEY (id)
     );
 
+CREATE INDEX idx_folder ON assets(id_folder);
+CREATE INDEX idx_status ON assets(id_folder);
+CREATE INDEX idx_ctime ON assets(ctime);
+CREATE INDEX idx_mtime ON assets(mtime);
+
+-- BINS
+
 CREATE TABLE public.bins (
         id SERIAL NOT NULL,
         bin_type INTEGER DEFAULT 0,
-        ctime INTEGER NOT NULL,
-        mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT bins_pkey PRIMARY KEY (id)
     );
+
+-- ITEMS
 
 CREATE TABLE public.items (
         id SERIAL NOT NULL,
         id_asset INTEGER REFERENCES public.assets(id),
         id_bin INTEGER REFERENCES public.bins(id),
         position INTEGER NOT NULL,
-        ctime INTEGER NOT NULL,
-        mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT items_pkey PRIMARY KEY (id)
     );
+
+CREATE INDEX idx_items_asset ON items(id_asset);
+CREATE INDEX idx_items_bin ON items(id_bin);
+
+-- EVENTS
 
 CREATE TABLE public.events (
         id SERIAL NOT NULL,
@@ -111,19 +124,23 @@ CREATE TABLE public.events (
         start INTEGER NOT NULL,
         stop INTEGER,
         id_magic INTEGER,
-        ctime INTEGER NOT NULL,
-        mtime INTEGER NOT NULL,
         meta JSONB,
         CONSTRAINT events_pkey PRIMARY KEY (id)
     );
 
+CREATE INDEX idx_event_channel ON events(id_channel);
+CREATE INDEX idx_event_start ON events(start);
+CREATE INDEX idx_event_magic ON events(id_magic);
+
+-- USERS
+
 CREATE TABLE public.users (
         id SERIAL NOT NULL,
         meta JSONB,
-        ctime INTEGER NOT NULL,
-        mtime INTEGER NOT NULL,
         CONSTRAINT users_pkey PRIMARY KEY (id)
     );
+
+-- FULLTEXT INDEX
 
 CREATE TABLE public.ft (
         id INTEGER NOT NULL,
@@ -131,15 +148,6 @@ CREATE TABLE public.ft (
         weight INTEGER DEFAULT 0,
         value VARCHAR(255)
     );
-
-
-CREATE INDEX idx_folders ON assets(id_folder);
-CREATE INDEX idx_ctime ON assets(ctime);
-CREATE INDEX idx_mtime ON assets(mtime);
-CREATE INDEX idx_items_bin ON items(id_bin);
-CREATE INDEX idx_event_channel ON events(id_channel);
-CREATE INDEX idx_event_start ON events(start);
-CREATE INDEX idx_event_magic ON events(id_magic);
 
 CREATE INDEX idx_ft_id ON ft(id);
 CREATE INDEX idx_ft_type ON ft(object_type);
@@ -151,7 +159,8 @@ CREATE INDEX idx_ft ON ft(value text_pattern_ops);
 
 CREATE TABLE public.jobs (
         id SERIAL NOT NULL,
-        description JSONB NULL,
+        id_action INTEGER REFERENCES public.actions(id),
+        settings JSONB NULL,
         progress INTEGER NOT NULL DEFAULT -1,
         message TEXT NOT NULL DEFAULT 'Pending',
         priority INTEGER NOT NULL DEFAULT 3,
@@ -167,8 +176,8 @@ CREATE TABLE public.asrun (
         id_channel INTEGER REFERENCES public.channels(id),
         id_item INTEGER REFERENCES public.items(id),
         id_asset INTEGER REFERENCES public.assets(id),
-        start FLOAT NOT NULL,
-        stop FLOAT NOT NULL,
+        start INTEGER NOT NULL,
+        stop INTEGER NOT NULL,
         CONSTRAINT asrun_pkey PRIMARY KEY (id)
     );
 

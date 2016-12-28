@@ -31,7 +31,8 @@ META_TYPES = {
 
 "media_type":             ("a", 0, 1, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:MediaTypeCS"}),
 "content_type":           ("a", 0, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentTypeCS"}),
-"status":                 ("a", 0, 1, 0, INTEGER,     None),              # OFFLINE, ONLINE, CREATING, TRASHED, ARCHIVED
+"status":                 ("a", 0, 0, 0, INTEGER,     {"default" : 1}),              # OFFLINE, ONLINE, CREATING, TRASHED, ARCHIVED
+"version_of":             ("a", 0, 0, 0, INTEGER,     {"default" : 0}),
 "id_storage":             ("a", 0, 0, 0, INTEGER,     None),
 "path":                   ("a", 0, 0, 1, TEXT,        None),
 "subclips":               ("a", 1, 0, 0, REGIONS,     None),
@@ -68,12 +69,13 @@ META_TYPES = {
 "source":                 ("m", 0, 0, 1, STRING,      None),                       # Youtube, Vimeo, PirateBay....
 "source/url":             ("m", 0, 0, 1, STRING,      None),
 "source/attribution":     ("m", 0, 0, 1, STRING,      None),
+"source/rating":          ("m", 0, 1, 0, INTEGER,     None),                       # Provided rating normalized to: from 0 (worst) to 100 (best)
 
 "commercial_content":     ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
 "campaign":               ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 
 "album":                  ("m", 1, 0, 1, STRING,      None),
-"serie":                  ("m", 1, 0, 1, STRING,      {"cs" : "urn:site:series"}),                       # Campaign event id
+"serie":                  ("m", 1, 0, 1, STRING,      {"cs" : "urn:site:series"}),
 "serie/season":           ("m", 1, 0, 1, INTEGER,     None),
 "serie/episode":          ("m", 1, 0, 1, INTEGER,     None),
 
@@ -86,7 +88,7 @@ META_TYPES = {
 "role/director":          ("m", 1, 0, 7, STRING,      None),
 "role/performer":         ("m", 1, 0, 7, STRING,      None),
 "role/composer":          ("m", 1, 0, 7, STRING,      None),
-"role/cast":              ("m", 1, 0, 7, STRING,      None),
+"role/cast":              ("m", 1, 0, 7, STRING,      None),                       # Coma delimited cast
 
 #
 # Technical (automated extraction)
