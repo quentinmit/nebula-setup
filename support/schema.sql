@@ -80,6 +80,8 @@ CREATE TABLE public.views (
 CREATE TABLE public.assets (
         id SERIAL NOT NULL,
         id_folder INTEGER NOT NULL,
+        content_type INTEGER NOT NULL,
+        media_type INTEGER NOT NULL,
         status INTEGER NOT NULL DEFAULT 1,
         version_of INTEGER NOT NULL DEFAULT 0,
         ctime INTEGER NOT NULL,
@@ -89,6 +91,8 @@ CREATE TABLE public.assets (
     );
 
 CREATE INDEX idx_folder ON assets(id_folder);
+CREATE INDEX idx_content_type ON assets(content_type);
+CREATE INDEX idx_media_type ON assets(media_type);
 CREATE INDEX idx_status ON assets(id_folder);
 CREATE INDEX idx_ctime ON assets(ctime);
 CREATE INDEX idx_mtime ON assets(mtime);
@@ -106,7 +110,7 @@ CREATE TABLE public.bins (
 
 CREATE TABLE public.items (
         id SERIAL NOT NULL,
-        id_asset INTEGER REFERENCES public.assets(id),
+        id_asset INTEGER NOT NULL, -- can be zero (default, virtual item)
         id_bin INTEGER REFERENCES public.bins(id),
         position INTEGER NOT NULL,
         meta JSONB,
@@ -120,7 +124,7 @@ CREATE INDEX idx_items_bin ON items(id_bin);
 
 CREATE TABLE public.events (
         id SERIAL NOT NULL,
-        id_channel INTEGER REFERENCES public.channels(id),
+        id_channel INTEGER NOT NULL,
         start INTEGER NOT NULL,
         stop INTEGER,
         id_magic INTEGER,
@@ -159,7 +163,7 @@ CREATE INDEX idx_ft ON ft(value text_pattern_ops);
 
 CREATE TABLE public.jobs (
         id SERIAL NOT NULL,
-        id_action INTEGER REFERENCES public.actions(id),
+        id_action INTEGER NOT NULL,
         settings JSONB NULL,
         progress INTEGER NOT NULL DEFAULT -1,
         message TEXT NOT NULL DEFAULT 'Pending',
@@ -173,7 +177,7 @@ CREATE TABLE public.jobs (
 
 CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
-        id_channel INTEGER REFERENCES public.channels(id),
+        id_channel INTEGER NOT NULL,
         id_item INTEGER REFERENCES public.items(id),
         id_asset INTEGER REFERENCES public.assets(id),
         start INTEGER NOT NULL,
