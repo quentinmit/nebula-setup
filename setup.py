@@ -95,7 +95,16 @@ def install_storages():
 
 def install_channels():
     logging.info("Installing channels")
-    pass
+    db = DB()
+    db.query("DELETE FROM channels")
+    for id in data["channels"]:
+        channel_type, settings = data["channels"][id]
+        db.query(
+                "INSERT INTO channels (id, channel_type, settings) VALUES (%s, %s, %s)",
+                [id, channel_type, json.dumps(settings)]
+            )
+    db.query("SELECT setval(pg_get_serial_sequence('channels', 'id'), coalesce(max(id),0) + 1, false) FROM channels;")
+    db.commit()
 
 
 def install_services():
@@ -145,6 +154,8 @@ def install_meta_types():
                 "editable" : e,
                 "aliases" : {}
             }
+        if settings:
+            meta_type_data.update(settings)
 
         for lang in languages:
             meta_type_data["aliases"][lang] = aliases[lang][key]
