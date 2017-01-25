@@ -5,7 +5,7 @@ FOLDERS = {
 #
 
     1 : {
-        "title" : "Movies",
+        "title" : "Movie",
         "color" : 0x2872B3,
         "meta_set" : [
                 ("title",               {}),
@@ -20,8 +20,9 @@ FOLDERS = {
             ]
     },
 
+
     2 : {
-        "title" : "Series",
+        "title" : "Serie",
         "color" : 0x0397BB,
         "meta_set" : [
                 ("title",               {}),
@@ -46,8 +47,8 @@ FOLDERS = {
 #
 
     3 : {
-        "title" : "Stories",
-        "color" : 0xFE0002,
+        "title" : "Story",
+        "color" : 0x00b9ce,
         "meta_set" : [
             ("title",                   {}),
             ("title/subtitle",          {}),
@@ -57,22 +58,10 @@ FOLDERS = {
         ]
     },
 
+
     4 : {
-        "title" : "Fill",
-        "color" : 0x646464,
-        "meta_set" : [
-            ("title",                   {}),
-            ("description",             {}),
-            ("description/original",    {}),
-            ("genre",                   {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-            ("qc/report",               {}),
-        ]
-    },
-
-
-    5 : {
-        "title" : "Music",
-        "color" : 0x8AC91A,
+        "title" : "Song",
+        "color" : 0xb9c0dd,
         "meta_set" : [
                 ("title",               {}),
                 ("role/performer",      {}),
@@ -87,30 +76,44 @@ FOLDERS = {
     },
 
 
+    5 : {
+        "title" : "Fill",
+        "color" : 0x81c77f,
+        "meta_set" : [
+            ("title",                   {}),
+            ("description",             {}),
+            ("description/original",    {}),
+            ("genre",                   {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+            ("qc/report",               {}),
+        ]
+    },
+
+
     6 : {
-        "title" : "Trailers",
+        "title" : "Trailer",
         "color" : 0x008E5C,
         "meta_set" : [
                 ("title",               {}),
             ]
     },
 
+
     7 : {
-        "title" : "Jingles",
-        "color" : 0xE0E0E0,
+        "title" : "Jingle",
+        "color" : 0xcf1f45,
         "meta_set" : [
                 ("title",               {}),
             ]
     },
 
+
     8 : {
-        "title" : "Templates",
-        "color" : 0xC7037F,
+        "title" : "Template",
+        "color" : 0xf2799c,
         "meta_set" : [
             ("title",                   {})
         ]
     },
-
 
 
 #
@@ -118,28 +121,29 @@ FOLDERS = {
 #
 
     9 : {
-        "title" : "Commercials",
-        "color" : 0xb0b0b0,
+        "title" : "Commercial",
+        "color" : 0xf6d258,
         "meta_set" : [
             ("title",                  {}),
         ]
     },
 
+
     10 : {
         "title" : "Teleshopping",
-        "color" : 0xb0b0b0,
+        "color" : 0xe3d6d5,
         "meta_set" : [
             ("title",                  {}),
         ]
-    }
+    },
 
 #
 # Aux
 #
 
     11 : {
-        "title" : "Datasets",
-        "color" : 0xC7037F,
+        "title" : "Dataset",
+        "color" : 0xa0aac5,
         "meta_set" : [
             ("title",                   {})
         ]
@@ -148,7 +152,7 @@ FOLDERS = {
 
     12 : {
         "title" : "Incomming",
-        "color" : 0xb0b0b0,
+        "color" : 0x998e88,
         "meta_set" : [
             ("title",                  {}),
             ("description",            {}),
@@ -156,4 +160,14 @@ FOLDERS = {
         ]
     },
 
-} # END OF ASSET_TYPES
+
+    13 : {
+        "title" : "Playout",
+        "color" : 0xb11d3f,
+        "meta_set" : [
+            ("title",                  {}),
+            ("identifier/main",        {}),
+        ]
+    },
+
+} # END OF FOLDERS
