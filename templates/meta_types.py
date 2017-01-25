@@ -15,25 +15,34 @@ LIST         = 10
 
 META_TYPES = {
 
-# KEY                      NS   E  I  F  CLASS        SETTINGS
+# KEY                       NS   E  I  F  CLASS        SETTINGS
 
-"ctime":                  ("o", 0, 0, 0, DATETIME,    None),              # Creation time
-"mtime":                  ("o", 0, 0, 0, DATETIME,    None),              # Last modified time
-"mark_in":                ("o", 1, 0, 0, TIMECODE,    None),
-"mark_out":               ("o", 1, 0, 0, TIMECODE,    None),
-"notes":                  ("o", 1, 0, 1, TEXT,        None),              # Production notes
-"promoted":               ("o", 1, 0, 0, BOOLEAN,     None),              # Asset "promotion". It"s hit, important, favourite,....
+"ctime":                  ("o",  0, 0, 0, DATETIME,    None),              # Creation time
+"mtime":                  ("o",  0, 0, 0, DATETIME,    None),              # Last modified time
+"notes":                  ("o",  1, 0, 1, TEXT,        None),              # Production notes
+"promoted":               ("o",  1, 0, 0, BOOLEAN,     None),              # Asset "promotion". It"s hit, important, favourite,....
 
+"is_admim":               ("u",  1, 0, 0, BOOLEAN,     None),
+
+"start":                  ("e",  1, 0, 0, DATETIME,    None),
+"stop":                   ("e",  1, 0, 0, DATETIME,    None),
+"rundown_broadcast":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
+"rundown_scheduled":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
+"rundown_symbol":         ("ei", 0, 0, 0, INTEGER,     None),
+
+"mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
+"mark_out":               ("ai", 1, 0, 0, TIMECODE,    None),
 
 #
 # Asset specific
 #
 
-"media_type":             ("a", 0, 1, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:MediaTypeCS"}),
-"content_type":           ("a", 0, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentTypeCS"}),
+"media_type":             ("a", 0, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:MediaTypeCS"}),
+"content_type":           ("a", 0, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentTypeCS"}),
 "status":                 ("a", 0, 0, 0, INTEGER,     {"default" : 1}),              # OFFLINE, ONLINE, CREATING, TRASHED, ARCHIVED
 "version_of":             ("a", 0, 0, 0, INTEGER,     {"default" : 0}),
-"id_storage":             ("a", 0, 0, 0, INTEGER,     None),
+"id_storage":             ("a", 0, 1, 0, INTEGER,     None),
+"id_folder":              ("a", 0, 0, 0, INTEGER,     None),
 "path":                   ("a", 0, 0, 1, TEXT,        None),
 "subclips":               ("a", 1, 0, 0, REGIONS,     None),
 "article":                ("a", 1, 0, 1, TEXT,        {"mode" : "rich"}),
@@ -41,7 +50,7 @@ META_TYPES = {
 #
 # Descriptive
 #
-# If asset_type is changed and "m" key is not specified in the asset type settings, existing values are deleted
+# If id_folder  is changed and "m" key is not specified in the asset type settings, existing values are deleted
 #
 
 #                               E  I  F
@@ -62,6 +71,7 @@ META_TYPES = {
 "keywords":               ("m", 1, 0, 9, TEXT,        None),                       # Comma delimited keywords list
 
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
+"year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "licence":                ("m", 1, 0, 1, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
 "rights":                 ("m", 1, 0, 1, TEXT,        None),
@@ -75,7 +85,7 @@ META_TYPES = {
 "campaign":               ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 
 "album":                  ("m", 1, 0, 1, STRING,      None),
-"serie":                  ("m", 1, 0, 1, STRING,      {"cs" : "urn:site:series"}),
+"serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series"}),
 "serie/season":           ("m", 1, 0, 1, INTEGER,     None),
 "serie/episode":          ("m", 1, 0, 1, INTEGER,     None),
 
