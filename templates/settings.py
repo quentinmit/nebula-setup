@@ -9,4 +9,5 @@ SETTINGS = {
     "plugin_root"    : ".nx/plugins",
     "proxy_root"     : ".nx/proxy",
     "thumb_root"     : ".nx/thumb",
+    "proxy_base_url" : "https://sport5.nebulabroadcast.com/proxy",
 }
