@@ -27,7 +27,7 @@ CREATE TABLE public.services (
         host VARCHAR(50) NOT NULL,
         title VARCHAR(50) NOT NULL,
         settings XML NULL,
-        autostart INTEGER NOT NULL DEFAULT 0,
+        autostart BOOLEAN NOT NULL DEFAULT false,
         loop_delay INTEGER NOT NULL DEFAULT 5,
         state INTEGER NOT NULL DEFAULT 0,
         pid INTEGER NOT NULL DEFAULT 0,
@@ -59,7 +59,7 @@ CREATE TABLE public.cs (
         key VARCHAR(255) NOT NULL,
         value JSONB NOT NULL,
         settings JSONB,
-        CONSTRAINT cs_pkey PRIMARY KEY (cs, value)
+        CONSTRAINT cs_pkey PRIMARY KEY (cs, key)
     );
 
 CREATE TABLE public.views (
@@ -140,6 +140,8 @@ CREATE INDEX idx_event_magic ON events(id_magic);
 
 CREATE TABLE public.users (
         id SERIAL NOT NULL,
+        login VARCHAR(255) UNIQUE,
+        password VARCHAR(255) NOT NULL,
         meta JSONB,
         CONSTRAINT users_pkey PRIMARY KEY (id)
     );
@@ -160,6 +162,13 @@ CREATE INDEX idx_ft ON ft(value text_pattern_ops);
 --
 -- AUX
 --
+
+CREATE TABLE public.hosts (
+        hostname VARCHAR(255) NOT NULL,
+        last_seen INTEGER NOT NULL DEFAULT 0,
+        status JSONB,
+        CONSTRAINT hosts_pkey PRIMARY KEY(hostname)
+    );
 
 CREATE TABLE public.jobs (
         id SERIAL NOT NULL,

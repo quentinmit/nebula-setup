@@ -90,7 +90,14 @@ def install_settings():
 
 def install_storages():
     logging.info("Installing storages")
-    pass
+    db = DB()
+    db.query("DELETE FROM storages")
+    for key in data["storages"]:
+        value = json.dumps(data["storages"][key])
+        db.query("INSERT INTO storages (id, settings) VALUES (%s, %s)", [key, value])
+    db.commit()
+    db.query("SELECT setval(pg_get_serial_sequence('storages', 'id'), coalesce(max(id),0) + 1, false) FROM storages;")
+    db.commit()
 
 
 def install_channels():
@@ -109,7 +116,18 @@ def install_channels():
 
 def install_services():
     logging.info("Installing services")
-    pass
+    db = DB()
+    db.query("DELETE FROM services")
+    for id in data["services"]:
+        stype, host, title, settings, autostart, loop_delay = data["services"][id]
+        if not settings:
+            settings = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<service/>"
+        db.query(
+            "INSERT INTO services (id, service_type, host, title, settings, autostart, loop_delay) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            [id, stype, host, title, settings, autostart, loop_delay])
+    db.commit()
+    db.query("SELECT setval(pg_get_serial_sequence('services', 'id'), coalesce(max(id),0) + 1, false) FROM services;")
+    db.commit()
 
 
 def install_actions():

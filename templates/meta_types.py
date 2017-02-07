@@ -28,7 +28,9 @@ META_TYPES = {
 "stop":                   ("e",  1, 0, 0, DATETIME,    None),
 "rundown_broadcast":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
 "rundown_scheduled":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
+"rundown_difference":     ("ei", 0, 0, 0, TIMECODE,    None),
 "rundown_symbol":         ("ei", 0, 0, 0, INTEGER,     None),
+"rundown_status":         ("ei", 0, 0, 0, INTEGER,     None),
 
 "mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
 "mark_out":               ("ai", 1, 0, 0, TIMECODE,    None),
