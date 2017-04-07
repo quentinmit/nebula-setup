@@ -1,4 +1,5 @@
 from .folders import *
+from .actions import *
 from .meta_types import *
 from .settings import *
 from .views import *
@@ -8,6 +9,7 @@ from .services import *
 
 data = {
         "folders" : FOLDERS,
+        "actions" : ACTIONS,
         "meta_types" : META_TYPES,
         "settings" : SETTINGS,
         "views" : VIEWS,

@@ -160,14 +160,4 @@ FOLDERS = {
         ]
     },
 
-
-    13 : {
-        "title" : "Playout",
-        "color" : 0xb11d3f,
-        "meta_set" : [
-            ("title",                  {}),
-            ("identifier/main",        {}),
-        ]
-    },
-
 } # END OF FOLDERS

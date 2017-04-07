@@ -7,13 +7,13 @@ import sys
 import time
 import json
 
+import rex
+
 try:
     import psycopg2
 except ImportError:
     log_traceback("Import error")
     critical_error("Unable to import psycopg2")
-
-import rex
 
 from nxtools import *
 from templates import *
@@ -122,6 +122,8 @@ def install_services():
         stype, host, title, settings, autostart, loop_delay = data["services"][id]
         if not settings:
             settings = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<service/>"
+        else:
+            settings = open(os.path.join("templates", settings)).read()
         db.query(
             "INSERT INTO services (id, service_type, host, title, settings, autostart, loop_delay) VALUES (%s, %s, %s, %s, %s, %s, %s)",
             [id, stype, host, title, settings, autostart, loop_delay])
@@ -132,7 +134,17 @@ def install_services():
 
 def install_actions():
     logging.info("Installing actions")
-    pass
+    db = DB()
+    db.query("DELETE FROM actions")
+    for id in data["actions"]:
+        title, service_type, settings_path = data["actions"][id]
+        settings = open(os.path.join("templates", settings_path)).read()
+        db.query(
+                "INSERT INTO actions (id, service_type, title, settings) VALUES (%s, %s, %s, %s)",
+                [id, service_type, title, settings]
+            )
+    db.query("SELECT setval(pg_get_serial_sequence('actions', 'id'), coalesce(max(id),0) + 1, false) FROM actions;")
+    db.commit()
 
 
 def install_folders():

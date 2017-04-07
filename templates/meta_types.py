@@ -111,16 +111,20 @@ META_TYPES = {
 #                               E  I  F
 
 "duration":               ("f", 0, 0, 0, TIMECODE,    None),              # Clip duration. From ffprobe/format/duration. if fails, taken from streams[0]/duration
+"start_timecode":         ("f", 0, 0, 0, TIMECODE,    None),
 "file/mtime":             ("f", 0, 0, 0, DATETIME,    None),              # Timestamp of file last modification
 "file/size":              ("f", 0, 0, 0, INTEGER,     None),              # File size in bytes
 "file/format":            ("f", 0, 0, 0, STRING,      None),              # Container format name. from ffprobe/format/format_name
+"video/index":            ("f", 0, 0, 0, INTEGER,     None),              # Index of the video track
 "video/width":            ("f", 0, 0, 0, INTEGER,     None),              # Video frame / image width (pixels)
 "video/height":           ("f", 0, 0, 0, INTEGER,     None),              # Video frame / image height (pixels)
 "video/fps":              ("f", 0, 0, 0, FRACTION,    None),
+"video/fps_f":            ("f", 0, 0, 0, NUMERIC,     None),
 "video/pixel_format":     ("f", 0, 0, 0, STRING,      None),
 "video/color_range":      ("f", 0, 0, 0, STRING,      None),
 "video/color_space":      ("f", 0, 0, 0, STRING,      None),
 "video/aspect_ratio":     ("f", 0, 0, 0, FRACTION,    None),
+"video/aspect_ratio_f":   ("f", 0, 0, 0, NUMERIC,     None),
 "video/codec":            ("f", 0, 0, 0, STRING,      None),
 "audio/codec":            ("f", 0, 0, 0, STRING,      None),
 

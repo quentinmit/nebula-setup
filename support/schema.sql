@@ -37,6 +37,7 @@ CREATE TABLE public.services (
 
 CREATE TABLE public.actions (
         id SERIAL NOT NULL,
+        service_type VARCHAR(255) NOT NULL,
         title VARCHAR(255) NOT NULL,
         settings XML NOT NULL,
         CONSTRAINT actions_pkey PRIMARY KEY (id)
@@ -173,7 +174,10 @@ CREATE TABLE public.hosts (
 CREATE TABLE public.jobs (
         id SERIAL NOT NULL,
         id_action INTEGER NOT NULL,
-        settings JSONB NULL,
+        id_asset INTEGER,
+        id_service INTEGER,
+        id_user INTEGER,
+        settings JSONB,
         priority INTEGER NOT NULL DEFAULT 3,
         retries INTEGER NOT NULL DEFAULT 0,
         status INTEGER DEFAULT 0,
