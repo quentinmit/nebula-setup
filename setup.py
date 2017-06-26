@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-
-from __future__ import print_function
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -9,14 +7,14 @@ import json
 
 import rex
 
+from nxtools import *
+from templates import *
+
 try:
     import psycopg2
 except ImportError:
     log_traceback("Import error")
     critical_error("Unable to import psycopg2")
-
-from nxtools import *
-from templates import *
 
 #
 # Settings
