@@ -8,7 +8,7 @@ import json
 import rex
 
 from nxtools import *
-from templates import *
+from defaults import *
 
 try:
     import psycopg2
@@ -121,7 +121,7 @@ def install_services():
         if not settings:
             settings = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<service/>"
         else:
-            settings = open(os.path.join("templates", settings)).read()
+            settings = open(os.path.join("defaults", settings)).read()
         db.query(
             "INSERT INTO services (id, service_type, host, title, settings, autostart, loop_delay) VALUES (%s, %s, %s, %s, %s, %s, %s)",
             [id, stype, host, title, settings, autostart, loop_delay])
@@ -136,7 +136,7 @@ def install_actions():
     db.query("DELETE FROM actions")
     for id in data["actions"]:
         title, service_type, settings_path = data["actions"][id]
-        settings = open(os.path.join("templates", settings_path)).read()
+        settings = open(os.path.join("defaults", settings_path)).read()
         db.query(
                 "INSERT INTO actions (id, service_type, title, settings) VALUES (%s, %s, %s, %s)",
                 [id, service_type, title, settings]

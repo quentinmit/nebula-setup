@@ -1,0 +1,3 @@
+<service>
+    <folder id_storage="1" path="clip.dir"></folder>
+</service>
