@@ -1,4 +1,0 @@
-<service>
-    <relay>http://localhost/</relay>
-    <log_dir>/var/log/nebula</log_dir>
-</service>
