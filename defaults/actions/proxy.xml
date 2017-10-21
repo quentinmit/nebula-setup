@@ -62,9 +62,9 @@ elif atracks[0]['channels'] > 1:
 elif len(atracks) > 1:
     audio_mode = 2
 else:
-    print asset
-    print asset.file_path
-    print asset.meta
+    print (asset)
+    print (asset.file_path)
+    print (asset.meta)
 
 ]]></script>
         <!-- frame format -->
