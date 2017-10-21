@@ -2,7 +2,7 @@ STORAGES = {
         1 : {
             "title" : "Production",
             "protocol" : "samba",
-            "path" : "//192.168.4.4/nxtv",
+            "path" : "//localhost/nebula",
             "login" : "nebula",
             "password" : "nebula"
         }
