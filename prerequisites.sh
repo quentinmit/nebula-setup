@@ -13,8 +13,8 @@ function install_memcached {
 
 function install_node {
     echo "Installing node server requirements"
-    apt install -y libmemcached-dev python3-pip cifs-utils
-    pip3 install pylibmc psutil psycopg2 pyyaml requests
+    apt install -y libmemcached-dev python3-pip cifs-utils zlib1g-dev
+    pip3 install pylibmc psutil psycopg2-binary pyyaml requests
 }
 
 function install_core {
