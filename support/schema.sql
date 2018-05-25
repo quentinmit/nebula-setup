@@ -57,10 +57,9 @@ CREATE TABLE public.meta_types (
 
 CREATE TABLE public.cs (
         cs VARCHAR(255) NOT NULL,
-        key VARCHAR(255) NOT NULL,
-        value JSONB NOT NULL,
+        value VARCHAR(255) NOT NULL,
         settings JSONB,
-        CONSTRAINT cs_pkey PRIMARY KEY (cs, key)
+        CONSTRAINT cs_pkey PRIMARY KEY (cs, value)
     );
 
 CREATE TABLE public.views (
