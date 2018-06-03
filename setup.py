@@ -10,11 +10,13 @@ import rex
 from nxtools import *
 from defaults import *
 
+if os.path.exists("template"):
+    from template import *
+
 if len(sys.argv) > 1:
     config_name = sys.argv[1]
     #TODO: do this better way
     exec("import {}".format(config_name))
-
 
 try:
     import psycopg2
@@ -175,8 +177,8 @@ def install_meta_types():
         aliases[lang] = {}
         trans_table_fname = os.path.join("aliases", "meta-aliases-{}.json".format(lang))
         l = json.load(open(trans_table_fname))
-        for key, alias, header in l:
-            aliases[lang][key] = [alias, header]
+        for key, alias, header, description in l:
+            aliases[lang][key] = [alias, header, description]
 
     db.query("DELETE FROM meta_types")
     for key in data["meta_types"]:
