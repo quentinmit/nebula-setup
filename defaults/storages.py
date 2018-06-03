@@ -6,5 +6,4 @@ STORAGES = {
             "login" : "nebula",
             "password" : "nebula"
         }
-
 }

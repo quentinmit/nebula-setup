@@ -22,9 +22,10 @@ META_TYPES = {
 "notes":                  ("o",  1, 0, 1, TEXT,        None),              # Production notes
 "promoted":               ("o",  1, 0, 0, BOOLEAN,     None),              # Asset "promotion". It"s hit, important, favourite,....
 
-"is_admim":               ("u",  1, 0, 0, BOOLEAN,     None),
+"is_admin":               ("u",  1, 0, 0, BOOLEAN,     None),              # User has admin privileges
+"full_name":              ("u",  1, 0, 0, STRING,      None),              # Full name of the user
 
-"start":                  ("e",  1, 0, 0, DATETIME,    None),
+"start":                  ("e",  1, 0, 0, DATETIME,    None),              # Event start time
 "stop":                   ("e",  1, 0, 0, DATETIME,    None),
 "rundown_broadcast":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
 "rundown_scheduled":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
@@ -34,6 +35,7 @@ META_TYPES = {
 
 "mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
 "mark_out":               ("ai", 1, 0, 0, TIMECODE,    None),
+"logo":                   ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:logo"}),
 
 #
 # Asset specific
@@ -45,9 +47,10 @@ META_TYPES = {
 "version_of":             ("a", 0, 0, 0, INTEGER,     {"default" : 0}),
 "id_storage":             ("a", 0, 1, 0, INTEGER,     None),
 "id_folder":              ("a", 0, 0, 0, INTEGER,     None),
-"path":                   ("a", 0, 0, 1, TEXT,        None),
+"path":                   ("a", 0, 0, 1, STRING,      None),
 "subclips":               ("a", 1, 0, 0, REGIONS,     None),
 "article":                ("a", 1, 0, 1, TEXT,        {"mode" : "rich"}),
+"cue_sheet":              ("a", 1, 0, 1, TEXT,        None),
 
 #
 # Descriptive
@@ -65,37 +68,41 @@ META_TYPES = {
 "description/original":   ("m", 1, 0, 7, TEXT,        {"syntax" : "md"}),
 
 "language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS"}),
-"editorial_format":       ("m", 1, 0, 1, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS"}),
-"editorial_control":      ("m", 1, 0, 1, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS"}),
-"genre":                  ("m", 1, 1, 1, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
-"origination":            ("m", 1, 0, 1, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
+"editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS"}),
+"editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS"}),
+"genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
+"origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
 "content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),
 "keywords":               ("m", 1, 0, 9, TEXT,        None),                       # Comma delimited keywords list
 
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
-"licence":                ("m", 1, 0, 1, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
-"rights":                 ("m", 1, 0, 1, TEXT,        None),
+"rights":                 ("m", 1, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
+"rights/description":     ("m", 1, 0, 1, TEXT,        None),
+"rights/ott":             ("m", 1, 0, 0, BOOLEAN,     None),
+"rights/spatial":         ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:rights-spatial"}),
 
 "source":                 ("m", 0, 0, 1, STRING,      None),                       # Youtube, Vimeo, PirateBay....
 "source/url":             ("m", 0, 0, 1, STRING,      None),
 "source/attribution":     ("m", 0, 0, 1, STRING,      None),
 "source/rating":          ("m", 0, 1, 0, INTEGER,     None),                       # Provided rating normalized to: from 0 (worst) to 100 (best)
 
-"commercial_content":     ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
-"campaign":               ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
+"commercial/content":     ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
+"commercial/campaign":    ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
+"commercial/client":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:clients"}),
 
 "album":                  ("m", 1, 0, 1, STRING,      None),
 "serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series"}),
-"serie/season":           ("m", 1, 0, 1, INTEGER,     None),
-"serie/episode":          ("m", 1, 0, 1, INTEGER,     None),
+"serie/season":           ("m", 1, 0, 0, INTEGER,     None),
+"serie/episode":          ("m", 1, 0, 0, INTEGER,     None),
 
 "id/main":                ("m", 1, 0, 8, STRING,      None),                       # Primary Content ID (local or global)
 "id/youtube":             ("m", 0, 0, 8, STRING,      None),                       # Youtube ID if exists
 "id/vimeo":               ("m", 0, 0, 8, STRING,      None),                       # Vimeo ID if exists
 "id/imdb":                ("m", 1, 0, 8, STRING,      None),                       # IMDB ID for movies
 "id/guid":                ("m", 0, 0, 8, STRING,      None),                       # Created automatically when asset is created
+"id/vod":                 ("m", 0, 0, 8, STRING,      None),                       # Streampunk VOD ID
 
 "role/director":          ("m", 1, 0, 7, STRING,      None),
 "role/performer":         ("m", 1, 0, 7, STRING,      None),

@@ -8,37 +8,26 @@ FOLDERS = {
         "title" : "Movie",
         "color" : 0x2872B3,
         "meta_set" : [
-                ("title",               {}),
-                ("subtitle",            {}),
-                ("title/original",      {}),
-                ("description",         {}),
-                ("description/original",{}),
-                ("role/director",       {}),
-                ("genre",               {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-                ("keywords",            {}),
-                ("content_alert",       {}),
+                ("title", {}),
+                ("subtitle", {}),
+                ("description", {}),
+                ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+                ("content_alert", {}),
             ]
     },
-
 
     2 : {
         "title" : "Serie",
         "color" : 0x0397BB,
         "meta_set" : [
-                ("title",               {}),
-                ("subtitle",            {}),
-                ("title/original",      {}),
-                ("subtitle/original",   {}),
-                ("serie",               {}),
-                ("description",         {}),
-                ("description/original",{}),
-                ("role/director",       {}),
-                ("genre",               {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-                ("keywords",            {}),
-                ("serie/season",        {}),
-                ("serie/episode",       {}),
-                ("content_alert",       {}),
-                ("qc/report",           {}),
+                ("title", {}),
+                ("subtitle", {}),
+                ("serie", {}),
+                ("description", {}),
+                ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+                ("serie/season", {}),
+                ("serie/episode", {}),
+                ("content_alert", {}),
             ]
     },
 
@@ -50,71 +39,62 @@ FOLDERS = {
         "title" : "Story",
         "color" : 0x00b9ce,
         "meta_set" : [
-            ("title",                   {}),
-            ("title/subtitle",          {}),
-            ("description",             {}),
-            ("identifier/main",         {}),
-            ("article",                 {}),
-        ]
+                ("title", {}),
+                ("subtitle", {}),
+                ("description", {}),
+                ("article", {}),
+            ]
     },
-
 
     4 : {
         "title" : "Song",
         "color" : 0xb9c0dd,
         "meta_set" : [
-                ("title",               {}),
-                ("role/performer",      {}),
-                ("role/composer",       {}),
-                ("album",               {}),
-                ("description",         {}),
-                ("description/original",{}),
-                ("genre",               {"cs" : "urn:nxtv:metadata-cs:music-genres"}),
-                ("contains/cg_text",    {}),
-                ("qc/report"       ,    {}),
+                ("title", {}),
+                ("role/performer", {}),
+                ("role/composer", {}),
+                ("album", {}),
+                ("year", {}),
+                ("description", {}),
+                ("genre", {"cs" : "urn:nxtv:metadata-cs:music-genres"}),
+                ("content_alert", {}),
             ]
     },
-
 
     5 : {
         "title" : "Fill",
         "color" : 0x81c77f,
         "meta_set" : [
-            ("title",                   {}),
-            ("description",             {}),
-            ("description/original",    {}),
-            ("genre",                   {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-            ("qc/report",               {}),
-        ]
+                ("title", {}),
+                ("subtitle", {}),
+                ("description", {}),
+                ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+            ]
     },
-
 
     6 : {
         "title" : "Trailer",
         "color" : 0x008E5C,
         "meta_set" : [
-                ("title",               {}),
+                ("title", {}),
             ]
     },
-
 
     7 : {
         "title" : "Jingle",
         "color" : 0xcf1f45,
         "meta_set" : [
-                ("title",               {}),
+                ("title", {}),
             ]
     },
 
-
     8 : {
-        "title" : "Template",
+        "title" : "Graphics",
         "color" : 0xf2799c,
         "meta_set" : [
-            ("title",                   {})
-        ]
+                ("title", {})
+            ]
     },
-
 
 #
 # Commercial content
@@ -124,17 +104,18 @@ FOLDERS = {
         "title" : "Commercial",
         "color" : 0xf6d258,
         "meta_set" : [
-            ("title",                  {}),
-        ]
+                ("title", {}),
+                ("commercial/client", {}),
+                ("commercial/content", {}),
+            ]
     },
-
 
     10 : {
         "title" : "Teleshopping",
         "color" : 0xe3d6d5,
         "meta_set" : [
-            ("title",                  {}),
-        ]
+                ("title", {}),
+            ]
     },
 
 #
@@ -145,19 +126,26 @@ FOLDERS = {
         "title" : "Dataset",
         "color" : 0xa0aac5,
         "meta_set" : [
-            ("title",                   {})
-        ]
+                ("title", {})
+            ]
     },
-
 
     12 : {
         "title" : "Incomming",
         "color" : 0x998e88,
         "meta_set" : [
-            ("title",                  {}),
-            ("description",            {}),
-            ("qc/report",              {}),
-        ]
+                ("title", {}),
+                ("description", {}),
+                ("qc/report", {}),
+            ]
     },
 
 } # END OF FOLDERS
+
+
+import socket
+HOST = socket.gethostname()
+
+SERVICES = {
+    1  : ["mesg",   HOST, "mesg",  "template/services/mesg.xml",  True,  5],
+}

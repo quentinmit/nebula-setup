@@ -8,11 +8,12 @@ VIEWS = {
     <folders>1,2</folders>
     <statuses>0,1,2,5</statuses>
     <columns>
-        <column>promoted</column>
+        <column>qc/state</column>
         <column>title</column>
-        <column>role/director</column>
-        <column>year</column>
+        <column>subtitle</column>
+        <column>id/main</column>
         <column>duration</column>
+        <column>mtime</column>
     </columns>
 </view>"""
     },
@@ -27,7 +28,9 @@ VIEWS = {
     <folders>5,6,7,8</folders>
     <statuses>0,1,2,5</statuses>
     <columns>
+        <column>qc/state</column>
         <column>title</column>
+        <column>id/main</column>
         <column>id_folder</column>
         <column>duration</column>
     </columns>
@@ -63,6 +66,7 @@ VIEWS = {
     <folders>3</folders>
     <statuses>0,1,2,5</statuses>
     <columns>
+        <column>qc/state</column>
         <column>title</column>
         <column>genre</column>
     </columns>
@@ -80,7 +84,9 @@ VIEWS = {
     <statuses>0,1,2,5</statuses>
     <columns>
         <column>title</column>
-        <column>genre</column>
+        <column>commercial/client</column>
+        <column>duration</column>
+        <column>mtime</column>
     </columns>
 </view>"""
     },
@@ -122,21 +128,6 @@ VIEWS = {
         <column>title</column>
     </columns>
 </view>"""
-    },
-
-    13 : {
-        "title" : "Playout",
-        "owner" : 0,
-        "position" : 13,
-        "settings" : """<?xml version="1.0"?>
-<view>
-    <folders>13</folders>
-    <columns>
-        <column>title</column>
-        <column>id_storages</column>
-    </columns>
-</view>"""
-    },
-
+    }
 
 }  # END FOLDERS
