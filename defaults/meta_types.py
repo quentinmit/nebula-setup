@@ -31,7 +31,7 @@ META_TYPES = {
 "rundown_scheduled":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
 "rundown_difference":     ("ei", 0, 0, 0, TIMECODE,    None),
 "rundown_symbol":         ("ei", 0, 0, 0, INTEGER,     None),
-"rundown_status":         ("ei", 0, 0, 0, INTEGER,     None),
+"run_mode":               ("ei", 0, 0, 0, INTEGER,     None),
 
 "mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
 "mark_out":               ("ai", 1, 0, 0, TIMECODE,    None),
@@ -41,8 +41,8 @@ META_TYPES = {
 # Asset specific
 #
 
-"media_type":             ("a", 0, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:MediaTypeCS"}),
-"content_type":           ("a", 0, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentTypeCS"}),
+"media_type":             ("a", 0, 0, 0, INTEGER,     None),
+"content_type":           ("a", 0, 0, 0, INTEGER,     None),
 "status":                 ("a", 0, 0, 0, INTEGER,     {"default" : 1}),              # OFFLINE, ONLINE, CREATING, TRASHED, ARCHIVED
 "version_of":             ("a", 0, 0, 0, INTEGER,     {"default" : 0}),
 "id_storage":             ("a", 0, 1, 0, INTEGER,     None),
