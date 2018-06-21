@@ -192,12 +192,11 @@ CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
         id_channel INTEGER NOT NULL,
         id_item INTEGER REFERENCES public.items(id),
-        id_asset INTEGER REFERENCES public.assets(id),
         start INTEGER NOT NULL,
-        stop INTEGER NOT NULL,
+        stop INTEGER,
         CONSTRAINT asrun_pkey PRIMARY KEY (id)
     );
 
 CREATE INDEX asrun_start_idx ON asrun(start);
 CREATE INDEX asrun_channel_idx ON asrun(id_channel);
-CREATE INDEX asrun_asset_idx ON asrun(id_asset);
+CREATE INDEX asrun_item_idx ON asrun(id_item);
