@@ -4,25 +4,26 @@ import os
 import sys
 import json
 
-from templates import *
+from defaults import *
 
 def make_trans_table(lang_code):
     trans_table_fname = os.path.join("aliases", "meta-aliases-{}.json".format(lang_code))
     prev = {}
     l = json.load(open(trans_table_fname))
-    for key, alias, col in l:
-        prev[key] = [alias, col]
+    for key, alias, col, description in l:
+        prev[key] = [alias, col, description]
 
     mdata = []
     for key in data["meta_types"]:
         if key in prev:
-            alias, col = prev[key]
+            alias, col, description = prev[key]
         else:
-            alias, col = "", ""
+            alias, col, description = "", "", ""
         mdata.append([
             "\"{}\"".format(key),
             "\"{}\"".format(alias),
             "\"{}\"".format(col),
+            "\"{}\"".format(description),
             ])
 
     result = "[\n"
@@ -31,7 +32,7 @@ def make_trans_table(lang_code):
             r.append(",")
         else:
             r.append("")
-        result += """  [{:<25}, {:<25}, {}]{}\n""".format(*r)
+        result += """  [{:<25}, {:<25}, {:<20}, {}]{}\n""".format(*r)
     result+= "]"
     f = open(trans_table_fname, "w")
     f.write(result)

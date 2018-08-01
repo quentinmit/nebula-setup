@@ -64,10 +64,7 @@ CREATE TABLE public.cs (
 
 CREATE TABLE public.views (
         id SERIAL NOT NULL,
-        title VARCHAR(255) NOT NULL,
-        settings XML NOT NULL,
-        owner INTEGER NOT NULL DEFAULT 0,
-        position INTEGER NOT NULL DEFAULT 0,
+        settings JSONB NOT NULL,
         CONSTRAINT views_pkey PRIMARY KEY (id)
     );
 

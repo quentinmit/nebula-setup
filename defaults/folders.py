@@ -13,6 +13,7 @@ FOLDERS = {
                 ("description", {}),
                 ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
                 ("content_alert", {}),
+                ("date/valid", {}),
             ]
     },
 
@@ -22,12 +23,13 @@ FOLDERS = {
         "meta_set" : [
                 ("title", {}),
                 ("subtitle", {}),
-                ("serie", {}),
                 ("description", {}),
+                ("serie", {}),
                 ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
                 ("serie/season", {}),
                 ("serie/episode", {}),
                 ("content_alert", {}),
+                ("date/valid", {}),
             ]
     },
 
@@ -69,6 +71,7 @@ FOLDERS = {
                 ("subtitle", {}),
                 ("description", {}),
                 ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+                ("date/valid", {}),
             ]
     },
 
@@ -77,6 +80,8 @@ FOLDERS = {
         "color" : 0x008E5C,
         "meta_set" : [
                 ("title", {}),
+                ("subtitle", {}),
+                ("date/valid", {}),
             ]
     },
 

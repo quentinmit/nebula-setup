@@ -11,6 +11,7 @@ REGIONS      = 7
 FRACTION     = 8       # 16/9 etc. Stored as string
 SELECT       = 9
 LIST         = 10
+COLOR        = 11
 
 
 META_TYPES = {
@@ -19,8 +20,6 @@ META_TYPES = {
 
 "ctime":                  ("o",  0, 0, 0, DATETIME,    None),              # Creation time
 "mtime":                  ("o",  0, 0, 0, DATETIME,    None),              # Last modified time
-"notes":                  ("o",  1, 0, 1, TEXT,        None),              # Production notes
-"promoted":               ("o",  1, 0, 0, BOOLEAN,     None),              # Asset "promotion". It"s hit, important, favourite,....
 
 "is_admin":               ("u",  1, 0, 0, BOOLEAN,     None),              # User has admin privileges
 "full_name":              ("u",  1, 0, 0, STRING,      None),              # Full name of the user
@@ -62,6 +61,9 @@ META_TYPES = {
 "title":                  ("m", 1, 0, 9, STRING,      None),                       # dc.title.main - The title most commonly associated with the resource.
 "subtitle":               ("m", 1, 0, 8, STRING,      None),                       # dc.title.subtitle - Ancillary title information for the resource.
 "description":            ("m", 1, 0, 7, TEXT,        {"syntax" : "md"}),
+"color":                  ("m", 1, 0, 0, COLOR,       None),                       # Object highlight color
+"notes":                  ("m", 1, 0, 1, TEXT,        None),                       # Production notes
+"promoted":               ("m", 1, 0, 0, BOOLEAN,     None),                       # Asset "promotion". It"s hit, important, favourite,....
 
 "title/original":         ("m", 1, 0, 9, STRING,      None),                       # dc.title.main - The title most commonly associated with the resource.
 "subtitle/original":      ("m", 1, 0, 8, STRING,      None),                       # dc.title.subtitle - Ancillary title information for the resource.

@@ -220,14 +220,8 @@ def install_views():
     for id in data["views"]:
         settings = data["views"][id]
         db.query(
-                "INSERT INTO views (id, title, settings, owner, position) VALUES (%s, %s, %s, %s, %s)",
-                [
-                    id,
-                    settings["title"],
-                    settings["settings"],
-                    settings["owner"],
-                    settings["position"],
-                ]
+                "INSERT INTO views (id, settings) VALUES (%s, %s)",
+                [id, json.dumps(settings)]
             )
     db.query("SELECT setval(pg_get_serial_sequence('views', 'id'), coalesce(max(id),0) + 1, false) FROM views;")
     db.commit()
