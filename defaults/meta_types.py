@@ -18,6 +18,15 @@ META_TYPES = {
 
 # KEY                       NS   E  I  F  CLASS        SETTINGS
 
+
+"id":                     ("o",  0, 1, 0, INTEGER,     None),
+"id_asset":               ("o",  0, 1, 0, INTEGER,     None),
+"id_item":                ("o",  0, 1, 0, INTEGER,     None),
+"id_bin":                 ("o",  0, 1, 0, INTEGER,     None),
+"id_event":               ("o",  0, 1, 0, INTEGER,     None),
+"id_user":                ("o",  0, 1, 0, INTEGER,     None),
+
+
 "ctime":                  ("o",  0, 0, 0, DATETIME,    None),              # Creation time
 "mtime":                  ("o",  0, 0, 0, DATETIME,    None),              # Last modified time
 
