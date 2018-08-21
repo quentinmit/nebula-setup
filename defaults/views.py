@@ -1,4 +1,4 @@
-VIEWS =
+VIEWS = {
     1: {
         "title" : "Main",
         "position" : 1,
