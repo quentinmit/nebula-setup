@@ -1,7 +1,29 @@
 Nebula setup
 ============
 
-Nebula database configuration tool
+Nebula installers and configuration tools.
+
+This document describes basic Nebula installation and configuration process. Advanced techniques such as
+database configuration, optimization and backup, security, GPU acceleration support etc. are out of scope of this guide.
+For production deployment you should get familiar with Linux security, PostgreSQL, memcached and NGINX configuration
+as well as basic Python programming.
+
+Nebula is a complex software, which can be configuret to fit many different workflows, so don't be ashamed
+to [get in touch with us](mailto:support@nebulabroadcast.com) and get a professional support.
+
+Yes. This is what we do for a living.
+
+Terms and definitions
+---------------------
+
+ - `asset`
+ - `folder`
+ - `hub`
+ - `media file`
+ - `plugin`
+ - `service`
+ - `site` - Nebula instance with own database. Usualy a television network with one or more channels
+ - `storage`
 
 Prerequisites
 -------------
@@ -143,7 +165,7 @@ data["channels"] = {
 #
 # Services
 #
-#         type      host  title      config path                    autostar  loop_delay
+#         type      host  title      config path                    autostart  loop_delay
 #
 
 data["services"] = {
@@ -217,7 +239,7 @@ No configuration file is needed.
 
 ### watch
 
-Watchfolder service.
+Watchfolder service creates new assets from media files.
 
 Folder tag attributes:
 
@@ -225,7 +247,7 @@ Folder tag attributes:
  - `path` (required)
  - `id_folder` (default  12 - Incoming)
  - `recursive` (default True)
- - `hiden` (default False)
+ - `hidden` (default False) - Ignore dotfiles
  - `quarantine_time` (default 10)
  - `case_sensitive_exts` (default False)
 
@@ -254,3 +276,8 @@ is subject of changes.
 File ingest services based on Themis library. This service is not yet finished and its configuration
 is subject of changes.
 
+
+Actions
+-------
+
+### conv
