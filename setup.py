@@ -13,11 +13,6 @@ from defaults import *
 if os.path.exists("template"):
     from template import *
 
-if len(sys.argv) > 1:
-    config_name = sys.argv[1]
-    #TODO: do this better way
-    exec("import {}".format(config_name))
-
 try:
     import psycopg2
 except ImportError:

@@ -3,7 +3,7 @@ VIEWS = {
         "title" : "Main",
         "position" : 1,
         "folders" : [1, 2],
-        "states" : [0, 1, 2, 5],
+        "states" : [0, 1, 2, 5, 11],
         "columns" : [
                 "qc/state",
                 "title",
@@ -19,7 +19,7 @@ VIEWS = {
         "title" : "Fill",
         "position" : 2,
         "folders" : [5, 6, 7, 8],
-        "states" : [0, 1, 2, 5],
+        "states" : [0, 1, 2, 5, 11],
         "columns" : [
                 "qc/state",
                 "title",
@@ -34,7 +34,7 @@ VIEWS = {
         "title" : "Music",
         "position" : 3,
         "folders" : [4],
-        "states" : [0, 1, 2, 5],
+        "states" : [0, 1, 2, 5, 11],
         "columns" : [
                 "promoted",
                 "title",
@@ -49,7 +49,7 @@ VIEWS = {
         "title" : "Stories",
         "position" : 4,
         "folders" : [3],
-        "states" : [0, 1, 2, 5],
+        "states" : [0, 1, 2, 5, 11],
         "columns" : [
                 "qc/state",
                 "title",
@@ -62,7 +62,7 @@ VIEWS = {
         "title" : "Commercial",
         "position" : 5,
         "folders" : [9, 10],
-        "states" : [0, 1, 2, 5],
+        "states" : [0, 1, 2, 5, 11],
         "columns" : [
                 "qc/state",
                 "title",
@@ -96,7 +96,7 @@ VIEWS = {
     12 : {
         "title" : "Archive",
         "position" : 12,
-        "states" : [4],
+        "states" : [4, 11],
         "columns" : [
                 "title",
                 "id/main",
