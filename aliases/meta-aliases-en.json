@@ -27,6 +27,7 @@
   ["video/aspect_ratio_f"   , "Aspect ratio"           , "Aspect"            , ""],
   ["video/fps"              , "FPS"                    , "FPS"               , ""],
   ["id_folder"              , "Folder"                 , "Folder"            , ""],
+  ["id/tape"                , "Tape ID"                , "Tape ID"           , ""],
   ["full_name"              , "Full name"              , "Full name"         , ""],
   ["year"                   , "Year"                   , "Year"              , ""],
   ["duration"               , "Duration"               , "Duration"          , ""],

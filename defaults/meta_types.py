@@ -113,7 +113,8 @@ META_TYPES = {
 "id/vimeo":               ("m", 0, 0, 8, STRING,      None),                       # Vimeo ID if exists
 "id/imdb":                ("m", 1, 0, 8, STRING,      None),                       # IMDB ID for movies
 "id/guid":                ("m", 0, 0, 8, STRING,      None),                       # Created automatically when asset is created
-"id/vod":                 ("m", 0, 0, 8, STRING,      None),                       # Streampunk VOD ID
+"id/vod":                 ("m", 0, 0, 8, STRING,      None),                       # VOD KEY
+"id/tape":                ("m", 0, 1, 8, STRING,      None),                        # Archive tape ID
 
 "role/director":          ("m", 1, 0, 7, STRING,      None),
 "role/performer":         ("m", 1, 0, 7, STRING,      None),
