@@ -19,6 +19,7 @@
   ["editorial_format"       , "Format"                 , "Format"            , ""],
   ["version_of"             , "Version of"             , "Version of"        , ""],
   ["ctime"                  , "Creation time"          , "Created"           , ""],
+  ["solver"                 , "Solver"                 , "Solver"            , ""],
   ["notes"                  , "Notes"                  , "Notes"             , ""],
   ["video/width"            , "Width"                  , "Width"             , ""],
   ["editorial_control"      , "Editorial control"      , "Control"           , ""],

@@ -158,6 +158,10 @@ data["channels"] = {
         'fps': 25,
         'live_source' : 'DECKLINK 2 FORMAT 1080i5000',
         'plugins': [],
+        'meta_set' : [
+                ('title', {}),
+                ('description', {})
+            ]
     }]
 }
 
