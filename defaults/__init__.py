@@ -17,5 +17,6 @@ data = {
         "views" : VIEWS,
         "channels" : CHANNELS,
         "storages" : STORAGES,
-        "services" : SERVICES
+        "services" : SERVICES,
+        "cs" : []
     }
