@@ -4,11 +4,11 @@ Nebula setup
 Nebula installers and configuration tools.
 
 This document describes basic Nebula installation and configuration process. Advanced techniques such as
-database configuration, optimization and backup, security, GPU acceleration support etc. are out of scope of this guide.
-For production deployment you should get familiar with Linux security, PostgreSQL, memcached and NGINX configuration
+database configuration, optimization, and backup, security, GPU acceleration support etc. are out of the scope of this guide.
+For production deployment, you should get familiar with Linux security, PostgreSQL, memcached and NGINX configuration
 as well as basic Python programming.
 
-Nebula is a complex software, which can be configuret to fit many different workflows, so don't be ashamed
+Nebula is a complex software, which can be configured to fit many different workflows, so don't be ashamed
 to [get in touch with us](mailto:support@nebulabroadcast.com) and get a professional support.
 
 Yes. This is what we do for a living.
@@ -16,28 +16,31 @@ Yes. This is what we do for a living.
 Terms and definitions
 ---------------------
 
- - `asset`
- - `folder`
- - `hub`
- - `media file`
- - `plugin`
- - `service`
- - `site` - Nebula instance with own database. Usualy a television network with one or more channels
- - `storage`
+ - `asset` - A record in MAM database. Asset can be a physical media file, URL or just a virtual record for short text stories.
+ - `folder` - Each asset falls into one folder based on its purpose (movie, music video, trailer, news story etc).
+    Each folder has its own metadata set.
+ - `item`
+ - `bin` - Ordered list of items. Typically a playlist block.
+ - `event` - Calendar record. Typically a singe program block in channel's EPG
+ - `hub` - Nebula API server
+ - `service` - Services are started and operated by the master process and can be controlled (stopped, restarted ) using API.
+ - `plugin` - Python script which extends default Nebula functionality. There are several types of plugins available.
+ - `site` - Nebula instance with own database. Usually a television network with one or more channels
+ - `storage` - Nebula does not use UNC paths for access to files. Instead each storage is mounted according to its type and storage ID and relative path is used.
 
 Prerequisites
 -------------
 
 Use `prerequisites.sh` script to install all required libraries and software
 
-## nginx
+## NGINX
 
-Nebula also needs nginx server with http push module  and mp4 module to be installed.
+Nebula also needs NGINX server with http push module  and mp4 module to be installed.
 Use [install.nginx.sh](https://github.com/immstudios/installers/blob/master/install.ffmpeg.sh)
 and create `/var/www/yoursitename/http.conf` file.
 
-Assuming your site name is "nebula" and nginx server is running on the same
-machine as nebua itself, you may use following configuration:
+Assuming your site name is "nebula" and NGINX server is running on the same
+machine as Nebula itself, you may use the following configuration:
 
 ```nginx
 server {
@@ -158,6 +161,7 @@ data["channels"] = {
         'fps': 25,
         'live_source' : 'DECKLINK 2 FORMAT 1080i5000',
         'plugins': [],
+        'solvers': [],
         'meta_set' : [
                 ('title', {}),
                 ('description', {})
@@ -169,8 +173,8 @@ data["channels"] = {
 #
 # Services
 #
+
 #         type      host  title      config path                    autostart  loop_delay
-#
 
 data["services"] = {
     1  : ["mesg",   HOST, "mesg",    "template/services/mesg.xml",  True,      5],
@@ -190,8 +194,8 @@ Services
 
 Messaging/logging service. One is needed for each network segment.
 
-Relay address is the address of the configured nginx server.
-All multicast status messages will be relayed to it's http push module and served to clients
+Relay address is the address of the configured NGINX server.
+All multicast status messages will be relayed to its HTTP push module and served to clients
 using websockets.
 
 ```xml
@@ -205,7 +209,7 @@ using websockets.
 
 Playout controller.
 
-Only `id_channel` parametter must be specified in the service configuration.
+Only `id_channel` parameter must be specified in the service configuration.
 There must not be two services controlling the same channel at the same time!
 
 ```xml
@@ -221,7 +225,7 @@ Jobs broker. One **broker** service is needed per site. No configuration file is
 ### meta
 
 Metadata extraction service. Two meta services are recommended for each site.
-One with no configuration file at all (scan all files) and one with following configuration:
+One with no configuration file at all (scan all files) and one with the following configuration:
 
 ```xml
 <settings>
@@ -233,12 +237,12 @@ This one will scan only recently changed media files, which significantly improv
 
 ### conv
 
-Media transcoding service. Configuration file is optional and allows to limit service usage to
-perform particular action(s).
+Media transcoding service. A configuration file is optional and allows to limit service usage to
+perform a particular action(s).
 
 ### psm
 
-Playout storage monitor. One **psm** service is needed, if the site uses one or more playout channels.
+Playout storage monitor. One **psm** service is needed if the site uses one or more playout channels.
 No configuration file is needed.
 
 ### watch
@@ -279,9 +283,3 @@ is subject of changes.
 
 File ingest services based on Themis library. This service is not yet finished and its configuration
 is subject of changes.
-
-
-Actions
--------
-
-### conv

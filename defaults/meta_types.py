@@ -40,8 +40,8 @@ META_TYPES = {
 "rundown_difference":     ("ei", 0, 0, 0, TIMECODE,    None),
 "rundown_symbol":         ("ei", 0, 0, 0, INTEGER,     None),
 "run_mode":               ("ei", 0, 0, 0, INTEGER,     None),
-"solver":                 ("eia",1, 0, 0, SELECT,      {"cs" : "urn:site:solvers"}),
 
+"solver":                 ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:solvers"}),
 "mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
 "mark_out":               ("ai", 1, 0, 0, TIMECODE,    None),
 "logo":                   ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:logo"}),
