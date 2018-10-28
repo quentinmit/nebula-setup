@@ -102,6 +102,18 @@ VIEWS = {
                 "id/main",
                 "mtime"
             ]
+    },
+
+    13 : {
+        "title" : "Incoming",
+        "position" : 13,
+        "folders" : [12],
+        "columns" : [
+                "qc/state",
+                "title",
+                "duration",
+                "mtime"
+            ]
     }
 
 }  # END FOLDERS

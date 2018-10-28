@@ -76,7 +76,7 @@ server {
     }
 
     location / {
-        root 				/opt/nebula-frontend;
+        root                /opt/nebula-frontend;
         index               index.html;
     }
 }
