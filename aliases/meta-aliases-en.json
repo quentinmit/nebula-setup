@@ -99,6 +99,7 @@
   ["description/original"   , "Original description"   , "Orig. description" , ""],
   ["commercial/client"      , "Client"                 , "Client"            , ""],
   ["id/youtube"             , "Youtube ID"             , "Youtube ID"        , ""],
+  ["date/valid/ott"         , "OTT validity ends"      , "OTT Validity"      , ""],
   ["date"                   , "Date"                   , "Date"              , ""],
   ["title/original"         , "Original title"         , "Orig. title"       , ""],
   ["audio/r128/i"           , "Integrated loudness"    , "LUFS"              , ""],

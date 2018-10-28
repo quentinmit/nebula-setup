@@ -90,6 +90,7 @@ META_TYPES = {
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
+"date/valid/ott":         ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "rights":                 ("m", 1, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
 "rights/description":     ("m", 1, 0, 1, TEXT,        None),
 "rights/ott":             ("m", 1, 0, 0, BOOLEAN,     None),
@@ -115,7 +116,7 @@ META_TYPES = {
 "id/imdb":                ("m", 1, 0, 8, STRING,      None),                       # IMDB ID for movies
 "id/guid":                ("m", 0, 0, 8, STRING,      None),                       # Created automatically when asset is created
 "id/vod":                 ("m", 0, 0, 8, STRING,      None),                       # VOD KEY
-"id/tape":                ("m", 0, 1, 8, STRING,      None),                        # Archive tape ID
+"id/tape":                ("m", 0, 1, 8, STRING,      None),                       # Archive tape ID
 
 "role/director":          ("m", 1, 0, 7, STRING,      None),
 "role/performer":         ("m", 1, 0, 7, STRING,      None),
