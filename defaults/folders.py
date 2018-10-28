@@ -136,21 +136,14 @@ FOLDERS = {
     },
 
     12 : {
-        "title" : "Incomming",
+        "title" : "Incoming",
         "color" : 0x998e88,
         "meta_set" : [
                 ("title", {}),
+                ("subtitle", {}),
                 ("description", {}),
                 ("qc/report", {}),
             ]
     },
 
 } # END OF FOLDERS
-
-
-import socket
-HOST = socket.gethostname()
-
-SERVICES = {
-    1  : ["mesg",   HOST, "mesg",  "template/services/mesg.xml",  True,  5],
-}
