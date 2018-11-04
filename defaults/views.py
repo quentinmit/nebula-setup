@@ -25,6 +25,7 @@ VIEWS = {
                 "title",
                 "id/main",
                 "id_folder",
+                "notes",
                 "duration",
             ]
     },
@@ -36,6 +37,7 @@ VIEWS = {
         "folders" : [4],
         "states" : [0, 1, 2, 5, 11],
         "columns" : [
+                "qc/state",
                 "promoted",
                 "title",
                 "role/performer",
