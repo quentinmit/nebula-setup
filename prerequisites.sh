@@ -18,7 +18,7 @@ function install_node {
 
 function install_core {
     echo "Installing core server requirements"
-    pip3 install cherrypy jinja2
+    pip3 install cherrypy jinja2 htmlmin
 }
 
 

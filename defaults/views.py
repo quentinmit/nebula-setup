@@ -9,8 +9,11 @@ VIEWS = {
                 "title",
                 "subtitle",
                 "id/main",
+                "id_folder",
+                "genre",
                 "duration",
-                "mtime"
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -27,6 +30,8 @@ VIEWS = {
                 "id_folder",
                 "notes",
                 "duration",
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -55,7 +60,10 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
+                "id/main",
                 "genre",
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -68,10 +76,12 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
+                "id/main",
                 "commercial/client",
                 "duration",
-                "mtime",
                 "genre",
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -91,7 +101,7 @@ VIEWS = {
         "columns" : [
                 "title",
                 "id/main",
-                "mtime"
+                "mtime",
             ]
     },
 
@@ -102,7 +112,7 @@ VIEWS = {
         "columns" : [
                 "title",
                 "id/main",
-                "mtime"
+                "mtime",
             ]
     },
 
@@ -114,7 +124,7 @@ VIEWS = {
                 "qc/state",
                 "title",
                 "duration",
-                "mtime"
+                "mtime",
             ]
     }
 

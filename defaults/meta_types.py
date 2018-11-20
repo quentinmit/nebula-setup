@@ -105,6 +105,11 @@ META_TYPES = {
 "commercial/campaign":    ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 "commercial/client":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:clients"}),
 
+"runs/daily":             ("m", 1, 0, 0, INTEGER,     None),
+"runs/weekly":            ("m", 1, 0, 0, INTEGER,     None),
+"runs/monthly":           ("m", 1, 0, 0, INTEGER,     None),
+"runs/total":             ("m", 1, 0, 0, INTEGER,     None),
+
 "album":                  ("m", 1, 0, 1, STRING,      None),
 "serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series"}),
 "serie/season":           ("m", 1, 0, 0, INTEGER,     None),
