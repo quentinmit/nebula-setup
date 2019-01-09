@@ -9,6 +9,6 @@ SETTINGS = {
     "smtp_host"      : "localhost",
     "smtp_user"      : False,
     "smtp_pass"      : False,
-    "cg_server"      : "https:://cg.immstudios.org",
+    "cg_server"      : "https://cg.immstudios.org",
     "cg_site"        : False,
 }
