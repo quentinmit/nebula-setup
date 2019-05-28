@@ -8,12 +8,10 @@ VIEWS = {
                 "qc/state",
                 "title",
                 "subtitle",
-                "id/main",
-                "id_folder",
                 "genre",
+                "id_folder",
                 "duration",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -26,12 +24,9 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
-                "id/main",
                 "id_folder",
-                "notes",
                 "duration",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -43,7 +38,6 @@ VIEWS = {
         "states" : [0, 1, 2, 5, 11],
         "columns" : [
                 "qc/state",
-                "promoted",
                 "title",
                 "role/performer",
                 "genre",
@@ -60,10 +54,8 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
-                "id/main",
                 "genre",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -76,12 +68,9 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
-                "id/main",
                 "commercial/client",
                 "duration",
-                "genre",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -100,7 +89,9 @@ VIEWS = {
         "states" : [3],
         "columns" : [
                 "title",
-                "id/main",
+                "subtitle",
+                "id_folder",
+                "ctime",
                 "mtime",
             ]
     },
@@ -111,7 +102,9 @@ VIEWS = {
         "states" : [4, 11],
         "columns" : [
                 "title",
-                "id/main",
+                "subtitle",
+                "id_folder",
+                "ctime",
                 "mtime",
             ]
     },
@@ -124,6 +117,7 @@ VIEWS = {
                 "qc/state",
                 "title",
                 "duration",
+                "ctime",
                 "mtime",
             ]
     }

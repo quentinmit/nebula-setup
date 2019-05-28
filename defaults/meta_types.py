@@ -83,17 +83,26 @@ META_TYPES = {
 
 "language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS"}),
 "editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS"}),
-"editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS"}),
+"editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS", "widget" : "radio"}),
+"intended_audience":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:IntendedAudienceCodeCS"}),
+"intention":              ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:IntentionCodeCS"}),
 "genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
+"atmosphere":             ("m", 1, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:AtmosphereCS"}),
+"place":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:PlaceTypeCS"}),
+
 "origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
 "content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),
-"keywords":               ("m", 1, 0, 9, TEXT,        None),                       # Comma delimited keywords list
+"content_alert/scheme":   ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentAlertSchemeCodeCS"}),
+"graphic_usage":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:GraphicUsageTypeCodeCS"}),
+"keywords":               ("m", 1, 0, 9, STRING,      None),                       # Comma delimited keywords list
 
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "date/valid/ott":         ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
+
 "rights":                 ("m", 1, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
+"rights/type":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:RightTypeCodeCS"}),
 "rights/description":     ("m", 1, 0, 1, TEXT,        None),
 "rights/ott":             ("m", 1, 0, 0, BOOLEAN,     None),
 "rights/spatial":         ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:rights-spatial"}),
@@ -154,6 +163,7 @@ META_TYPES = {
 "video/aspect_ratio":     ("f", 0, 0, 0, FRACTION,    None),
 "video/aspect_ratio_f":   ("f", 0, 0, 0, NUMERIC,     None),
 "video/codec":            ("f", 0, 0, 0, STRING,      None),
+"video/display_format":   ("f", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:PictureDisplayFormatCodeCS"}),
 "audio/codec":            ("f", 0, 0, 0, STRING,      None),
 
 "qc/state":               ("q", 1, 1, 0, INTEGER,     None),              # Special widget 1 and 2 are reserved for Auto QC failed and passed states

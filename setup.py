@@ -205,7 +205,23 @@ def install_meta_types():
 
 
 def install_cs():
-    pass
+    logging.info("Installing classification schemes")
+    db = DB()
+    for csfile in get_files("cs"):
+        try:
+            data = json.load(csfile.open())
+        except:
+            log_traceback("Unable to load classification schema {}".format(csfile))
+            continue
+        name = data["cs"]
+        db.query("DELETE FROM cs WHERE cs=%s", [name])
+        db.commit()
+        for value in data["data"]:
+            settings = data["data"][value]
+            db.query("INSERT INTO cs (cs, value, settings) VALUES (%s, %s, %s)", [name, value, json.dumps(settings)])
+        db.commit()
+
+
 
 
 def install_views():
