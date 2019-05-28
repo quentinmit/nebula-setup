@@ -91,9 +91,9 @@ META_TYPES = {
 "place":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:PlaceTypeCS"}),
 
 "origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
-"content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),
+"content_alert":          ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),
 "content_alert/scheme":   ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentAlertSchemeCodeCS"}),
-"graphic_usage":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:GraphicUsageTypeCodeCS"}),
+"graphic_usage":          ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:GraphicUsageTypeCodeCS"}),
 "keywords":               ("m", 1, 0, 9, STRING,      None),                       # Comma delimited keywords list
 
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
@@ -112,7 +112,7 @@ META_TYPES = {
 "source/attribution":     ("m", 0, 0, 1, STRING,      None),
 "source/rating":          ("m", 0, 1, 0, INTEGER,     None),                       # Provided rating normalized to: from 0 (worst) to 100 (best)
 
-"commercial/content":     ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
+"commercial/content":     ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
 "commercial/campaign":    ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 "commercial/client":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:clients"}),
 

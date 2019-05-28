@@ -1,0 +1,9 @@
+{
+"cs" : "urn:tva:metadata:cs:OriginationCS",
+"data" : {
+  "5.7" : {"aliases": {"en": "Cinema"}},
+  "5.8" : {"aliases": {"en": "TV"}},
+  "5.9" : {"aliases": {"en": "Radio"}},
+  "5.10" : {"aliases": {"en": "Online Distribution"}},
+  "5.11" : {"aliases": {"en": "Offline Distribution"}}
+}}

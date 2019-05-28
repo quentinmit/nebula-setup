@@ -1,0 +1,11 @@
+{
+"cs" : "urn:nxtv:metadata-cs:music-genres",
+"data" : {
+    "3.6.4.1" : {"aliases": {"en": "Pop"}},
+    "3.6.7.2" : {"aliases": {"en": "Hip Hop"}},
+    "3.6.4.14.6" : {"aliases": {"en": "Alternative"}},
+    "3.6.8" : {"aliases": {"en": "Electronic"}},
+    "3.6.4.14" : {"aliases": {"en": "Rock"}},
+    "3.6.4.14.2" : {"aliases": {"en": "Metal"}}
+ }
+}

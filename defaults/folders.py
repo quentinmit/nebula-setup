@@ -11,9 +11,27 @@ FOLDERS = {
                 ("title", {}),
                 ("subtitle", {}),
                 ("description", {}),
+                ("keywords", {}),
+
+                ("role/director", {}),
+                ("role/cast", {}),
+
                 ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+                ("intention", {}),
+                ("atmosphere", {}),
+                ("intended_audience", {}),
+
+                ("editorial_format", {}),
                 ("content_alert", {}),
+
+                # production notes
                 ("date/valid", {}),
+                ("editorial_control", {}),
+                ("rights", {}),
+                ("rights/type", {}),
+                ("rights/description", {}),
+                ("qc/report", {}),
+                ("notes", {}),
             ]
     },
 
@@ -24,12 +42,31 @@ FOLDERS = {
                 ("title", {}),
                 ("subtitle", {}),
                 ("description", {}),
-                ("serie", {}),
+                ("keywords", {}),
+
+                ("role/director", {}),
+                ("role/cast", {}),
+
                 ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
+                ("intention", {}),
+                ("atmosphere", {}),
+                ("intended_audience", {}),
+
+                ("editorial_format", {}),
+                ("content_alert", {}),
+
+                ("serie", {}),
                 ("serie/season", {}),
                 ("serie/episode", {}),
-                ("content_alert", {}),
+
+                # production notes
                 ("date/valid", {}),
+                ("editorial_control", {}),
+                ("rights", {}),
+                ("rights/type", {}),
+                ("rights/description", {}),
+                ("qc/report", {}),
+                ("notes", {}),
             ]
     },
 
@@ -45,6 +82,14 @@ FOLDERS = {
                 ("subtitle", {}),
                 ("description", {}),
                 ("article", {}),
+
+                # production notes
+                ("editorial_control", {}),
+                ("rights", {}),
+                ("rights/type", {}),
+                ("rights/description", {}),
+                ("qc/report", {}),
+                ("notes", {}),
             ]
     },
 
@@ -57,9 +102,17 @@ FOLDERS = {
                 ("role/composer", {}),
                 ("album", {}),
                 ("year", {}),
+
                 ("description", {}),
                 ("genre", {"cs" : "urn:nxtv:metadata-cs:music-genres"}),
                 ("content_alert", {}),
+
+                # production notes
+                ("rights", {}),
+                ("rights/type", {}),
+                ("rights/description", {}),
+                ("qc/report", {}),
+                ("notes", {}),
             ]
     },
 
@@ -71,7 +124,14 @@ FOLDERS = {
                 ("subtitle", {}),
                 ("description", {}),
                 ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-                ("date/valid", {}),
+
+                # production notes
+                ("editorial_control", {}),
+                ("rights", {}),
+                ("rights/type", {}),
+                ("rights/description", {}),
+                ("qc/report", {}),
+                ("notes", {}),
             ]
     },
 
@@ -82,6 +142,8 @@ FOLDERS = {
                 ("title", {}),
                 ("subtitle", {}),
                 ("date/valid", {}),
+                ("qc/report", {}),
+                ("notes", {}),
             ]
     },
 
@@ -90,6 +152,8 @@ FOLDERS = {
         "color" : 0xcf1f45,
         "meta_set" : [
                 ("title", {}),
+                ("graphic_usage", {}),
+                ("notes", {}),
             ]
     },
 
@@ -97,7 +161,9 @@ FOLDERS = {
         "title" : "Graphics",
         "color" : 0xf2799c,
         "meta_set" : [
-                ("title", {})
+                ("title", {}),
+                ("graphic_usage", {}),
+                ("notes", {}),
             ]
     },
 
@@ -112,6 +178,7 @@ FOLDERS = {
                 ("title", {}),
                 ("commercial/client", {}),
                 ("commercial/content", {}),
+                ("notes", {}),
             ]
     },
 
@@ -120,6 +187,10 @@ FOLDERS = {
         "color" : 0xe3d6d5,
         "meta_set" : [
                 ("title", {}),
+                ("subtitle", {}),
+                ("commercial/client", {}),
+                ("commercial/content", {}),
+                ("notes", {}),
             ]
     },
 

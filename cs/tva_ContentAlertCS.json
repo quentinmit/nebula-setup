@@ -1,0 +1,15 @@
+{
+"cs" : "urn:tva:metadata-cs:ContentAlertCS",
+"data" : {
+  "6.0" : {"aliases": {"en": "Alert not required"}},
+  "6.1" : {"aliases": {"en": "Sex"}},
+  "6.2" : {"aliases": {"en": "Nudity"}},
+  "6.3" : {"aliases": {"en": "Violence - human beings"}},
+  "6.4" : {"aliases": {"en": "Violence - animals"}},
+  "6.5" : {"aliases": {"en": "Violence - fantasy characters"}},
+  "6.6" : {"aliases": {"en": "Language"}},
+  "6.7" : {"aliases": {"en": "Disturbing scenes"}},
+  "6.8" : {"aliases": {"en": "Discrimination"}},
+  "6.9" : {"aliases": {"en": "Illegal drugs"}},
+  "6.10" : {"aliases": {"en": "Strobing"}}
+}}

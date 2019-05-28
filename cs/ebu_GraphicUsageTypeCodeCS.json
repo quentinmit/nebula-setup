@@ -1,0 +1,22 @@
+{
+"cs" : "urn:ebu:metadata-cs:GraphicUsageTypeCodeCS",
+"data" : {
+  "1" : {"aliases": {"en": "Production Company Introduction Graphic"}},
+  "2" : {"aliases": {"en": "Production Company End Graphic"}},
+  "3" : {"aliases": {"en": "Service Small Logo"}},
+  "4" : {"aliases": {"en": "Service Main Logo"}},
+  "5" : {"aliases": {"en": "Show Logo"}},
+  "6" : {"aliases": {"en": "Credit Graphic"}},
+  "7" : {"aliases": {"en": "End Graphic"}},
+  "8" : {"aliases": {"en": "Rolling Scene Setting Caption"}},
+  "9" : {"aliases": {"en": "Static Scene Setting Caption"}},
+  "10" : {"aliases": {"en": "Name Caption"}},
+  "11" : {"aliases": {"en": "Sports Statistics Graphics"}},
+  "12" : {"aliases": {"en": "Statistical Graphic"}},
+  "13" : {"aliases": {"en": "Map Graphic"}},
+  "14" : {"aliases": {"en": "Banner"}},
+  "15" : {"aliases": {"en": "Frame"}},
+  "16" : {"aliases": {"en": "Test Card"}},
+  "17" : {"aliases": {"en": "Titles Graphic"}},
+  "18" : {"aliases": {"en": "Sponsor Logo Graphic"}}
+}}
