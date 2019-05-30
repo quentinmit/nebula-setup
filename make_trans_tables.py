@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -18,11 +18,11 @@ def make_trans_table(lang_code):
         if key in prev:
             alias, col, description = prev[key]
         else:
-            alias, col, description = "", "", ""
+            alias, col, description = "", None, ""
         mdata.append([
             "\"{}\"".format(key),
             "\"{}\"".format(alias),
-            "\"{}\"".format(col),
+            "\"{}\"".format(col) if col is not None else "null",
             "\"{}\"".format(description),
             ])
 
@@ -42,5 +42,6 @@ def make_trans_table(lang_code):
 if __name__ == "__main__":
     for lang_code in [
                 "en",
+                "cs"
             ]:
         make_trans_table(lang_code)
