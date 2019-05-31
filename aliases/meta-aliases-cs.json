@@ -1,5 +1,5 @@
 [
-  ["editorial_format"       , "Formát"                 , null                , ""],
+  ["editorial_format"       , "Redakční formát"        , "Formát"            , ""],
   ["id_event"               , "Event ID"               , null                , ""],
   ["keywords"               , "Klíčová slova"          , "Klíčová slova"     , "Čárkami oddělený seznam klíčových slov"],
   ["audio/silence"          , "Ticho"                  , null                , ""],
@@ -91,7 +91,7 @@
   ["source/attribution"     , "Attribution"            , null                , ""],
   ["path"                   , "Cesta"                  , null                , "Relativní cesta k souboru"],
   ["mtime"                  , "Čas změny"              , null                , ""],
-  ["editorial_control"      , "Editorial control"      , "Control"           , ""],
+  ["editorial_control"      , "Redakční kontrola"      , null                , ""],
   ["stop"                   , "Stop"                   , null                , ""],
   ["video/codec"            , "Video kodek"            , null                , ""],
   ["start"                  , "Start"                  , null                , ""],
