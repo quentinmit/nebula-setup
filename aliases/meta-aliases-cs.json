@@ -119,7 +119,7 @@
   ["id_bin"                 , "Bin ID"                 , null                , ""],
   ["video/pixel_format"     , "Pixel format"           , null                , ""],
   ["date/valid"             , "Konec platnosti"        , null                , "Datum vypršení držení licence díla"],
-  ["qc/report"              , "QC report"              , "Report"            , "Výstupní záznam z Quality Control"],
+  ["qc/report"              , "QC report"              , "Report"            , "Výstupní záznam z technické kontroly kvality"],
   ["file/format"            , "Formát souboru"         , null                , ""],
   ["notes"                  , "Poznámky"               , null                , "Uživatelské poznámky"],
   ["role/director"          , "Režie"                  , null                , ""]
