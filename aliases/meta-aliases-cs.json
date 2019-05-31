@@ -95,8 +95,8 @@
   ["stop"                   , "Stop"                   , null                , ""],
   ["video/codec"            , "Video kodek"            , null                , ""],
   ["start"                  , "Start"                  , null                , ""],
-  ["audio/clipping"         , "Přebuzení"              , null                , ""],
-  ["intention"              , "Záměr"                  , null                , ""],
+  ["audio/clipping"         , "Přebuzení"              , null                , "Indikace přehuleného audia"],
+  ["intention"              , "Záměr"                  , null                , "S jakým záměrem nebo myšlenkou bylo dílo vytvořeno"],
   ["id/vimeo"               , "Vimeo ID"               , null                , ""],
   ["rundown_symbol"         , "Rundown symbol"         , ""                  , ""],
   ["video/index"            , "Index video stopy"      , "Index video"       , ""],
@@ -119,8 +119,8 @@
   ["id_bin"                 , "Bin ID"                 , null                , ""],
   ["video/pixel_format"     , "Pixel format"           , null                , ""],
   ["date/valid"             , "Konec platnosti"        , null                , "Datum vypršení držení licence díla"],
-  ["qc/report"              , "QC report"              , "Report"            , ""],
+  ["qc/report"              , "QC report"              , "Report"            , "Výstupní záznam z Quality Control"],
   ["file/format"            , "Formát souboru"         , null                , ""],
-  ["notes"                  , "Poznámky"               , null                , ""],
+  ["notes"                  , "Poznámky"               , null                , "Uživatelské poznámky"],
   ["role/director"          , "Režie"                  , null                , ""]
 ]
