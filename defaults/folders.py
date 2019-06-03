@@ -1,3 +1,48 @@
+
+
+primary_description = [
+            ("title", {}),
+            ("subtitle", {}),
+            ("description", {}),
+#                ("title/original", {}),
+#                ("subtitle/original", {}),
+#                ("description/original", {}),
+            ("keywords", {}),
+
+    ]
+
+serie_description = [
+        ("serie", {}),
+        ("serie/season", {}),
+        ("serie/episode", {}),
+    ]
+
+roles_description = [
+        ("role/director", {}),
+        ("role/cast", {}),
+    ]
+
+content_description = [
+        ("genre", {"cs" : "urn:nxtv:metadata-cs:content-genres", "filter" : "^3\.(1|8|5|4)"}),
+        ("editorial_format", {"filter" : "^2(\.\d+){0,2}$"}),
+        ("atmosphere", {}),
+        ("intention", {"filter" : "^1\.(1|2|3|4|5|6|7|8)$"}),
+        ("intended_audience", {}),
+        ("content_alert", {}),
+        ("content_alert/scheme", {"filter" : "^53\.1\.\d", "default": "53.1.1"}),
+    ]
+
+production_description = [
+        ("date/valid", {}),
+        ("editorial_control", {}),
+        ("rights", {}),
+        ("rights/type", {}),
+        ("rights/description", {}),
+        ("notes", {}),
+        ("qc/report", {}),
+    ]
+
+
 FOLDERS = {
 
 #
@@ -7,67 +52,23 @@ FOLDERS = {
     1 : {
         "title" : "Movie",
         "color" : 0x2872B3,
-        "meta_set" : [
-                ("title", {}),
-                ("subtitle", {}),
-                ("description", {}),
-                ("keywords", {}),
-
-                ("role/director", {}),
-                ("role/cast", {}),
-
-                ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-                ("intention", {}),
-                ("atmosphere", {}),
-                ("intended_audience", {}),
-
-                ("editorial_format", {}),
-                ("content_alert", {}),
-
-                # production notes
-                ("date/valid", {}),
-                ("editorial_control", {}),
-                ("rights", {}),
-                ("rights/type", {}),
-                ("rights/description", {}),
-                ("qc/report", {}),
-                ("notes", {}),
-            ]
+        "meta_set" : \
+                primary_description + \
+                roles_description + \
+                content_description + \
+                production_description
     },
+
 
     2 : {
         "title" : "Serie",
         "color" : 0x0397BB,
-        "meta_set" : [
-                ("title", {}),
-                ("subtitle", {}),
-                ("description", {}),
-                ("keywords", {}),
-
-                ("role/director", {}),
-                ("role/cast", {}),
-
-                ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-                ("intention", {}),
-                ("atmosphere", {}),
-                ("intended_audience", {}),
-
-                ("editorial_format", {}),
-                ("content_alert", {}),
-
-                ("serie", {}),
-                ("serie/season", {}),
-                ("serie/episode", {}),
-
-                # production notes
-                ("date/valid", {}),
-                ("editorial_control", {}),
-                ("rights", {}),
-                ("rights/type", {}),
-                ("rights/description", {}),
-                ("qc/report", {}),
-                ("notes", {}),
-            ]
+        "meta_set" : \
+                primary_description + \
+                serie_description + \
+                roles_description + \
+                content_description + \
+                production_description
     },
 
 #
@@ -82,15 +83,7 @@ FOLDERS = {
                 ("subtitle", {}),
                 ("description", {}),
                 ("article", {}),
-
-                # production notes
-                ("editorial_control", {}),
-                ("rights", {}),
-                ("rights/type", {}),
-                ("rights/description", {}),
-                ("qc/report", {}),
-                ("notes", {}),
-            ]
+            ] + production_description
     },
 
     4 : {
@@ -104,35 +97,19 @@ FOLDERS = {
                 ("year", {}),
 
                 ("description", {}),
-                ("genre", {"cs" : "urn:nxtv:metadata-cs:music-genres"}),
+                ("genre", {"cs" : "urn:nxtv:metadata-cs:content-genres", "filter" : "^3\.6"}),
                 ("content_alert", {}),
 
-                # production notes
-                ("rights", {}),
-                ("rights/type", {}),
-                ("rights/description", {}),
-                ("qc/report", {}),
-                ("notes", {}),
-            ]
+            ] + production_description
     },
 
     5 : {
         "title" : "Fill",
         "color" : 0x81c77f,
-        "meta_set" : [
-                ("title", {}),
-                ("subtitle", {}),
-                ("description", {}),
-                ("genre", {"cs" : "urn:nxtv:metadata-cs:movie-genres"}),
-
-                # production notes
-                ("editorial_control", {}),
-                ("rights", {}),
-                ("rights/type", {}),
-                ("rights/description", {}),
-                ("qc/report", {}),
-                ("notes", {}),
-            ]
+        "meta_set" : \
+                primary_description + \
+                [("genre", {"cs" : "urn:nxtv:metadata-cs:content-genres", "filter" : "^3\.(1|8|5|4)"})] + \
+                production_description
     },
 
     6 : {
@@ -211,8 +188,12 @@ FOLDERS = {
         "color" : 0x998e88,
         "meta_set" : [
                 ("title", {}),
+                ("title/original", {}),
                 ("subtitle", {}),
+                ("subtitle/original", {}),
                 ("description", {}),
+                ("description/original", {}),
+
                 ("qc/report", {}),
             ]
     },

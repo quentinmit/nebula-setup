@@ -1,9 +1,0 @@
-{
-"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS",
-"data" : {
-  "1" : {"aliases": {"en": "Co-Production"}},
-  "2" : {"aliases": {"en": "Exchange"}},
-  "3" : {"aliases": {"en": "Purchase"}},
-  "4" : {"aliases": {"en": "Own production"}},
-  "5" : {"aliases": {"en": "Commissioned production"}}
-}}

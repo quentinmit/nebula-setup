@@ -62,6 +62,7 @@ META_TYPES = {
 "subclips":               ("a", 1, 0, 0, REGIONS,     None),
 "article":                ("a", 1, 0, 1, TEXT,        {"mode" : "rich"}),
 "cue_sheet":              ("a", 1, 0, 1, TEXT,        None),
+"aired":                  ("a", 1, 0, 0, BOOLEAN,     None),
 
 #
 # Descriptive
@@ -85,10 +86,10 @@ META_TYPES = {
 "editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS"}),
 "editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS", "widget" : "radio"}),
 "intended_audience":      ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntendedAudienceCodeCS"}),
-"intention":              ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:IntentionCodeCS"}),
+"intention":              ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntentionCodeCS"}),
 "genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
-"atmosphere":             ("m", 1, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:AtmosphereCS"}),
-"place":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:PlaceTypeCS"}),
+"atmosphere":             ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:AtmosphereCS"}),
+"place":                  ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:PlaceTypeCS"}),
 
 "origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
 "content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),

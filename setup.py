@@ -30,6 +30,27 @@ except Exception:
     log_traceback("Configuration error")
     critical_error("Unable to open settings file")
 
+
+def cs_download():
+    if not os.path.exists("cs"):
+        os.mkdir("cs")
+    try:
+        import requests
+    except ImportError:
+        logging.warning("python-requests library is not installed")
+        return
+
+    try:
+        csdata = json.loads(requests.get("https://cs.immstudios.org/dump").text)
+    except:
+        log_traceback("Unable to load classification schemes")
+        return
+    for csdato in csdata:
+        with open("cs/{}.json".format(slugify(csdato["cs"])), "w") as f:
+            json.dump(csdato, f)
+
+cs_download()
+
 #
 # Database connection
 #
@@ -165,7 +186,7 @@ def install_folders():
 def install_meta_types():
     logging.info("Installing metadata set")
     db = DB()
-    languages = ["en"]
+    languages = ["en", "cs"]
 
     aliases = {}
     for lang in languages:
@@ -173,6 +194,8 @@ def install_meta_types():
         trans_table_fname = os.path.join("aliases", "meta-aliases-{}.json".format(lang))
         l = json.load(open(trans_table_fname))
         for key, alias, header, description in l:
+            if header is None:
+                header = alias
             aliases[lang][key] = [alias, header, description]
 
     db.query("DELETE FROM meta_types")

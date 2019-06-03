@@ -278,3 +278,21 @@ is subject of changes.
 
 File ingest services based on Themis library. This service is not yet finished and its configuration
 is subject of changes.
+
+
+
+Acknowledgements
+----------------
+
+### EBUCore
+
+[EBU Tech 3293](https://tech.ebu.ch/MetadataEbuCore)
+
+
+### EBUCore ContentGenres Czech translation
+
+[Czech translation of the EBUContentGenre thesaurus](http://hdl.handle.net/11858/00-097C-0000-000D-EC91-2)
+
+Ircing, Pavel, 2013,
+LINDAT/CLARIN digital library at the Institute of Formal and Applied Linguistics (ÚFAL)
+Faculty of Mathematics and Physics, Charles University,
