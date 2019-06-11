@@ -22,8 +22,10 @@ roles_description = [
         ("role/cast", {}),
     ]
 
+movie_genre_pattern = "^3\.(1|4|5|7|8)(\.\d+){0,2}$"
+music_genre_pattern = "^3\.6\.(\d|4.(\d|14(.\d)?))$"
 content_description = [
-        ("genre", {"cs" : "urn:nxtv:metadata-cs:content-genres", "filter" : "^3\.(1|8|5|4)"}),
+        ("genre", {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "filter" : movie_genre_pattern}),
         ("editorial_format", {"filter" : "^2(\.\d+){0,2}$"}),
         ("atmosphere", {}),
         ("intention", {"filter" : "^1\.(1|2|3|4|5|6|7|8)$"}),
@@ -97,7 +99,7 @@ FOLDERS = {
                 ("year", {}),
 
                 ("description", {}),
-                ("genre", {"cs" : "urn:nxtv:metadata-cs:content-genres", "filter" : "^3\.6"}),
+                ("genre", {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "filter" : music_genre_pattern}),
                 ("content_alert", {}),
 
             ] + production_description
@@ -108,7 +110,7 @@ FOLDERS = {
         "color" : 0x81c77f,
         "meta_set" : \
                 primary_description + \
-                [("genre", {"cs" : "urn:nxtv:metadata-cs:content-genres", "filter" : "^3\.(1|8|5|4)"})] + \
+                [("genre", {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "filter" : movie_genre_pattern})] + \
                 production_description
     },
 

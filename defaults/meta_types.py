@@ -83,22 +83,22 @@ META_TYPES = {
 "description/original":   ("m", 1, 0, 7, TEXT,        {"syntax" : "md"}),
 
 "language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS"}),
-"editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS"}),
-"editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS", "widget" : "radio"}),
-"intended_audience":      ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntendedAudienceCodeCS"}),
-"intention":              ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntentionCodeCS"}),
-"genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
+"editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS", "mode" : "tree"}),
+"editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS", "mode" : "radio"}),
+"intended_audience":      ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntendedAudienceCodeCS", "mode" : "tree"}),
+"intention":              ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntentionCodeCS", "mode" : "tree"}),
+"genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "mode" : "tree"}),
 "atmosphere":             ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:AtmosphereCS"}),
-"place":                  ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:PlaceTypeCS"}),
+"place":                  ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:PlaceTypeCS", "mode" : "tree"}),
 
-"origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
-"content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),
-"content_alert/scheme":   ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentAlertSchemeCodeCS"}),
+"origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS", "mode" : "tree"}),
+"content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS", "mode" : "tree"}),
+"content_alert/scheme":   ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentAlertSchemeCodeCS", "mode" : "tree"}),
 "graphic_usage":          ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:GraphicUsageTypeCodeCS"}),
 "keywords":               ("m", 1, 0, 9, STRING,      None),                       # Comma delimited keywords list
 
+"year":                   ("m", 1, 0, 0, DATETIME,    {"hide_null" : True, "mode" : "year"}),
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
-"year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "date/valid/ott":         ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 
@@ -113,7 +113,7 @@ META_TYPES = {
 "source/attribution":     ("m", 0, 0, 1, STRING,      None),
 "source/rating":          ("m", 0, 1, 0, INTEGER,     None),                       # Provided rating normalized to: from 0 (worst) to 100 (best)
 
-"commercial/content":     ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
+"commercial/content":     ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentCommercialCS", "mode" : "tree"}),
 "commercial/campaign":    ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 "commercial/client":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:clients"}),
 
