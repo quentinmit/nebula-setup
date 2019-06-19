@@ -101,6 +101,7 @@ FOLDERS = {
                 ("description", {}),
                 ("genre", {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "filter" : music_genre_pattern}),
                 ("content_alert", {}),
+                ("content_alert/scheme", {}),
 
             ] + production_description
     },
@@ -110,7 +111,7 @@ FOLDERS = {
         "color" : 0x81c77f,
         "meta_set" : \
                 primary_description + \
-                [("genre", {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "filter" : movie_genre_pattern})] + \
+                content_description + \
                 production_description
     },
 
