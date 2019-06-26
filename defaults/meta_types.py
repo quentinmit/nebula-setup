@@ -82,13 +82,13 @@ META_TYPES = {
 "subtitle/original":      ("m", 1, 0, 8, STRING,      None),                       # dc.title.subtitle - Ancillary title information for the resource.
 "description/original":   ("m", 1, 0, 7, TEXT,        {"syntax" : "md"}),
 
-"language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS"}),
+"language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS", "order" : "alias"}),
 "editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS", "mode" : "tree"}),
 "editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS", "mode" : "radio"}),
 "intended_audience":      ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntendedAudienceCodeCS", "mode" : "tree"}),
 "intention":              ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntentionCodeCS", "mode" : "tree"}),
 "genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "mode" : "tree"}),
-"atmosphere":             ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:AtmosphereCS"}),
+"atmosphere":             ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:AtmosphereCS", "order" : "alias"}),
 "place":                  ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:PlaceTypeCS", "mode" : "tree"}),
 
 "origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS", "mode" : "tree"}),
@@ -104,13 +104,15 @@ META_TYPES = {
 
 "rights":                 ("m", 1, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
 "rights/type":            ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:RightTypeCodeCS"}),
+"rights/attribution":     ("m", 1, 0, 1, STRING,      None),
+"rights/attribution/url": ("m", 1, 0, 1, STRING,      None),
 "rights/description":     ("m", 1, 0, 1, TEXT,        None),
 "rights/ott":             ("m", 1, 0, 0, BOOLEAN,     None),
 "rights/spatial":         ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:rights-spatial"}),
 
 "source":                 ("m", 0, 0, 1, STRING,      None),                       # Youtube, Vimeo, PirateBay....
 "source/url":             ("m", 0, 0, 1, STRING,      None),
-"source/attribution":     ("m", 0, 0, 1, STRING,      None),
+"source/attribution":     ("m", 0, 0, 1, STRING,      None),                       # DEPRECATED
 "source/rating":          ("m", 0, 1, 0, INTEGER,     None),                       # Provided rating normalized to: from 0 (worst) to 100 (best)
 
 "commercial/content":     ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentCommercialCS", "mode" : "tree"}),
