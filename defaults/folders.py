@@ -63,7 +63,7 @@ FOLDERS = {
 
 
     2 : {
-        "title" : "Serie",
+        "title" : "Episode",
         "color" : 0x0397BB,
         "meta_set" : \
                 primary_description + \
@@ -198,6 +198,24 @@ FOLDERS = {
                 ("description/original", {}),
 
                 ("qc/report", {}),
+            ]
+    },
+
+    13 : {
+        "title" : "Series",
+        "color" : 0xa0aac5,
+        "meta_set" : [
+                ("title", {}),
+                ("description", {}),
+                ("genre", {}),
+                ("editorial_format", {}),
+                ("intention", {"filter" : "^1\.(1|2|3|4|5|6|7|8)$"}),
+                ("intended_audience", {}),
+                ("editorial_control", {}),
+                ("rights", {}),
+                ("rights/type", {}),
+                ("rights/description", {}),
+                ("notes", {}),
             ]
     },
 

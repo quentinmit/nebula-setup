@@ -125,7 +125,7 @@ META_TYPES = {
 "runs/total":             ("m", 1, 0, 0, INTEGER,     None),
 
 "album":                  ("m", 1, 0, 1, STRING,      None),
-"serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series"}),
+"serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series", "order" : "alias"}),
 "serie/season":           ("m", 1, 0, 0, INTEGER,     None),
 "serie/episode":          ("m", 1, 0, 0, INTEGER,     None),
 

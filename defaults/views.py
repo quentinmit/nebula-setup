@@ -25,6 +25,7 @@ VIEWS = {
                 "qc/state",
                 "title",
                 "id_folder",
+                "genre",
                 "duration",
                 "ctime",
             ]
@@ -75,17 +76,30 @@ VIEWS = {
     },
 
 #
+# Packages
+#
+
+    30 : {
+        "title" : "Series",
+        "separator" : True,
+        "position" : 30,
+        "folders" : [13],
+        "columns" : [
+                "title",
+                "genre",
+                "editorial_format",
+            ]
+    },
+
+#
 # Auxiliary views
 #
 
-    10 : {
-        "title" : "-",
-        "position" : 10,
-    },
 
-    11 : {
+    50 : {
         "title" : "Trash",
-        "position" : 11,
+        "separator" : True,
+        "position" : 50,
         "states" : [3],
         "columns" : [
                 "title",
@@ -96,9 +110,9 @@ VIEWS = {
             ]
     },
 
-    12 : {
+    51 : {
         "title" : "Archive",
-        "position" : 12,
+        "position" : 51,
         "states" : [4, 11],
         "columns" : [
                 "title",
@@ -109,9 +123,9 @@ VIEWS = {
             ]
     },
 
-    13 : {
+    52 : {
         "title" : "Incoming",
-        "position" : 13,
+        "position" : 52,
         "folders" : [12],
         "columns" : [
                 "qc/state",
@@ -120,6 +134,7 @@ VIEWS = {
                 "ctime",
                 "mtime",
             ]
-    }
+    },
+
 
 }  # END FOLDERS
