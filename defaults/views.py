@@ -126,10 +126,12 @@ VIEWS = {
     52 : {
         "title" : "Incoming",
         "position" : 52,
+        "states" : [0, 1, 2, 5, 11],
         "folders" : [12],
         "columns" : [
                 "qc/state",
                 "title",
+                "genre",
                 "duration",
                 "ctime",
                 "mtime",

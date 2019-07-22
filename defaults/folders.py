@@ -4,9 +4,6 @@ primary_description = [
             ("title", {}),
             ("subtitle", {}),
             ("description", {}),
-#                ("title/original", {}),
-#                ("subtitle/original", {}),
-#                ("description/original", {}),
             ("keywords", {}),
 
     ]
@@ -22,10 +19,10 @@ roles_description = [
         ("role/cast", {}),
     ]
 
-movie_genre_pattern = "^3\.(1|4|5|7|8)(\.\d+){0,2}$"
+movie_genre_pattern = "^3\.(1|4|5|7|8|9)(\.\d+){0,2}$"
 music_genre_pattern = "^3\.6\.(\d|4.(\d|14(.\d)?))$"
 content_description = [
-        ("genre", {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "filter" : movie_genre_pattern}),
+        ("genre", {"filter" : movie_genre_pattern}),
         ("editorial_format", {"filter" : "^2(\.\d+){0,2}$"}),
         ("atmosphere", {}),
         ("intention", {"filter" : "^1\.(1|2|3|4|5|6|7|8)$"}),
@@ -216,6 +213,14 @@ FOLDERS = {
                 ("rights/type", {}),
                 ("rights/description", {}),
                 ("notes", {}),
+            ],
+        "links" : [
+                {
+                    "source_key" : "id",
+                    "target_key" : "serie",
+                    "id_view" : 1,
+                    "title": "Show episodes"
+                }
             ]
     },
 
