@@ -87,11 +87,20 @@ Conversion nodes depend on ffmpeg. You may use
 to install it.
 
 
+Database schema
+---------------
+
+Create a database using `support/schema.sql`. If you are running PostgreSQL server and `nebula-setup` on the same machine,
+you may use `create_db.sh` script to create database user and database and apply the schema. Credentials provided in the
+`settings.json` file will be used in that case.
+
+
 Site template
 -------------
 
 Create a file `template/__init__.py` in the root directory of this repository to override settings from `defaults/` folder.
 
+Use `setup.py` to apply the template. This script can be also used later to modify site settings without tweaking database manually.
 
 ### Example configuration
 
