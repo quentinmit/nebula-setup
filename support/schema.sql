@@ -185,6 +185,20 @@ CREATE TABLE public.jobs (
         CONSTRAINT jobs_pkey PRIMARY KEY (id)
     );
 
+CREATE TABLE public.aux (
+        id SERIAL NOT NULL,
+        key VARCHAR(255) NOT NULL,
+        object_type INTEGER DEFAULT 0,
+        id_object INTEGER DEFAULT 0,
+        data JSONB,
+        CONSTRAINT aux_pkey PRIMARY KEY (id)
+    );
+
+CREATE INDEX aux_key ON aux(key);
+CREATE INDEX aux_object_type ON aux(object_type);
+CREATE INDEX aux_id_object ON aux(id_object);
+
+
 CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
         id_channel INTEGER NOT NULL,
