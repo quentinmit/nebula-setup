@@ -97,7 +97,7 @@ META_TYPES = {
 "graphic_usage":          ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:GraphicUsageTypeCodeCS"}),
 "keywords":               ("m", 1, 0, 9, STRING,      None),                       # Comma delimited keywords list
 
-"year":                   ("m", 1, 0, 0, DATETIME,    {"hide_null" : True, "mode" : "year"}),
+"year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "date/valid/ott":         ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
