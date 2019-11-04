@@ -1,3 +1,5 @@
+# PG rating scheme defaults to the czech one (because it's simple. Feel free to change it)
+CONTENT_ALERT_SCHEME = {"filter" : "^53\.1\.\d", "default": "53.1.1"}
 
 
 primary_description = [
@@ -28,7 +30,7 @@ content_description = [
         ("intention", {"filter" : "^1\.(1|2|3|4|5|6|7|8)$"}),
         ("intended_audience", {}),
         ("content_alert", {}),
-        ("content_alert/scheme", {"filter" : "^53\.1\.\d", "default": "53.1.1"}),
+        ("content_alert/scheme", CONTENT_ALERT_SCHEME),
     ]
 
 production_description = [
@@ -98,7 +100,7 @@ FOLDERS = {
                 ("description", {}),
                 ("genre", {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "filter" : music_genre_pattern}),
                 ("content_alert", {}),
-                ("content_alert/scheme", {}),
+                ("content_alert/scheme", CONTENT_ALERT_SCHEME),
 
             ] + production_description
     },
