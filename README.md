@@ -52,27 +52,42 @@ server {
 
 
     location /msg_publish {
-        push_stream_publisher;
-        push_stream_channels_path              $arg_id;
-        set $push_stream_channel_id            $arg_id;
+        nchan_publisher;
+        nchan_channel_id                $arg_id;
+        nchan_message_buffer_length     50;
+        nchan_message_timeout           10s;
     }
 
     location ~ /ws/(.*) {
-        push_stream_subscriber                 websocket;
-        push_stream_channels_path              $1;
-        push_stream_ping_message_interval      10s;
+        nchan_subscriber        websocket;
+        nchan_channel_id        $1;
+
+        add_header              Access-Control-Allow-Headers    'origin, content-type, accept, user-agent, referer' always;
+        add_header              Access-Control-Allow-Origin     '*';
     }
 
     location /proxy/ {
         mp4;
         mp4_max_buffer_size 5m;
-        root                $nxcore_root;
+        root                    $nxcore_root;
+        add_header              Access-Control-Allow-Headers    'origin, content-type, accept, user-agent, referer' always;
+        add_header              Access-Control-Allow-Origin     '*' always;
+    }
+
+    location /thumb/ {
+        root                    $nxcore_root;
+        add_header              Access-Control-Allow-Headers    'origin, content-type, accept, user-agent, referer' always;
+        add_header              Access-Control-Allow-Origin     '*' always;
+    }
+
+    location ~* ^/tools/(.*)/static/(.*)$ {
+        alias                   $nxcore_root/scripts/v5/webtools/$1/static/$2;
     }
 
     location / {
-        proxy_pass          http://localhost:8080;
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_pass              http://localhost:8080;
+        proxy_set_header        Host $host;
+        proxy_set_header        X-Real-IP $remote_addr;
     }
 }
 ```
