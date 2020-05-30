@@ -1,0 +1,3 @@
+<service>
+  <folder id_storage="1" path="FOR_CHANNEL_HD" recursive="true"></folder>
+</service>
