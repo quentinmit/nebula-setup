@@ -55,6 +55,7 @@ server {
 
     location /msg_publish {
         allow                           192.168.0.0/16;
+        deny                            all;
         nchan_publisher;
         nchan_channel_id                $arg_id;
         nchan_message_buffer_length     50;
