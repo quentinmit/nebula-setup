@@ -39,8 +39,13 @@ Nebula also needs NGINX server with http push module  and mp4 module to be insta
 Use [install.nginx.sh](https://github.com/immstudios/installers/blob/master/install.nginx.sh)
 and create `/var/www/yoursitename/http.conf` file.
 
-Assuming your site name is "nebula" and NGINX server is running on the same
-machine as Nebula itself, you may use the configuration similar to the following:
+Following configuration example assumes that:
+
+ - your `site_name` is `nebula`
+ - nginx is running on the same machine as nebula hub/core server
+ - your internal network is 192.168.0.0/16
+ - there is NAT configured for ports 80 and 443 to the nginx server
+ - there is a DNS record "nebula.example.com" and let's encrypt configured.
 
 ```nginx
 server {
@@ -55,6 +60,7 @@ server {
         nchan_message_buffer_length     50;
         nchan_message_timeout           10s;
     }
+}
 
 
 server {
@@ -66,7 +72,7 @@ server {
     ssl_certificate_key         /etc/letsencrypt/live/example.com/privkey.pem;
     ssl_trusted_certificate     /etc/letsencrypt/live/example.com/chain.pem;
 
-    set $nxcore_root    /mnt/nebula_01/.nx;
+    set $nxcore_root           /mnt/nebula_01/.nx;
 
     location ~ /ws/(.*) {
         nchan_subscriber        websocket;
@@ -243,8 +249,9 @@ using websockets.
 
 ```xml
 <service>
-    <relay>http://192.168.32.2</relay>
+    <relay>http://192.168.1.90</relay>
     <log_dir>/var/log/nebula</log_dir>
+    <log_ttl>30</log_ttl>
 </service>
 ```
 
@@ -317,16 +324,9 @@ Configuration example:
 <service script="dummy"/>
 ```
 
-### Analyzer
-
-Advanced content analysis. This service is not yet finished and its configuration
-is subject of changes.
-
 ### Import
 
-File ingest services based on Themis library. This service is not yet finished and its configuration
-is subject of changes.
-
+File ingest services based on Themis library.
 
 
 Acknowledgements
