@@ -39,15 +39,12 @@ for v in data['storages'].values():
 data["channels"] = {
     1 :  [0, {
         'title': 'MITV 36',
-        'engine' : 'casparcg',
-        'controller_host' : 'localhost',
+        'engine' : 'vlc',
+        'controller_host' : '172.25.89.2',
         'controller_port' : 42100,
-        'caspar_host' : 'sctv-playout.mit.edu',
-        'caspar_port' : 5250,
-        'caspar_channel' : 1,
         'caspar_feed_layer' : 10,
-        'playout_storage' : 2,
-        'playout_dir' : "media.dir",
+        'playout_storage' : 1,
+        'playout_dir' : ".nx/playout",
         'playout_container' : 'mov',
         'day_start' : [8, 0],
 #        'send_action' : 2,
@@ -69,16 +66,16 @@ data["channels"] = {
 # Services
 #
 
-#         type      host  title      config path                    autostart  loop_delay
+#         type      host                  title      config path                    autostart  loop_delay
 
 data["services"] = {
-    1  : ["mesg",   HOST, "mesg",    "template/services/mesg.xml",  True,      5],
-    2  : ["broker", HOST, "broker",  None,                          True,      5],
-    3  : ["meta",   HOST, "meta",    None,                          True,      5],
-    4  : ["play",   HOST, "play",    "template/services/play.xml",  False,     5],
-    5  : ["conv",   HOST, "conv01",  None,                          True,      5],
-    6  : ["psm",    HOST, "psm",     None,                          True,      30],
-    7  : ["watch",  HOST, "watch sctv-nas", "template/services/watch-sctv-nas.xml", True, 5],
+    1  : ["mesg",   "sctv-television-rx", "mesg",    "template/services/mesg.xml",  True,      5],
+    2  : ["broker", "sctv-television-rx", "broker",  None,                          True,      5],
+    3  : ["meta",   "sctv-television-rx", "meta",    None,                          True,      5],
+    4  : ["play",   "sctv-playout",       "play",    "template/services/play.xml",  False,     5],
+    5  : ["conv",   "sctv-television-rx", "conv01",  None,                          True,      5],
+    6  : ["psm",    "sctv-television-rx", "psm",     None,                          True,      30],
+    7  : ["watch",  "sctv-television-rx", "watch sctv-nas", "template/services/watch-sctv-nas.xml", True, 5],
 }
 
 #
