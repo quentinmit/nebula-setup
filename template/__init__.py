@@ -5,6 +5,7 @@ HOST = socket.gethostname()
 from defaults import *
 
 data["settings"]["debug_mode"] = True
+data["settings"]["cache_host"] = "172.25.89.1"
 
 #
 # Configured storages are mounted to /mnt/${sitename}_${idstorage}/
@@ -43,6 +44,7 @@ data["channels"] = {
         'controller_host' : '172.25.89.2',
         'controller_port' : 42100,
         'caspar_feed_layer' : 10,
+        'vlc_args' : '--fullscreen --aout alsa --sub-source \'logo{file="/srv/playout/bug-small-trim.png,position=10,x=75,y=75}\'',
         'playout_storage' : 1,
         'playout_dir' : ".nx/playout",
         'playout_container' : 'mov',
