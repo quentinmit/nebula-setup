@@ -4,8 +4,10 @@ HOST = socket.gethostname()
 
 from defaults import *
 
-data["settings"]["debug_mode"] = True
-data["settings"]["cache_host"] = "172.25.89.1"
+data["settings"].update({
+    "debug_mode": True,
+    "cache_host": "172.25.89.1",
+})
 
 #
 # Configured storages are mounted to /mnt/${sitename}_${idstorage}/
@@ -76,6 +78,7 @@ data["services"] = {
     2  : ["broker", "sctv-television-rx", "broker",  None,                          True,      5],
     3  : ["meta",   "sctv-television-rx", "meta",    None,                          True,      5],
     4  : ["play",   "sctv-playout",       "play",    "template/services/play.xml",  False,     5],
+    8  : ["mesg",   "sctv-playout", "mesg sctv-playout", "template/services/mesg.xml", True,   5],
     5  : ["conv",   "sctv-television-rx", "conv01",  None,                          True,      5],
     6  : ["psm",    "sctv-television-rx", "psm",     None,                          True,      30],
     7  : ["watch",  "sctv-television-rx", "watch sctv-nas", "template/services/watch-sctv-nas.xml", True, 5],
