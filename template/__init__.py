@@ -48,6 +48,7 @@ data["channels"] = {
         'playout_storage' : 1,
         'playout_dir' : ".nx/playout",
         'playout_container' : 'mov',
+        'allow_remote' : True,
         'day_start' : [8, 0],
 #        'send_action' : 2,
         'rundown_accepts': "asset['content_type'] == VIDEO",
