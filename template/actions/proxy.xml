@@ -87,7 +87,7 @@ else:
         -->
         <param name="c:v">"h264"</param>:
         <param name="profile:v">"main"</param>
-        <param name="preset:v">"medium"</param>
+        <param name="preset:v">"faster"</param>
         <param name="level">"4.0"</param>
         <param name="g">50</param>
 
