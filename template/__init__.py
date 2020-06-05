@@ -9,6 +9,21 @@ data["settings"].update({
     "cache_host": "172.25.89.1",
 })
 
+for folder in data["folders"].values():
+    for i, field in enumerate(folder["meta_set"]):
+        if field[0] == "content_alert/scheme":
+            # Allow US-TVPG and US-MPAA ratings, default to TV-G
+            folder["meta_set"][i] = (
+                "content_alert/scheme",
+                {"filter" : "^(48|50)\.\d+", "default": "50.4"},
+            )
+    folder["meta_set"].extend([
+        # All content can set a date.
+        ("date", {}),
+        # Show a bug on everything except commercials by default.
+        ("logo", {"default": "none" if folder["title"] in ("Commercial",) else "sctv-bug"}),
+    ])
+
 #
 # Configured storages are mounted to /mnt/${sitename}_${idstorage}/
 # By default /mnt/sitename_01/.nx/ is used to store plugins, low-res

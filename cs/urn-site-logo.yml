@@ -1,0 +1,12 @@
+cs: urn:site:logo
+data:
+  none:
+    aliases:
+      en: No Logo
+    description:
+      en: No Logo
+  sctv-bug:
+    aliases:
+      en: SCTV bug
+    description:
+      en: MIT Student Cable Television with logo
