@@ -232,7 +232,11 @@ def install_cs():
     db = DB()
     for csfile in get_files("cs"):
         try:
-            data = json.load(csfile.open())
+            with csfile.open() as f:
+                if csfile.ext in ("yml", "yaml"):
+                    data = yaml.load(f)
+                else:
+                    data = json.load(f)
         except:
             log_traceback("Unable to load classification schema {}".format(csfile))
             continue
