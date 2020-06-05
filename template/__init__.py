@@ -77,7 +77,11 @@ data["channels"] = {
         'scheduler_accepts': "asset['id_folder'] in [1, 2]",
         'fps': 30,
         'live_source' : 'DECKLINK 2 FORMAT 1080i5000',
-        'plugins': [],
+        'plugins': ['logo'],
+        'logo_paths': {
+            'sctv-bug': '/srv/playout/bug-small-trim.png',
+            'none': None,
+        },
         'solvers': [],
         'meta_set' : [
                 ('title', {}),
