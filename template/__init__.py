@@ -18,12 +18,16 @@ for folder in data["folders"].values():
                 "content_alert/scheme",
                 {"filter" : "^(48|50)\.\d+", "default": "50.4"},
             )
-    folder["meta_set"].extend([
+    folder["meta_set"].insert(
+        2,
         # All content can set a date.
         ("date", {}),
+    )
+    folder["meta_set"].insert(
+        3,
         # Show a bug on everything except commercials by default.
         ("logo", {"default": "none" if folder["title"] in ("Commercial",) else "sctv-bug"}),
-    ])
+    )
 
 #
 # Configured storages are mounted to /mnt/${sitename}_${idstorage}/
