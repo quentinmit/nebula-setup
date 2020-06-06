@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+    <pre><![CDATA[
+import os.path
+global has_playout
+playout_path = asset.get_playout_full_path(1)
+if os.path.exists(playout_path) and os.path.getmtime(playout_path) >= asset["file/mtime"]:
+    logging.info( "{} has playout {}".format(asset, playout_path))
+    has_playout = True
+else:
+    has_playout = False
+]]></pre>
+
+    <allow_if>True</allow_if>
+    <create_if><![CDATA[asset["content_type"] == VIDEO and asset["status"] == ONLINE]]></create_if>
+    <start_if><![CDATA["video/codec" in asset.meta and asset["file/mtime"] < time.time() - 200]]></start_if>
+    <skip_if><![CDATA[has_playout]]></skip_if>
+
+    <task mode="ffmpeg">
+        <!-- frame format -->
+        <param name="pix_fmt">"yuv420p"</param>
+        <param name="aspect">asset["video/aspect_ratio"].replace("/", ":")</param>
+
+        <!-- video encoding -->
+        <!--
+        <param name="c:v">"libx264"</param>
+        <param name="b:v">"1800k"</param>
+        <param name="profile:v">"main"</param>
+        <param name="preset:v">"medium"</param>
+        <param name="level">"4.0"</param>
+        <param name="g">50</param>
+        <param name="x264opts">"keyint=50:min-keyint=50:no-scenecut"</param>
+	preset=medium,crf=23,threads=0,profile=high,level=41
+        -->
+        <param name="c:v">"h264"</param>:
+        <param name="profile:v">"high"</param>
+        <param name="preset:v">"medium"</param>
+        <param name="level">"4.1"</param>
+        <param name="crf">23</param>
+
+        <param name="c:a">"libfdk_aac"</param>
+        <param name="b:a">"128k"</param>
+        <param name="ar">48000</param>
+
+        <param name="video_track_timescale">"30"</param>
+
+        <output storage="1"><![CDATA[asset.get_playout_path(1)]]></output>
+    </task>
+
+<success><![CDATA[
+tc_path = playout_path.replace('.mp4', '.xml')
+tc = s2tc(asset.get("start_timecode", 0))
+if tc != "00:00:00:00":
+    with open(tc_path, "w") as f:
+        f.write("<IN>{}</IN>".format(tc))
+]]></success>
+
+</settings>

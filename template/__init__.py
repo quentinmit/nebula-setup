@@ -127,4 +127,5 @@ data["services"] = {
 #         title         type    config path
 data["actions"] = {
     1  : ["Make proxy", "conv", "template/actions/proxy.xml"],
+    2  : ["Make playout", "conv", "template/actions/playout.xml"],
 }
