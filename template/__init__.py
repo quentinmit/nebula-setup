@@ -29,6 +29,18 @@ for folder in data["folders"].values():
         ("logo", {"default": "none" if folder["title"] in ("Commercial",) else "sctv-bug"}),
     )
 
+data["folders"][20] = {
+    "title": "Live",
+    "color": 0x0397BB,
+    "meta_set": [
+        ("title", {}),
+        ("date", {}),
+        ("logo", {"default": "sctv-bug"}),
+        ("source/url", {}),
+        ("media_type", {"default": 2}),
+    ],
+}
+
 #
 # Configured storages are mounted to /mnt/${sitename}_${idstorage}/
 # By default /mnt/sitename_01/.nx/ is used to store plugins, low-res
