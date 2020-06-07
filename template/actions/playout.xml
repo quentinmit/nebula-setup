@@ -13,7 +13,7 @@ else:
 ]]></pre>
 
     <allow_if>True</allow_if>
-    <create_if><![CDATA[asset["content_type"] == VIDEO and asset["status"] == ONLINE]]></create_if>
+    <!--<create_if><![CDATA[asset["content_type"] == VIDEO and asset["status"] == ONLINE]]></create_if>-->
     <start_if><![CDATA["video/codec" in asset.meta and asset["file/mtime"] < time.time() - 200]]></start_if>
     <skip_if><![CDATA[has_playout]]></skip_if>
 
