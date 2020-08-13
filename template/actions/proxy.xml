@@ -4,7 +4,7 @@
     <pre><![CDATA[
 global has_proxy
 if asset.has_proxy and os.path.getmtime(asset.proxy_full_path) >= asset["file/mtime"]:
-    logging.info( "{} has proxy {}".format(asset, proxy_path))
+    logging.info( "{} has proxy {}".format(asset, asset.proxy_path))
     has_proxy = True
 else:
     has_proxy = False

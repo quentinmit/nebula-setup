@@ -10,6 +10,9 @@ data["settings"].update({
     "cache_host": "172.25.89.1",
 })
 
+from defaults.meta_types import STRING
+data["meta_types"]["commercial/campaign"] = ("m", 1, 0, 0, STRING,     None)
+
 for folder in data["folders"].values():
     for i, field in enumerate(folder["meta_set"]):
         if field[0] == "content_alert/scheme":
@@ -28,6 +31,14 @@ for folder in data["folders"].values():
         # Show a bug on everything except commercials by default.
         ("logo", {"default": "none" if folder["title"] in ("Commercial",) else "sctv-bug"}),
     )
+    if folder["title"] == "Commercial":
+        folder["meta_set"].insert(1, ("commercial/campaign", {}))
+        folder["meta_set"].extend([
+            ("language", {}),
+            ("date/valid", {}),
+            ("title/original", {}),
+        ])
+
 
 data["folders"][20] = {
     "title": "Live",
@@ -40,6 +51,16 @@ data["folders"][20] = {
         ("media_type", {"default": 2}),
     ],
 }
+
+data["views"][5]["columns"] = [
+    "qc/state",
+    "commercial/campaign",
+    "title",
+    "language",
+    "duration",
+    "commercial/client",
+    "ctime",
+]
 
 #
 # Configured storages are mounted to /mnt/${sitename}_${idstorage}/
