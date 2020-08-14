@@ -16,6 +16,8 @@ if asset_path.startswith("FOR_CHANNEL_HD/PSAs/") and os.path.exists(full_path+".
   asset["mark_out"] = asset["mark_in"] + duration
   if asset["language"] == 'en':
     asset["id_folder"] = 9
+  elif asset["language"] == 'es':
+    asset["status"] = ARCHIVED
   playout_path = os.path.join(os.path.dirname(full_path.replace("/PSAs/", "/PSAs/.playout/")), "%s.mp4" % psa['asset']['adId'])
   if os.path.exists(playout_path):
     asset.save(set_mtime=False)
