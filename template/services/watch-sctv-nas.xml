@@ -2,8 +2,8 @@
   <folder id_storage="1" path="FOR_CHANNEL_HD" recursive="true">
     <post>
       <![CDATA[
-import nebula.plugins.watch_post.adcouncil
-nebula.plugins.watch_post.adcouncil.adcouncil(asset)
+import sctv.plugins.watch_post.adcouncil
+sctv.plugins.watch_post.adcouncil.adcouncil(asset)
 ]]>
     </post>
   </folder>

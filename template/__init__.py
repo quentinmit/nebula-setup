@@ -139,6 +139,7 @@ data["services"] = {
     5  : ["conv",   "sctv-television-rx", "conv01",  None,                          True,      5],
     6  : ["psm",    "sctv-television-rx", "psm",     None,                          True,      30],
     7  : ["watch",  "sctv-television-rx", "watch sctv-nas", "template/services/watch-sctv-nas.xml", True, 5],
+    9  : ["worker", "sctv-television-rx", "feeds", "template/services/feeds.xml",   True,    300],
 }
 
 #

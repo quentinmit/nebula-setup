@@ -1,0 +1,5 @@
+<worker module="sctv.plugins.worker.feeds">
+  <feed id_folder="2" directory="dn" url="http://www.democracynow.org/podcast-stations-hd-mp4.xml">
+    <meta name="serie" value="437" />
+  </feed>
+</worker>
