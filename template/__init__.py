@@ -133,7 +133,7 @@ data["channels"] = {
 data["services"] = {
     1  : ["mesg",   "sctv-television-rx", "mesg",    "template/services/mesg.xml",  True,      5],
     2  : ["broker", "sctv-television-rx", "broker",  None,                          True,      5],
-    3  : ["meta",   "sctv-television-rx", "meta",    None,                          True,      5],
+    3  : ["meta",   "sctv-television-rx", "meta",    "template/services/meta.xml",  True,      5],
     4  : ["play",   "sctv-playout",       "play",    "template/services/play.xml",  False,     5],
     5  : ["conv",   "sctv-television-rx", "conv01",  None,                          True,      5],
     6  : ["psm",    "sctv-television-rx", "psm",     None,                          True,      30],
