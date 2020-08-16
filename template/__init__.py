@@ -135,11 +135,12 @@ data["services"] = {
     2  : ["broker", "sctv-television-rx", "broker",  None,                          True,      5],
     3  : ["meta",   "sctv-television-rx", "meta",    None,                          True,      5],
     4  : ["play",   "sctv-playout",       "play",    "template/services/play.xml",  False,     5],
-    8  : ["mesg",   "sctv-playout", "mesg sctv-playout", "template/services/mesg.xml", True,   5],
     5  : ["conv",   "sctv-television-rx", "conv01",  None,                          True,      5],
     6  : ["psm",    "sctv-television-rx", "psm",     None,                          True,      30],
     7  : ["watch",  "sctv-television-rx", "watch sctv-nas", "template/services/watch-sctv-nas.xml", True, 5],
+    8  : ["mesg",   "sctv-playout", "mesg sctv-playout", "template/services/mesg.xml", True,   5],
     9  : ["worker", "sctv-television-rx", "feeds", "template/services/feeds.xml",   True,    300],
+    10 : ["worker", "sctv-television-rx", "download", "template/services/download.xml", True,  5],
 }
 
 #
@@ -150,4 +151,5 @@ data["services"] = {
 data["actions"] = {
     1  : ["Make proxy", "conv", "template/actions/proxy.xml"],
     2  : ["Make playout", "conv", "template/actions/playout.xml"],
+    3  : ["Download", "download", "template/actions/download.xml"],
 }

@@ -1,5 +1,5 @@
 <worker module="sctv.plugins.worker.feeds">
-  <feed id_folder="2" directory="dn" url="http://www.democracynow.org/podcast-stations-hd-mp4.xml">
+  <feed id_folder="2" directory="dn" url="http://www.democracynow.org/podcast-stations-hd-mp4.xml" send_action="3">
     <meta name="serie" value="437" />
   </feed>
 </worker>
